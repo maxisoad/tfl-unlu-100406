@@ -1,0 +1,67 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{titling}
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}%
+}
+\usepackage[spanish,activeacute]{babel}
+\title{Proxy Adaptativo para Protocolos Web Avanzados}
+\subtitle{Licenciatura en Sistemas de Informaci\'on}
+\author{Pablo Maximiliano Lulic}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\pagenumbering{arabic}
+
+%\begin{abstract} 
+%Este seria el resumen
+%\end{abstract} 
+
+\section{Introducci'on}
+
+El protocolo HTTP tuvo su primera versi'on en mayo de 1996, culminando en 1999 con el est'andar actual que es el HTTP 1.1. Es un protocolo sin estado, lo que conlleva a que se necesite realizar una conexi'on nueva por cada recurso que se necesite en un sitio.
+
+Los sitios web de la actualidad difieren de las p'aginas de hace más de 10 a'nos, tanto en tama'no como en cantidad de recursos. Este fen'omeno hace que el protocolo ya no tenga el mismo rendimiento que en 'epocas anteriores. A pesar del avance de la tecnolog'ia en cuanto a mejoras en las velocidades de los enlaces de red, un ancho de banda grande no es el 'unico factor que interviene en la performance de la carga de las p'aginas.
+
+Google propuso un protocolo llamado SPDY que busca mejorar la performance de HTTP. Permite m'ultiples streams en una conexi'on simple de TCP, adem'as de otras caracter'isticas como push y hint.
+Aprovechando los resultados favorables de las mediciones de este nuevo protocolo, se busca realizar un proxy que maneje SPDY hacia los nodos interiores, y que hacia la world wide web maneje un algoritmo inteligente que pueda determinar seg'un el perfil del sitio que m'etodo (\textsc{http}, \textsc{https} 'o \textsc{spdy}) elegir para mejorar la performance. 
+
+\section{Objetivos}
+
+\subsection{Precondiciones del Software}
+
+\begin{enumerate}
+\item Va a escuchar peticiones en una red \textsc{lan} y estar'a conectado a Internet.
+\item Se va a comportar como un servidor intermediario (\emph{proxy}) para cualquier cliente de la \textsc{lan} aceptando conexiones \textsc{https} y manejando el protocolo \textsc{spdy}.
+\item Para cualquier p'agina en la Web, puede conectarse utilizando cualquier m'etodo (\textsc{http}, \textsc{https} 'o \textsc{spdy}), optando por el m'as adecuado.
+\item Almacenar'a los recursos que han solicitado los clientes (\emph{cach'e}) para mejorar la performance en peticiones posteriores.
+\item Requiere que el cliente de la \textsc{lan} soporte \textsc{spdy} y lo pueda utilizar contra un \emph{proxy}.
+\item Debe brindar un archivo \textsc{pac}\footnote{Archivo de configuraci'on para que el browser direccione sus peticiones hacia el proxy.}.
+\item Servir'a una Interfaz Web en donde se podr'a acceder a la configuración del proxy, estadísticas, logs, estado de las conexiones, informaci'on de los objetos en cach'e, etc.
+\end{enumerate} 
+
+\subsection{Funcionamiento b'asico}
+
+\begin{enumerate}
+\item El proceso principal escucha la petici'on en un socket.
+\item Cuando llega una conexi'on entrante, se negocia el protocolo que se va a utilizar. El protocolo va a ser \textsc{spdy} sobre \textsc{ssl}.
+\item Realizar el procesamiento de la petici'on.
+	\begin{enumerate}
+	\item Parsear el request del cliente y extraer el recurso que se est'a pidiendo.
+	\item Revisar si el item est'a presente en la cach'e del \emph{proxy}.
+	\item En el caso de que no estar presente en la cach'e o haya expirado, armar la petici'on del recurso.
+	\item Seleccionar el m'etodo de petici'on que sea m'as 'optimo y hacer el pedido al servidor.
+	\item Recibir el recurso, actualizar la cach'e, guardar informaci'on necesaria para las estad'isticas y para alimentar el algoritmo de selecci'on del m'etodo.
+	\item Procesar el recurso, revisar peticiones posteriores para priorizar los streams\footnote{En el caso de utilizar \textsc{spdy}.} o para aplicar t'ecnicas de \emph{push} y \emph{hint}.
+	
+	En el caso de necesitar recursos que no son del dominio original, modificar el \textsc{html} para que sea transparente al cliente de donde se est'an trayendo los recursos y as'i poder aprovechar de las features de \textsc{spdy} en la conexi'on local.
+	\end{enumerate}
+\item Enviar el recurso al cliente.
+\end{enumerate}
+
+\end{document}
