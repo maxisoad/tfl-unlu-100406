@@ -31,7 +31,7 @@ Los sitios web de la actualidad difieren de las p'aginas de hace más de 10 a'nos
 Google propuso un protocolo llamado SPDY que busca mejorar la performance de HTTP. Permite m'ultiples streams en una conexi'on simple de TCP, adem'as de otras caracter'isticas como push y hint.
 Aprovechando los resultados favorables de las mediciones de este nuevo protocolo, se busca realizar un proxy que maneje SPDY hacia los nodos interiores, y que hacia la world wide web maneje un algoritmo inteligente que pueda determinar seg'un el perfil del sitio que m'etodo (\textsc{http}, \textsc{https} 'o \textsc{spdy}) elegir para mejorar la performance. 
 
-\section{Objetivos}
+\section{El Proxy}
 
 \subsection{Precondiciones del Software}
 
@@ -42,7 +42,7 @@ Aprovechando los resultados favorables de las mediciones de este nuevo protocolo
 \item Almacenar'a los recursos que han solicitado los clientes (\emph{cach'e}) para mejorar la performance en peticiones posteriores.
 \item Requiere que el cliente de la \textsc{lan} soporte \textsc{spdy} y lo pueda utilizar contra un \emph{proxy}.
 \item Debe brindar un archivo \textsc{pac}\footnote{Archivo de configuraci'on para que el browser direccione sus peticiones hacia el proxy.}.
-\item Servir'a una Interfaz Web en donde se podr'a acceder a la configuración del proxy, estadísticas, logs, estado de las conexiones, informaci'on de los objetos en cach'e, etc.
+\item Servir'a una Interfaz Web en donde se podr'a acceder a la configuraci'on del proxy, estad'isticas, logs, estado de las conexiones, informaci'on de los objetos en cach'e, etc.
 \end{enumerate} 
 
 \subsection{Funcionamiento b'asico}
