@@ -1,0 +1,7 @@
+\chapter{Introducci'on}
+
+El protocolo HTTP tuvo su primera versi'on en mayo de 1996, culminando en 1999 con el est'andar actual que es HTTP 1.1. Es un protocolo sin estado, lo que conlleva a que se necesite realizar una conexi'on nueva por cada recurso que se necesite en un sitio.
+
+Los sitios web de la actualidad difieren de las p'aginas de hace m'as de 10 a'nos, tanto en tama'no como en cantidad de recursos. Este fen'omeno hace que el protocolo ya no tenga el mismo rendimiento que en 'epocas anteriores. A pesar del avance de la tecnolog'ia en cuanto a mejoras en las velocidades de los enlaces de red, un ancho de banda grande no es el 'unico factor que interviene en la performance de la carga de las p'aginas.
+Google propuso un protocolo llamado SPDY que busca mejorar la performance de HTTP. Permite m'ultiples streams en una conexi'on simple de TCP, adem'as de otras caracter'isticas como push y hint.
+Aprovechando los resultados favorables de las mediciones de este nuevo protocolo, se busca realizar un proxy que maneje SPDY hacia los nodos interiores, y que hacia la world wide web maneje un algoritmo inteligente que pueda determinar seg'un el perfil del sitio que m'etodo (\textsc{http}, \textsc{https} 'o \textsc{spdy}) elegir para mejorar la performance. 

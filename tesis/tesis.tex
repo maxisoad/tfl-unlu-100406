@@ -1,0 +1,50 @@
+\documentclass[oneside,numbers,spanish]{ezthesis}
+
+\author{Pablo Maximiliano Lulic}
+\title{Proxy Adaptativo Para Protocolos Web Avanzados}
+\degree{Licenciatura en Sistemas de Informaci\'on}
+\supervisor{Lic. Gabriel Tolosa}
+\institution{Universidad Nacional de Luj\'an}
+
+\usepackage{glossaries}
+\usepackage{longtable}
+\loadglsentries{otros/glosario}
+\makeglossary
+
+\hyperlinking
+\begin{document}
+
+%titulo	
+\include{otros/titulo}
+
+%prefacio
+\include{otros/gracias}
+
+%Indices y listas de contenido
+\tableofcontents
+%\listoffigures
+%\listoftables		
+
+%Cap'itulos
+\include{capitulos/intro}
+\include{capitulos/desarrolloWeb}
+\include{capitulos/protocolos}
+\include{capitulos/problematica}
+\include{capitulos/proxy}
+\include{capitulos/cache}
+\include{capitulos/capitulos}
+%\include{capitulo2}
+%\include{capitulo3}
+%\include{conclu}
+
+%ap'endices
+%\appendix
+\glossarystyle{altlistgroup}
+\glsaddall
+\printglossary[title=Glosario]
+
+%bibliografia
+\nocite{*}
+\bibliography{biblio/biblio}
+
+\end{document}

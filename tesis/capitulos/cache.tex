@@ -1,0 +1,91 @@
+\chapter{Cach'e Web}
+\label{cache}
+\section{Definici'on}
+
+Un cach'e web es un intermediario entre un cliente (o varios) y un Servidor (o varios). Observa las peticiones que se van realizando y va almacenando los recursos solicitados, de manera que, si hay otra petici'on de la misma \textsc{url}, el intermediario puede brindar el recurso sin tener que solicitarlo al destino original \citep{cacheDef}.
+
+FUNCIONAMIENTO BASICO?
+
+Posee ciertos beneficios al proveer un mecanismo eficiente para la distribuci'on de Informaci'on en la Web \citep[p. 20]{webCaching}.
+\begin{enumerate}
+\item Latencia
+
+Un Cach'e Web cercano a los clientes, reduce la latencia para los aciertos de cach'e\footnote{Cuando un recurso solicitado por el cliente, efectivamente se encuentra almacenado en la cach'e.}. Los retrasos en la transmisi'on son menores por la cercan'ia entre los dos puntos de interacci'on. Adicionalmente, se reducen los retrasos por retransmisi'on y las esperas en los routers a causa de que hay menos enlaces intermedios involucrados.
+\item Ancho de Banda
+
+Cuando se utilizan las copias de los recursos almacenados en la cach'e, se ahorra ancho de banda, ya que no hay que hacer la petici'on del recurso al destino final.
+\item Carga del Servidor
+
+Reduce la carga de los servidores al disminuir la cantidad de peticiones que se realizan. Un servidor que esta con poca carga de trabajo es m'as r'apido que uno que est'a muy ocupado, es decir, atendiendo gran cantidad de peticiones de diferentes clientes.
+
+\item Si un servidor remoto no est'a disponible temporalmente, una copia del objeto pedido se puede recuperar de la cach'e.
+\end{enumerate}
+
+\section{Tipos}
+
+Hay diferentes tipos de Cach'es Web, entre ellos se encuentran los siguientes:
+
+\begin{enumerate}
+\item Cach'e de Navegador
+
+Los navegadores tienen un cach'e incluido, la informaci'on se almacena de manera local en el dispositivo del usuario. Esta limitado a 1 solo usuario, y se obtiene un hit de cach'e, solamente cuando se visita nuevamente algun sitio que ya se haya visitado.
+\item Proxy Cach'es
+
+A diferencia de los de navegador, estos sirven a un n'umero grande de usuarios. Al crecer la cantidad de usuarios, tambi'en crece la tasa de aciertos de la cach'e, ya que los usuarios suelen acceder a los mismos sitios (sitios de gran popularidad) \citep{duska}.
+\item Surrogates Servers
+
+Son intermediarios que act'uan con la autoridad del servidor original para servir contenidos como si fueran el servidor mismo \citep{edgeArch}. Generalmente se encuentran cerca de los servidores originales, sirviendo el contenido de los mismos, generalmente desde una cach'e interna.
+
+Se usan como Redes de Distribuci'on de Contenidos (CDN), para tener replicaciones de los recursos de un servidor en diferentes lugares. Los recursos peticionados por los clientes, son revueltos por el CDN m'as cercano fisicamente. Tambi'en se usan como aceleradores, simplemente almacenando en la cach'e las respuestas del servidor.
+\end{enumerate}
+
+\section{Politicas de Reemplazo / Algoritmos de Cach'e}
+
+Para el buen funcionamiento de la cach'e, hay que definir de qu'e manera se van reemplazando los contenidos almacenados en la misma. Para esto se utiliza una Pol'itica de Reemplazo de objetos, orientado a ciertas caracter'isticas de los objetos, tales como el tama'no, cantidad de peticiones de dicho objeto, tiempo almacenado en la cach'e, etc.
+Hay diversos algoritmos que se detallan a continuaci'on.
+%\citep{reempCache}
+\begin{enumerate}
+\item Primero en Entrar Primero en Salir (FIFO\footnote{First In First Out})
+
+Este m'etodo es el m'as sencillo, se trata de una cola en la que el primer elemento en entrar es el primer elemento en salir, es decir, aquel que m'as tiempo haya estado en la cach'e es el que m'as probabilidades tiene de salir.
+\item Aleatorio
+
+Realiza el reemplazo buscando aleatoriamente un objeto almacenado en la cach'e.
+\item Menos Usado Recientemente (LRU\footnote{Last Recently Used})
+
+Este m'etodo, busca reemplazar al objeto que m'as tiempo haya estado en la cach'e sin ser peticionado, es decir, aquel objeto que menos peticiones haya tenido en un lapso de tiempo amplio, es el que tiene m'as posibilidades de ser reemplazado.
+\item Menor Menos Usado Recientemente (LRU-MIN)
+
+Es una optimizaci'on del algoritmo LRU, en el cual se busca reemplazar los objetos de mayor tama'no de la cach'e. quedando as'i objetos de menor tama'no almacenados.
+\item Menos Frecuentemente Usado (LFU\footnote{Least Frequently Used})
+
+Se eval'ua la frecuencia con la que un elemento es solicitado, el que es menos solicitado es el que tiene m'as posibilidades de ser reemplazado.
+\end{enumerate}
+
+\section{Control de Cach'e}
+
+Cuando el cliente realiza una petici'on, y esta coincide con un elemento que tenemos almacenado en la Cach'e se debe evaluar si es viable enviar la copia local, o hacer la petici'on nuevamente, a esto se le llama Revalidaci'on. Para esto se realizan ciertos controles (extra'idos de \citep{cacheDef}) en base a los Headers de HTTP (vistos en \ref{headers}).
+
+\begin{enumerate}
+\item El Header \textsl{Expires}, nos indica cuanto tiempo va a estar ''fresco''\footnote{No va a tener cambios.} el recurso. Si en el momento de la petici'on, todav'ia no expir'o el recurso, puedo servirlo de la copia local. Tiene algunas limitaciones, como por ejemplo que el valor permitido es una fecha en GMT, lo que lleva a que los relojes del Servidor y del cach'e est'en sincronizados, de otra manera no tiene sentido una comparaci'on de fechas. Otro problema que se encuentra es que si se env'ia este header, pero no est'a actualizado, siempre va a enviar una fecha anterior a la actual lo que llevar'ia a generar siempre la petici'on del recurso.
+\item Se puede utilizar el Header \textsl{Cache-control}\footnote{Implementado a partir de la versi'on 1.1 de HTTP} que brinda informaci'on variada. El formato es: \textbf{Cache-control: especificaci'on1, especificaci'on2, especificaci'onN}.
+	\begin{enumerate}
+	\item \textsl{max-age} - Especifica en tiempo en el que el recurso puede ser considerado ''fresco'' en segundos. Es el similar a \textsl{Expires} pero con un valor espec'ifico a diferencia de una marca de tiempo.
+	\item \textsl{s-maxage} - Similar al anterior pero para los cach'es compartidos\footnote{Por ejemplo un Proxy.}.
+	\item \textsl{public} - Indica que las peticiones que requieren autenticaci'on pueden almacenarse en la cach'e.
+	\item \textsl{private} - Permite que el recurso puede almacenarse en aquellos cach'es que son solo para 1 solo usuario\footnote{Por ejemplo la cach'e de un Browser.} y no en una cach'e compartida.
+	\item \textsl{no-cache} - Fuerza a que el recurso tenga que revalidarse antes de devolver la copia local de la cach'e al cliente.
+	\item \textsl{no-store} - Indica que el recurso no debe quedar almacenado en la cach'e bajo ninguna circunstancia.
+	\item \textsl{must-revalidate} - Si el recurso luego de validarlo en la cach'e no esta ''fresco'', debe revalidarse.
+	\item \textsl{proxy-revalidate} - Igual que \textsl{must-revalidate} pero aplicado a Proxies.
+	\end{enumerate}
+\end{enumerate}
+
+Cuando ambos Headers, \textsl{Expires} y \textsl{Cache-control} est'an presentes en la respuesta, \textsl{Cache-control} es el que toma mayor importancia.
+
+Para realizar la Revalidaci'on se utilizan ciertos Headers en la petici'on. Los Servidores utilizan 2 Headers para realizar las validaciones, uno es \textsl{Last-Modified}, que indica cu'ando fu'e modificado por 'ultima vez el recurso. Cuando 'este est'a presente, el cliente puede realizar una petici'on con el Header \textsl{If-Modified-Since}:fecha, para que el servidor devuelva el recurso unicamente si se cumple con esta condici'on, de no ser as'i, devuelve un mensaje con el c'odigo \texttt{304 Not Modified}, que indica que el recurso no fue modificado y se puede servir la copia local.
+Por otro lado, se utiliza un identificador llamado \textsl{ETag} que se genera cada vez que el recurso se modifica, en este caso, el cliente puede utilizar el Header \textsl{If-None-Match}:ETag\_local, que el servidor responde con el recurso en el caso de que el identificador enviado por el cliente no coincida con el del objeto peticionado.
+
+\section{En el Proxy}
+
+Se implement'o como un m'odulo que se puede agregar al proxy original, posee las po'iticas de reemplazo LRU, LRU-MIN y LFU, pud'iendose configurar cuando se inicia el Proxy.
