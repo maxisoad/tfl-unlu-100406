@@ -3,3 +3,34 @@
 Debido al crecimiento de Internet visto en el C'apitulo \ref{desarrolloWeb} y a los problemas que presenta el protocolo HTTP en su implementaci'on (visto en el C'apitulo \ref{protocolos}), se busca mejorar los tiempos de carga de los sitios web. 
 
 %PONER PORQUE SE BUSCA MEJORAR LOS TIEMPOS DE RESPUESTA.
+
+\section{T'ecnicas de optimizaci'on}
+
+Es importante conocer d'onde es que el usuario pasa el tiempo esperando en la carga de un sitio web. Seg'un el estudio de Steve Souders en su libro \citep{highPerformanceWebSites}, el cliente tarda menos del 20\% para obtener el documento HTML, y el tiempo restante para recibir el resto de los componentes del sitio. Es importante enfocarse en el 80\%, 90\% restante, ya que el tiempo no se desperdicia en descargar el documento HTML ni en el procesamiento que realiza el servidor antes de enviarnos la petici'on. Esto se resume en la ''Regla de Oro de la Performance'' de dicho libro:
+
+\begin{quote}
+
+\textit{Solo el 10-20\% del tiempo de respuesta del usuario es consumido descargando el documento HTML. El otro 80-90\% se consume descargando todos los componentes de la p'agina.}
+
+\end{quote}
+
+Plantea 14 reglas para la optimizaci'on de los sitios que se describen a continuaci'on.
+
+\begin{enumerate}
+
+\item Minimizar la cantidad de peticiones.
+\item Utilizar un CDN
+\item A'nadir un Header Expires
+\item Comprimir los componentes (Gzip)
+\item CSS en el Head del HTML
+\item Scripts abajo de todo en el HTML
+\item Evitar expresiones en CSS
+\item Utilizar JavaScript y CSS de manera externa (no inline)
+\item Reducir las b'usquedas de DNS (keep-alive y pocos dominios)
+\item Minificar el JavaScript
+\item Evitar redirecciones
+\item Remover Scripts duplicados
+\item Configurar Etags
+\item Hacer que Ajax pueda ser Cacheado (BUSCAR OTRA PALABRA)
+
+\end{enumerate}
