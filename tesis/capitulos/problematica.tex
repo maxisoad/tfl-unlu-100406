@@ -18,19 +18,37 @@ Plantea 14 reglas para la optimizaci'on de los sitios que se describen a continu
 
 \begin{enumerate}
 
-\item Minimizar la cantidad de peticiones.
-\item Utilizar un CDN
-\item A'nadir un Header Expires
-\item Comprimir los componentes (Gzip)
-\item CSS en el Head del HTML
-\item Scripts abajo de todo en el HTML
-\item Evitar expresiones en CSS
-\item Utilizar JavaScript y CSS de manera externa (no inline)
-\item Reducir las b'usquedas de DNS (keep-alive y pocos dominios)
-\item Minificar el JavaScript
-\item Evitar redirecciones
-\item Remover Scripts duplicados
-\item Configurar Etags
-\item Hacer que Ajax pueda ser Cacheado (BUSCAR OTRA PALABRA)
+\item \textbf{Minimizar la cantidad de peticiones.}
+
+La idea b'asica es eliminar las peticiones al servidor, esto se hace utilizando varias t'ecnicas enumeradas a continuaci'on.
+
+	\begin{enumerate}
+	\item Mapa de Im'agenes - Permite asociar m'ultiples 'areas en una imagen para que se puedan cliquear y realizar cierta acci'on (el ejemplo m'as b'asico es el de navegar un hiperv'inculo). En vez de utilizar m'ultiples im'agenes para realizar un men'u por ejemplo, se utilizar'ia una sola mapeada. De esta manera se ahorran las peticiones de las im'agenes por 1 sola petici'on.
+	\item CSS Sprites - Permite combinar v'arias im'agenes en una sola, luego en el sitio, se define que parte de la imagen combinada desea mostrarse. Por ejemplo, en el sitio de Google cuando se realiza una b'usqueda, se utiliza el Sprite que se ve en la Figura \ref{css_sprites}.
+		\begin{figure}[htbp]
+		\begin{center}
+			\includegraphics[width=150px]{img/css_sprites}
+			\caption{\small Sprite del sitio www.google.com}
+		\end{center}
+		\label{css_sprites}
+		\end{figure}
+
+	A simple vista se ven 44 im'agenes combinadas. La utilizaci'on de este Sprite reducir'ia todas estas peticiones a 1 sola.
+	\item Im'agenes Inline - http://tools.ietf.org/html/rfc2397
+	\item Combinar Scripts y Hojas de Estilo
+	\end{enumerate}	
+\item \textbf{Utilizar un CDN}
+\item \textbf{A'nadir un Header Expires}
+\item \textbf{Comprimir los componentes (Gzip)}
+\item \textbf{CSS en el Head del HTML}
+\item \textbf{Scripts abajo de todo en el HTML}
+\item \textbf{Evitar expresiones en CSS}
+\item \textbf{Utilizar JavaScript y CSS de manera externa (no inline)}
+\item \textbf{Reducir las b'usquedas de DNS (keep-alive y pocos dominios)}
+\item \textbf{Minificar el JavaScript}
+\item \textbf{Evitar redirecciones}
+\item \textbf{Remover Scripts duplicados}
+\item \textbf{Configurar Etags}
+\item \textbf{Hacer que Ajax pueda ser Cacheado (BUSCAR OTRA PALABRA)}
 
 \end{enumerate}
