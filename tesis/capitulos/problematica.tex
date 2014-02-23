@@ -57,13 +57,28 @@ El usuario tiene que enviar en la petici'on un Header \textit{Accept-Encoding} i
 
 Los tipos de archivos que se deber'ian comprimir son aquellos de texto, tales como HTML, Scripts, CSS, etc. Aquellos formatos que ya se encuentran comprimidos como las im'agenes o los archivos PDF no deber'ian comprimirse ya que se desperdicia tiempo de CPU del servidor\footnote{Para realizar la compresi'on.} y adem'as puede incluso incrementar el tama'no del archivo.
 
-\item \textbf{CSS en el Head del HTML}
+\item \textbf{CSS en la parte superior del HTML}
+
+Las Hojas de Estilo deben incluirse en la parte superior del HTML. De esta manera, los navegadores pueden ir renderizando la p'agina a medida que van llegando las respuestas de las peticiones. Esto es importante en t'erminos de usabilidad, para brindarle un medio visual \footnote{Carga progresiva del sitio.} al usuario que est'a esperando el sitio.
 \item \textbf{Scripts en la parte inferior del HTML}
+
+Cuando se realizan las peticiones al servidor, las descargas pueden hacerse en paralelo con ciertos l'imites\footnote{2 seg'un la especificaci'on HTTP 1.1, hasta 6 seg'un el navegador}, eso claramente es beneficioso, ya que al paralelizar las descargas, el tiempo es menor comparado con descargas secuenciales. En el caso de los Scripts, esta caracter'istica se deshabilita por 2 motivos,    uno es que si es script altera contenido de la p'agina, el navegador debe esperar a recibirlo para mostrar el contenido correctamente. El otro motivo es que el navegador debe respetar el orden de ejecuci'on de los scripts, si estos vinieran en paralelo, no se puede asegurar que su ejecuci'on tenga el mismo orden en el que se solicitaron.
 \item \textbf{Evitar expresiones en CSS}
-\item \textbf{Utilizar JavaScript y CSS de manera externa (no inline)}
-\item \textbf{Reducir las b'usquedas de DNS (keep-alive y pocos dominios)}
+
+Las expresiones en CSS se encuentran deprecadas\footnote{http://blogs.msdn.com/b/ie/archive/2008/10/16/ending-expressions.aspx} en los navegadores modernos. Afectaban directamente a la performance de la renderizaci'on del sitio una vez que todos los componentes eran recibidos.
+\item \textbf{Utilizar JavaScript y CSS de manera externa (no embebido en el HTML)}
+
+Al embeber los scripts y el estilo en el HTML, se minimiza la cantidad de peticiones al servidor, pero se aumenta el tamaño del archivo HTML. Incluir archivos externos al HTML, permite a los navegadores y proxys que puedan almacenar en su cach'e el objeto. Esto es 'util ya que si en todas las p'aginas del sitio se utilizan el mismo Javascript y CSS, al ir navegando las diferentes p'aginas del sitio, estos recursos ya est'an almacenados en el navegador. Tambi'en disminuye el tiempo de respuesta en visitas posteriores.
+\item \textbf{Reducir las b'usquedas de DNS\footnote{Domain Name System.}}
+
+Cada servidor tiene una direcci'on IP asignada, esta direcci'on se encuentra asociada a un nombre de Dominio, esto se almacena en los DNS. Cuando se ingresa un nombre de un sitio en el navegador, este necesita la direcci'on IP asociada a ese Dominio. Para ello necesita solicitar esa asociaci'on a un DNS Resolver, antes de empezar a solicitar los recursos debe esperar la respuesta del DNS. Esto al igual que los recursos se almacenan en una cach'e local del navegador. A ra'iz de esta cuesti'on, tener menos dominios en las URL's de los componentes de una p'agina, requiere menos peticiones (DNS lookups) a los servidores que almacenan los dominios para solicitar las direcciones IP que corresponden a esos dominios.
 \item \textbf{Minificar el JavaScript}
+
+La Minificaci'on, es la pr'actica de remover caracteres innecesarios del c'odigo para reducir el tama'no del archivo. Se quitan los comentarios, los espacios en blanco (tabulaciones, espacios, saltos de l'inea). Una optimizaci'on alternativa tiene el nombre de Ofuscaci'on, adem'as de lo que hace la Minificaci'on, renombra las variables del codigo por cadenas de texto m'as peque'nas. Este m'etodo disminuye a'un m'as el tama'no de los archivos, que el m'etodo visto anteriormente.
+Con esta optimizaci'on se mejora el tiempo de respuesta ya que los recursos tienen menor tama'no.
 \item \textbf{Evitar redirecciones}
+
+
 \item \textbf{Remover Scripts duplicados}
 \item \textbf{Configurar Etags}
 \item \textbf{Hacer que Ajax pueda ser Cacheado (BUSCAR OTRA PALABRA)}
