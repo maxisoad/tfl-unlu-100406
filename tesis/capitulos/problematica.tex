@@ -78,9 +78,16 @@ La Minificaci'on, es la pr'actica de remover caracteres innecesarios del c'odigo
 Con esta optimizaci'on se mejora el tiempo de respuesta ya que los recursos tienen menor tama'no.
 \item \textbf{Evitar redirecciones}
 
-
+Una redirecci'on es utilizada para enrutar a los usuarios de una URL a otra. Generalmente se utilizan para documentos HTML, pero, ocasionalmente, tambi'en cuando se peticionan componentes de la p'agina. Los retrasos ocasionados por una redirecci'on retrasan directamente el documento HTML completo. Insertar una redirecci'on entre el usuario y el HTML retrasa todo en el sitio.
 \item \textbf{Remover Scripts duplicados}
-\item \textbf{Configurar Etags}
-\item \textbf{Hacer que Ajax pueda ser Cacheado (BUSCAR OTRA PALABRA)}
 
+Incluir archivos Javascript m'as de una vez en un sitio, afecta directamente la performance por 2 factores, peticiones innecesarias y tiempo de procesamiento innecesario del Script.
+\item \textbf{Configurar Etags}
+
+Los Etags son cadenas de texto 'unicas que identifican una versi'on espec'ifica de un componente (ver Cap'itulo \ref{cache}, Secci'on \ref{controlCache}) . Provee un mecanismo para poder realizar una petici'on condicional al servidor, comparando el Etag de la copia local con el del servidor. En el caso de que el valor coincida con el del servidor, la respuesta devuelve un c'odigo (ver \ref{http} REFERENCIAR LOS CODIGOS HTTP CUANDO EST'EN) que indica que el recurso est'a fresco (ver \ref{cache}), de esta manera, se reduce notablemente el tama'no de la respuesta y el tiempo ya que viaja por la red solamente los Headers.
+
+Hay ciertas cuestiones referidas a la utilizaci'on de los Etags. Por un lado, en el caso de un cluster de servidores, los Etags generados por los mismos, no son iguales entre ellos. En este caso, si se realiza una petici'on condicional, a pesar de que el componente es igual, al no coincidir los Etags, el recurso es devuelto al usuario. Otra cuesti'on es que la petici'on condicional \textit{If-None-Match} toma precedencia ante \textit{If-Modified-Since}, seg'un la especificaci'on del protocolo HTTP 1.1 si ambos Headers se encuentran en la petici'on, ambas condiciones se tienen que cumplir para devolver un c'odigo 304. Por todas estas cuestiones, se recomienda, o bien configurar los Etags de manera que las peticiones sean precisas, o quitarlos.
+\item \textbf{Hacer que Ajax pueda ser almacenado en Cach'e}
+
+SEGUIR
 \end{enumerate}

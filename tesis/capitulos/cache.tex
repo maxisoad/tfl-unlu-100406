@@ -65,6 +65,7 @@ Se eval'ua la frecuencia con la que un elemento es solicitado, el que es menos s
 \end{enumerate}
 
 \section{Control de Cach'e}
+\label{controlCache}
 
 Cuando el cliente realiza una petici'on, y esta coincide con un elemento que tenemos almacenado en la Cach'e se debe evaluar si es viable enviar la copia local, o hacer la petici'on nuevamente, a esto se le llama Revalidaci'on. Para esto se realizan ciertos controles (extra'idos de \citep{cacheDef}) en base a los Headers de HTTP (vistos en \ref{headers}).
 
@@ -86,7 +87,7 @@ Cuando el cliente realiza una petici'on, y esta coincide con un elemento que ten
 Cuando ambos Headers, \textsl{Expires} y \textsl{Cache-control} est'an presentes en la respuesta, \textsl{Cache-control} es el que toma mayor importancia.
 
 Para realizar la Revalidaci'on se utilizan ciertos Headers en la petici'on. Los Servidores utilizan 2 Headers para realizar las validaciones, uno es \textsl{Last-Modified}, que indica cu'ando fu'e modificado por 'ultima vez el recurso. Cuando 'este est'a presente, el cliente puede realizar una petici'on con el Header \textsl{If-Modified-Since}:fecha, para que el servidor devuelva el recurso unicamente si se cumple con esta condici'on, de no ser as'i, devuelve un mensaje con el c'odigo \texttt{304 Not Modified}, que indica que el recurso no fue modificado y se puede servir la copia local.
-Por otro lado, se utiliza un identificador llamado \textsl{ETag} que se genera cada vez que el recurso se modifica, en este caso, el cliente puede utilizar el Header \textsl{If-None-Match}:ETag\_local, que el servidor responde con el recurso en el caso de que el identificador enviado por el cliente no coincida con el del objeto peticionado.
+Por otro lado, se utiliza un identificador llamado \textsl{ETag} que se genera cada vez que el recurso se modifica. Es una cadena de texto que identifica una versi'on espec'ifica del recurso. En este caso, el cliente puede utilizar el Header \textsl{If-None-Match}:ETag\_local, que el servidor responde con el recurso en el caso de que el identificador enviado por el cliente no coincida con el del objeto peticionado.
 
 \section{En el Proxy}
 
