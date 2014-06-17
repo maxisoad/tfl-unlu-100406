@@ -1,7 +1,98 @@
 \chapter{Protocolos Web}
 \label{protocolos}
 \section{Definici'on}
-FALTA: INTRODUCCION, DEFINICION DE PROTOCOLOS WEB, MODELO OSI, ETC
+Un protocolo de comunicaci'on es un conjunto de reglas y normas de transmisi'on, que permite a dos o m'as entidades, comunicarse entre s'i en un canal determinado. Es necesario que, antes de establecer una comunicaci'on entre partes, se definan ciertos protocolos para poder asegurar la interoperabilidad y hacer posible la comunicaci'on entre el emisor y receptor.
+
+Las reglas definen la forma en la que debe efectuarse la comunicación, incluyendo cuestiones como la temporizaci'on, secuencia, revisi'on y correcci'on de errores. Define una \textit{sintaxis} (formato de los mensajes), una \textit{sem'antica} (significado de los mensajes) y \textit{sincronizaci'on} (secuenciamiento y temporizaci'on en la comunicaci'on).
+
+Para implementar los protocolos, se dividen las tareas a realizar y se realizan en niveles separados (capas). Definir los modelos en capas brinda las siguientes ventajas:
+
+\begin{enumerate}
+\item Dividir la comunicaci'on  en partes m'as peque'nas y sencillas
+\item normalizar los componentes de red para permitir el desarrollo y el soporte de los productos de diferentes fabricantes.
+\item Permitir la interoperabilidad de diferentes tipos de hardware y software de red para comunicarse entre s'i.
+\item Impedir que los cambios en una capa puedan afectar a las otras capas. Facilita la actualizaci'on del protocolo pudiendo modificar un m'odulo a reemplazarlo todo por completo.
+\end{enumerate}
+
+\section{Modelo OSI}
+
+En los inicios de Internet, hubo un gran crecimiento tanto en cantidad como en tamaño de las redes. Debido a esto, muchas de las redes eran incompatibles entre s'i, y era extremadamente complicada la comunicaci'on entre ellas. Para solucionar este problema, la ISO\footnote{International Standard Organization}, realiz'o ciertas investigaciones acerca de los esquemas de red. En 1980 \citep{zim80}, cre'o un modelo de red para ayudar a los diseñadores de redes a poder implementar redes que puedan comunicarse entre s'i y trabajar en conjunto. Este es el modelo de referencia OSI, definida en la ISO/IEC 7498-1 \citep{osi74981}. Este modelo se agrupa en capas, cada capa agrupa una funci'on determinada. Est'an organizadas jer'arquicamente, cada capa ofrece un servicio a la capa superior.
+
+El modelo tiene 7 capas:
+\begin{itemize}
+\item[7.] Aplicaci'on
+\item[6.] Presentaci'on
+\item[5.] Sesi'on
+\item[4.] Transporte
+\item[3.] Red
+\item[2.] Enlace
+\item[1.] F'isico
+\end{itemize}
+Se puede ver su distribuci'on en la Figura \ref{capasOSI}
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=\textwidth]{img/capasOSI}
+	\caption{\small Gr'afico de las capas OSI extra'ida de \cite{osi74981}}
+	\label{capasOSI}
+\end{figure}
+
+\subsection{Capa de Aplicaci'on}
+
+Proporciona servicios de red a las aplicaciones del Usuario, es la 'unica capa que no provee servicios a otra capa. Si bien es la interfaz hacia el usuario, este no interact'ua directamente con esta capa, sino que lo hace a trav'ez de una aplicaci'on que si tiene acceso directo a esta capa. Entre los protocolos de esta capa se encuentran FTP, POP, SMTP, HTTP, HTTPS, SSH entre otros.
+
+\subsection{Capa de Presentaci'on}
+
+Define el formato de los datos que se van a intercambiar entre 
+las aplicaciones y ofrece a los programas de aplicación un 
+conjunto de servicios de transformación de datos como
+podemos resumir definiendo a esta capa como la encargada de manejar las estructuras de datos abstractas y realizar las conversiones de representación de datos necesarias para la correcta interpretación de los mismos
+
+\subsection{Capa de Sesi'on}
+
+Esta capa establece, administra y finaliza las sesiones entre las partes intervinientes en la comunicaci'on, a esto se le llama Servicio de Administraci'on de la Sesi'on. Tambi'en realiza el control del intercambio de datos y sincroniza el di'alogo entre las partes, a esto se le llama Servicio de Administraci'on del Di'alogo.
+
+\subsection{Capa de Transporte}
+
+Esta capa provee un Servicio de Transporte Universal. Ofrece transparencia en el intercambio de datos entre los hosts involucrados (extremo a extremo) y a'isla a las capas superiores de los detalles de implementaci'on del transporte. Asegura que los datos enviados lleguen en el mismo orden en el que han sido enviados y sin errores, brindando calidad de servicio y confiabilidad en la comunicaci'on.
+
+\subsection{Capa de Red}
+
+Se encarga de la conexi'on de hosts que pueden encontrarse en redes diferentes, define un esquema de direccionamiento, enrutamiento y selecci'on de rutas. Permite que los datos viajen de un extremo a otro a trav'ez de redes interconectadas. Se utilizan los paquetes como unidad de informaci'on, estos paquetes son los que se rutean a trav'ez de la red para llegar del origen al destino.
+
+\subsection{Capa de Enlace}
+
+Proporciona una comunicaci'on confiable entre equipos adyacentes. Se ocupa del direccionamiento f'isico, la topolog'ia de la red y el acceso a la misma. Se utilizan tramas como unidad de informaci'on, aqu'i se realizan los controles de flujo, controles de secuencia, y notificaci'on de errores.
+
+\subsection{Capa F'isica}
+
+Esta capa provee las caracter'isticas procedurales, funcionales, el'ectricas y mec'anicas para establecer, mantener y cerrar conexiones f'isicas. Define como se transmiten los datos al medio, recibe mensajes y los transforma en bits para su posterior env'io a trav'ez de se'nales. Ciertas caracter'isticas tales como los conectores f'isicos, niveles de voltaje, duraci'on de un bit, velocidad de los datos f'isicos, temporizaci'on y otros datos similares son definidos por las especificaciones de esta capa.
+
+\subsection{Funciones de los Protocolos}
+
+Entre las funciones de los protocolos se encuentran:
+\begin{enumerate}
+\item Encapsulamiento: 
+
+Cada capa tiene lo que se conoce como PDU (Unidad de Datos del Protocolo), que es el resultado de la capa anterior con informaci'on propia. A medida que los datos van bajando a trav'ez de las capas se agregan encabezados y eventualmente una cola a los datos con informaci'on correspondiente a cada capa. Estos agregados contienen informaci'on de control para asegurar la entrega de los datos y la correcta interpretaci'on de los mismos en el receptor. Una vez que se re'una la informaci'on de todas las capas, se convierten en bits y son enviadas por el medio f'isico. En la Figura \ref{encapsulamiento} puede verse como se van acoplando las PDUs a medida que se avanza hacia abajo en el Modelo OSI.
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=\textwidth]{img/encapsulamiento}
+	\caption{\small Encapsulamiento en el Modelo OSI, extra'ida de \cite{encapsulamiento}}
+	\label{encapsulamiento}
+\end{figure}
+\item Establecimiento, control y cierre de la conexi'on.
+\item Control de Flujo:
+Asegurar que la velocidad de los datos no sature las posibilidades particulares de cada capa.
+\item Control de Errores: Detecci'on y correcci'on de errores.
+\item Multiplexaci'on: Posibilidad de compartir el canal entre varias conexiones.
+\item Encriptaci'on y compresi'on.
+\end{enumerate}
+
+\section{TCP/IP}
+
+perros
 
 \section{HTTP}
 \label{http}
