@@ -2,7 +2,7 @@
 
 \section{Definici'on}
 
-Los servidores proxy son Intermediarios. Se encuentran entre el cliente y el servidor, act'ua enviando los mensajes del cliente al servidor y viceversa. En una comunicación normal, le cliente se comunica directamente con el servidor, en el caso de que en la red haya un proxy presente, el cliente se comunica con el proxy y este es el que se comunica con el servidor.
+Los servidores proxy son Intermediarios. Se encuentran entre el cliente y el servidor, act'uan enviando los mensajes del cliente al servidor y viceversa. En una comunicación normal, le cliente se comunica directamente con el servidor, en el caso de que en la red haya un proxy presente, el cliente se comunica con el proxy y este es el que se comunica con el servidor.
 
 \begin{figure}[ht!]
   	\centering
@@ -34,6 +34,10 @@ El esquema de la Figura \ref{proxy_1} muestra una conexi'on utilizando HTTP, las
 Hay diversas utilizaciones de los servidores proxy, entre ellas se destacan:
 
 \begin{enumerate}
+\item Proxy NAT\footnote{Network Address Translation} / Enmascaramiento
+
+El enmascaramiento IP o tambi'on llamado traducci'on de direciones de red, es el proceso por el cual las direcciones IP del origen/destino son reescritas, se sustituyen por otras. Es 'util cuando se dispone de una 'unica direcci'on p'ublica que se comparte entre varios usuarios. El proxy se encarga de enmascarar las direcciones privadas de los clientes, traduciendol'a a la direcci'on p'ublica, para realizar las peticiones al exterior. Cuando recibe la respuesta de los servidores exteriores, se encarga de derivarla al usuario que inici'o el pedido.
+
 \item Filtro
 
 El Proxy al recibir las peticiones de los clientes, puede permitir o denegar esas peticiones seg'un ciertas pol'iticas definidas. Por ejemplo, en una Instituci'on Educativa se podr'ia bloquear el acceso a ciertas redes sociales o sitios para adultos.
@@ -44,15 +48,15 @@ Al ser un intermediario, y muchas veces como puerta de acceso hacia internet, se
 
 \item Web Cach'e
 
-Puede mantener copias locales de los recursos peticionados por los clientes, al servir varios clientes esto incrementa la velocidad de respuesta. Esto se ver'a detalladamente en el Cap'itulo \ref{cache}.
+Puede utilizarse para mantener copias locales de los recursos peticionados por los clientes, y al momento de recibir una petici'on por un recurso que se encuentra almacenado, se brinda esa copia al cliente. Al servir varios clientes esto incrementa la velocidad de respuesta. Esto se ver'a detalladamente en el Cap'itulo \ref{cache}.
 
 \item Proxy Reverso / Surrogate Server
 
-Puede actuar delante de un Servidor Web, atendiendo peticiones de los clientes como si fuera 'el Servidor mismo. Esto permite por ejemplo, generar una Red de Distribuci'on de Contenidos\footnote{CDN}. Recibe una petici'on de un cliente, y, en vez de devolver el contenido directamente, inicia una comunicaci'on con otros servidores para localizar el recurso pedido de manera m'as eficiente. Tambi'en protege a los Servidores Web, a'nadiendo una capa adicional de defensa. Puede distribuir la carga entre varios Servidores Web.
+Puede actuar delante de un Servidor Web, atendiendo peticiones de los clientes como si fuera 'el Servidor mismo. Esto permite por ejemplo, generar una Red de Distribuci'on de Contenidos\footnote{CDN}. Recibe una petici'on de un cliente, y, en vez de devolver el contenido directamente, inicia una comunicaci'on con otros servidores para localizar el recurso pedido, de manera m'as eficiente. Tambi'en protege a los Servidores Web, a'nadiendo una capa adicional de defensa. Puede distribuir la carga entre varios Servidores Web.
 
 \item Content-Router
 
-Pueden redirigir las peticiones a Servidores basados en las condiciones del Tr'afico de Internet y el tipo de contenido. REVISAR
+Pueden redirigir las peticiones a diferentes Servidores, basados en las condiciones del Tr'afico de Internet y el tipo de contenido.
 
 \item Transcoder
 
@@ -64,11 +68,84 @@ Permite navegar de manera privada y an'onima removiendo ciertos datos de los men
 
 \end{enumerate}
 
-\subsection{Configuraci'on}
+\section{Ventajas y Desventajas}
 
-Existen varias maneras de configurar un browser para navegar a trav'ez de un Proxy.
+\subsection{Ventajas}
 
-\section{SPDYProxy}
+\begin{enumerate}
+\item Control
 
-FALTA: EXPLICAR FUNCIONAMIENTO DEL SPDYPROXY
+Al ser el intermediario, es el Proxy el 'unico que va a realizar el trabajo de comunicaci'on hacia el exterior, es el que tiene la potestad de limitar y restringir los derechos de los clientes, ya que todo pasa a trav'es de 'el.
+\item Optimizaci'on de los tiempos de carga
 
+En el caso de los Proxies que ofrecen servicio de Cach'e, se optimizan los tiempos de carga de los sitios, al tener almacenada copias locales que puede bridar directamente al usuario sin tener que realizar la petici'on al servidor final.
+\item Optimizaci'on del uso de recursos
+
+El Proxy es el 'unico que realiza el trabajo hacia afuera, es decir, que al utilizar una sola conexi'on, se maximiza el uso del ancho de banda.
+\item Modificaci'on de la Informaci'on
+
+Al tener acceso a los recursos que viajan a trav'es de 'el, tiene la posibilidad de modificarlos.
+\item Filtrado
+
+Recibir todas las peticiones del usuario, da la posibilidad de poder decidir que recursos o qu'e sitios son los que est'an habilitados para su recuperaci'on. Podr'ia manejarse una Lista Negra\footnote{Listado de sitios a los que NO se puede acceder} o una Lista Blanca\footnote{Listado de sitios cuyo acceso est'a permitido} por ejemplo.
+
+\item Tr'afico controlado
+
+Debido a que todo el tr'afico pasa a trav'ez del Proxy, se puede registrar un gran volumen de informaci'on que luego puede usarse para Auditor'ia y Seguridad.
+\item Anonimato
+
+Permite a los usuarios acceder a los servicios que brinda Internet, protegiendo la red interna. Al acceder al exterior identific'andose como el mismo, es dif'icil para el recurso diferenciar quien es el que est'a realizando la petici'on.
+\end{enumerate}
+
+\subsection{Desventajas}
+
+\begin{enumerate}
+\item M'ultiples funciones
+
+Al estar a disposici'on de todas las peticiones de los usuarios, es posible que tenga que realizar algunas tareas no espec'ificas de su funci'on, por ejemplo los controles de acceso a sus servicios.
+\item Carga de trabajo
+
+Al ser el intermediario de todos los usuarios, el Proxy tiene que realizar el trabajo de todos ellos. La carga de trabajo crece en la medida en que crezcan la cantidad de usuarios que consumen sus servicios.
+\item Confianza del Usuario
+
+Pueden aparecer usuarios que no se sientan c'omodos con que todo su tr'afico sea interceptado.
+\item Modificaci'on en el Software de los usuarios
+
+La utilizaci'on de un Proxy, requiere que las aplicaciones que interact'uan con Internet que los usuarios utilizan en la red interna, se configuren (Ver Secci'on \ref{proxyConf}) para que puedan tener acceso hacia el exterior a trav'es del Proxy. 
+\item Servicios no disponibles
+
+Existen algunos aplicaciones que no funcionan con un Proxy de por medio, por ejemplo el servicio de mensajer'ia Whatsapp\footnote{http://www.whatsapp.com/}.
+\item Retardo
+
+Que la comunicaci'on del cliente con el servidor final no sea directa, supone un retardo en las comunicaciones.
+\end{enumerate}
+
+\section{Configuraci'on}
+\label{proxyConf}
+Existen varias maneras de configurar un browser para navegar a trav'es de un Proxy.
+\begin{enumerate}
+\item Manual: Se configura desde una opci'on espec'ifica del navegador.
+\item Flags\footnote{Bandera}: Un proxy puede configurarse con un flag espec'ifico en el lanzamiento del proceso, esto permite indicar el proxy previo a la ejecuci'on del navegador. En el caso de Google Chrome / Chromium el flag utilizado es:
+\begin{quote}
+\textit{--proxy-server direccion:puerto}
+\end{quote}
+Este flag es el que se va a utilizar m'as adelante en la parte de experimentaci'on del Proxy desarrollado. El listado de banderas completo se encuentra online\footnote{http://peter.sh/experiments/chromium-command-line-switches/}.
+\item Archivos PAC: Puede definirse un archivo de Auto-Configuraci'on de Proxy, es un archivo Javascript en el que se pueden realizar acciones avanzadas como por ejemplo, identificar los protocolos y redireccionar al proxy indicado. Ejemplo de archivo PAC en el que se direcciona seg'un el protocolo (HTTP, HTTPS a un Proxy diferente):
+\begin{quote}
+function FindProxyForURL(url, host) \{
+
+\hspace{1cm}if (url.substring(0,5) == "http:") \{
+
+        \hspace{2cm}return "PROXY proxy.normal.com:8080";
+        
+\hspace{1cm}\}else if (url.substring(0,6) =="https:") \{
+
+	\hspace{2cm}return "PROXY proxy.seguro.com:8080";
+	
+\hspace{1cm}\} else \{
+
+        \hspace{2cm}return "DIRECT";
+        
+    \}
+\end{quote}
+\end{enumerate}

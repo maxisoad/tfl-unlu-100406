@@ -262,7 +262,22 @@ El procedimiento para iniciar la conexi'on es el siguiente: El cliente abre una 
 
 \section{SPDY}
 
-Es un protocolo de aplicaci'on que a'nade una capa de sesi'on sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples Streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
+\subsection{Introducci'on}
+
+Desarrollado por Google a mediados del 2009, SPDY es un protocolo experimental cuya meta principal es reducir los tiempos de carga de los sitios enfoc'andose en las limitaciones de HTTP\ref{http}.
+Espec'ificamente se busca lo siguiente (extra'ido de \ref{highPerformance}):
+\begin{enumerate}
+\item Reducir un 50\% el Tiempo de Carga de los Sitios.
+\item Evitar la necesidad de que los desarrolladores tengan que realizar cambios a los sitios actuales.
+\item Evitar cambios en la infraestructura de las redes y minificar la complejidad de implementaci'on.
+\item Liberar el desarrollo a la comunidad de c'odigo abierto.
+\item Recopilar datos reales de rendimiento para validar o invalidar el protoclo experimental.
+\end{enumerate}
+Ya para el 2012 el protocolo era soportado por Chrome\footnote{http://www.google.com/intl/es\_AR/chrome/browser/}, Mozilla Firefox\footnote{http://www.mozilla.org/es-AR/firefox/new/}, y Opera\footnote{http://www.opera.com/} y varios sitios populares (Google, Facebook, Twitter) ya ofrec'ian un cliente para la utilizaci'on del protocolo.
+
+\subsection{El Protocolo}
+
+Es un protocolo de aplicaci'on que a'nade una capa de sesi'on que funciona sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples Streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
 Su especificaci'on se puede ver en \citep{spdyWhitepaper} y su draft se puede encontrar en \citep{spdyDraft}.
 
 \begin{figure}[h]
@@ -287,3 +302,7 @@ SPDY ofrece por sobre HTTP las siguientes mejoras:
 SPDY se enfoca en la manera en la que se transmiten los datos por la red, preserva toda la sem'antica del protocolo HTTP. De esta manera, para las aplicaciones se implementa de manera transparente, ya que reside entre la capa de aplicaci'on y la de transporte. Esta sesi'on es similar al par petici'on-respuesta de HTTP. Es obligatoria la compresi'on del mensaje.
 
 AGREGAR PROTOCOLOS PROPUESTOS ANTERIORMENTE
+
+\subsection{Estudios Anteriores}
+
+PAPERS DE SPDY, Y EL DEL ARBOL

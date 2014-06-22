@@ -2,7 +2,9 @@
 \label{desarrolloWeb}
 \section{Introducci'on}
 
-Internet es la interconexi'on global de redes individuales alrededor del mundo. Originalmente fu'e utilizada para interconectar laboratorios dedicados a investigaci'on gubernamental. Desde 1994 se expandi'o para millones de usuarios de todo el mundo que la utilizan con m'ultiples prop'ositos. A medida que iba creciendo, cambiaba la forma de hacer negocios y de comunicarse. Hasta llegar a ser una fuente de informaci'on Universal para millones de personas \citep{iws}.
+Internet es la interconexi'on global de redes individuales alrededor del mundo. Originalmente fu'e utilizada para interconectar laboratorios dedicados a la investigaci'on gubernamental. Desde 1994 se expandi'o para millones de usuarios de todo el mundo que la utilizan con m'ultiples prop'ositos. A medida que fu'e creciendo, cambi'o la forma de hacer negocios y de comunicarse hasta llegar a ser una fuente de informaci'on Universal para millones de personas \citep{iws}.
+
+\section{El crecimiento de Internet}
 
 Internet contin'ua creciendo d'ia a d'ia. Hacia 1995 la cantidad de usuarios promedio era de 16 millones, 1 a'no despu'es, la cifra ascendi'o a m'as del doble. Para el a'no 2000 se increment'o 10 veces la cantidad de usuarios. Esta informaci'on puede verse en el Cuadro \ref{cuadroCrecInternet}.
 
@@ -75,23 +77,47 @@ Adem'as de la cantidad de usuarios, en paralelo iba creciendo la cantidad de Dom
 	\label{grafNetcraft}
 \end{figure}
 
-Tambi'en fu'e aumentando el tama'no promedio de los sitios as'i tambi'en como la cantidad de recursos que poseen los mismos. En el a'no 1997, el tama'no promedio de un sitio era de 60Kb \citep{atw}, pr'acticamente era todo texto, pocas im'agenes y poca interactividad. Esto fu'e cambiando con el tiempo, con el avance de la tecnolog'ia y de los recursos que se pod'ian compartir en la red. El crecimiento a lo largo del tiempo puede verse en el Gr'afico \ref{grafCrecSitios}
+\section{El crecimiento de los sitios}
 
-\begin{figure}[h]
+Otra variable que entra en juego es el aumento del tama'no promedio de los sitios as'i tambi'en como la cantidad de recursos que poseen los mismos. En el a'no 1997, el tama'no promedio de un sitio era de 60Kb \citep{atw}, pr'acticamente era todo texto, pocas im'agenes y poca interactividad. Esto fu'e cambiando con el tiempo, con el avance de la tecnolog'ia y de los recursos que se pod'ian compartir en la red. El crecimiento a lo largo del tiempo puede verse en el Gr'afico \ref{grafCrecSitios}
+
+\begin{figure}[ht!]
   	\centering
-	\includegraphics[width=\textwidth]{img/grafCrecSitios}
+	\includegraphics[width=300px]{img/grafCrecSitios}
 	\caption{\small Crecimiento del tama'no de los sitios en Internet (1995 a 2012), extra'ido de \cite{tamanoSitios}}
 	\label{grafCrecSitios}
 \end{figure}
 
-Actualmente, el promedio es de 1687Kb\footnote{Medici'on extra'ida de \citep{httparchive} el 1 de Febrero 2014}, su contenido es mucho m'as variado e interactivo. Hoy los sitios se componen de diversos tipos de recursos, scripts, hojas de estilo, diferentes tipos de im'agenes, video, contenido Flash\footnote{http://www.adobe.com/}, etc. El promedio detallado por contenido de los sitios se pueden ver en el Gr'afico \ref{grafSitiosFeb2014}
+Hoy en d'ia, el contenido de los sitios es mucho m'as variado e interactivo. Se componen de diversos tipos de recursos, scripts, hojas de estilo, variados tipos de im'agenes, video, contenido Flash\footnote{http://www.adobe.com/}, etc. Esto produce un aumento en el tiempo de carga de los sitios y la necesidad de poseer un dispositivo con la capacidad necesaria para procesar y renderizar\footnote{El navegador "dibuja" la p'agina seg'un el c'odigo HTML y el estilo} la p'agina.
+
+Comparando 2 medidas realizadas por HTTP Archive\citep{httparchive}  con casi 4 a'nos de diferencia, se observa que, en la primera medici'on el promedio es de 702Kb\footnote{Medici'on extra'ida de \citep{httparchive} el 15 de Noviembre de 2010}, el promedio detallado por contenido de los sitios se puede ver en el Gr'afico \ref{grafSitios2010}. En la segunda medici'on realizada en Junio de 2014, se observa que el promedio es de 1808Kb, es decir, que hubo un aumento de un 157\%.
 
 \begin{figure}[h]
   	\centering
-	\includegraphics[width=\textwidth]{img/grafSitiosFeb2014}
-	\caption{\small Tama'no promedio de los sitios en Internet, detallado por contenido, extra'ido de \cite{httparchive}}
-	\label{grafSitiosFeb2014}
+	\includegraphics[width=300px]{img/grafSitios2010}
+	\caption{\small Tama'no promedio de los sitios en Internet (Noviembre 2010), detallado por contenido, extra'ido de \cite{httparchive}}
+	\label{grafSitios2010}
 \end{figure}
 
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=300px]{img/grafSitios2014}
+	\caption{\small Tama'no promedio de los sitios en Internet (Junio 2014), detallado por contenido, extra'ido de \cite{httparchive}}
+	\label{grafSitios2014}
+\end{figure}
 
-FALTA: UTILIZACION HTTP HTTPS
+Otra cuesti'on es el aumento de la utilizaci'on de HTTPS, la versi'on segura de HTTP (ver Cap'itulo \ref{protocolos}), como se ver'a m'as adelante, este protocolo a'nade tiempo en la negociaci'on previa a recuperar la p'agina que debe hacer.
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=300px]{img/httphttps2010}
+	\caption{\small Porcentaje de utilizaci'on de HTTP/HTTPS (Noviembre 2010), extra'ido de \cite{httparchive}}
+	\label{httphttps2010}
+\end{figure}
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=300px]{img/httphttps2014}
+	\caption{\small Porcentaje de utilizaci'on de HTTP/HTTPS (Junio 2014), extra'ido de \cite{httparchive}}
+	\label{httphttps2014}
+\end{figure}
