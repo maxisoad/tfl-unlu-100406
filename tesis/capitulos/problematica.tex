@@ -1,12 +1,57 @@
 \chapter{Problem'atica}
+\label{problematica}
 
-Debido al crecimiento de Internet visto en el C'apitulo \ref{desarrolloWeb} y a los problemas que presenta el protocolo HTTP en su implementaci'on (visto en el C'apitulo \ref{protocolos}), se busca mejorar los tiempos de carga de los sitios web. 
+\section{Introducci'on}
 
-%PONER PORQUE SE BUSCA MEJORAR LOS TIEMPOS DE RESPUESTA.
+Debido al crecimiento de Internet visto en el C'apitulo \ref{desarrolloWeb} y a los problemas que presenta el protocolo HTTP en su implementaci'on (visto en el C'apitulo \ref{protocolos}), mejorar los tiempos de carga de los sitios web es clave.
 
-\section{T'ecnicas de optimizaci'on}
+Cada aplicaci'on se desarrolla con los requerimientos del modelo de negocio, el contexto, las expectativas de los usuarios y la complejidad de la tarea. A causa de esto, hay que planificar y dise'nar, centr'andose en el usuario, y su percepci'on del tiempo de procesamiento \citep{highPerformance}.
+Nuestros tiempos de reacci'on son constantes, independientemente del tipo de aplicaci'on o dispositivo utilizado, puede verse en la tabla siguiente:
 
-Es importante conocer d'onde es que el usuario pasa el tiempo esperando en la carga de un sitio web. Seg'un el estudio de Steve Souders en su libro \citep{highPerformanceWebSites}, el cliente tarda menos del 20\% para obtener el documento HTML, y el tiempo restante para recibir el resto de los componentes del sitio. Es importante enfocarse en el 80\%, 90\% restante, ya que el tiempo no se desperdicia en descargar el documento HTML ni en el procesamiento que realiza el servidor antes de enviarnos la petici'on. Esto se resume en la ''Regla de Oro de la Performance'' de dicho libro:
+\begin{quote}
+\begin{center}
+\begin{tabular}{l | l}
+  Retardo & Percepci'on del Usuario \\
+  \hline
+  0-100ms & Instant'anea \\
+  100-300ms & Retraso peque'no perceptible \\
+  300-1000ms & La m'aquina se encuentra procesando\\
+  1,000+ ms & Distracci'on en lo que se est'a realizando\\
+  10,000+ ms & La tarea es abandonada\\
+\end{tabular}
+
+Percepci'on del usuario ante los retardos, extra'ido de \citep{highPerformance}.
+\end{center}
+\end{quote}
+
+Para que la experiencia del usuario sea positiva, el sitio debe renderizarse, o al menos tener una respuesta visual de que el sitio se est'a cargando, en al menos 250 milisegundos.
+
+En agosto del 2010, Mike Belsche\footnote{Ingeniero de Software, fu'e uno de los desarrolladores del protocolo SPDY (ver Secci'on \ref{spdy}) - https://www.belshe.com} public'o un estudio \citep{moreBand} acerca de 2 factores importantes en el Tiempo de Carga de los Sitios, Ancho de Banda y RTT. El RTT\footnote{Round Trip Time} es el tiempo que demora un paquete en ir del emisor al receptor y volver al emisor nuevamente.
+Realiz'o 2 experimentos, el primero variando el Ancho de Banda y el segundo variando el RTT.
+
+En el Gr'afico \ref{belshePLTxBW} puede observarse el resultado del primer experimento, al aumentar el Ancho de Banda hay mejoras en el tiempo de respuesta en los valores m'as bajos, pero, a partir de cierto ancho de banda, el aumento no produce mejoras en el rendimiento.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=300px]{img/belshePLTxBW}
+	\caption{\small Latencia por Ancho de Banda, extra'ido de \citep{moreBand}}
+	\end{center}
+	\label{belshePLTxBW}
+\end{figure}
+
+En cambio, en el Gr'afico \ref{belshePLTxRTT}, se ve claramente que a medida que el RTT se va reduciendo, tambi'ien lo hace el Tiempo de Carga del Sitio, incluso cuando ya el RTT es bajo.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=300px]{img/belshePLTxRTT}
+	\caption{\small Tiempo de Carga de un sitio a medida que el RTT se decrementa, extra'ido de \citep{moreBand}}
+	\end{center}
+	\label{belshePLTxRTT}
+\end{figure}
+
+La conclusi'on del estudio de Belshe es que, si se duplica su Ancho de Banda sin reducir el RTT significantemente, s'olo se obtiene una mejora m'inima en la Navegaci'on. Disminuir el RTT, sin importar el Ancho de Banda utilizado, siempre supone una mejora en la velocidad. Para acelerar Internet, o bien hay que ocuparse de reducir el RTT, o reducir la cantidad de RTT's requeridos para cargar un sitio.
+
+Es importante tambi'en conocer, d'onde es que el usuario pasa el tiempo esperando en la carga de un sitio web. Seg'un el estudio de Steve Souders en su libro \citep{highPerformanceWebSites}, el cliente tarda menos del 20\% para obtener el documento HTML, y el tiempo restante para recibir el resto de los componentes del sitio. Es importante enfocarse en el 80\%, 90\% restante, ya que el tiempo no se desperdicia en descargar el documento HTML ni en el procesamiento que realiza el servidor antes de enviarnos la petici'on. Esto se resume en la ''Regla de Oro de la Performance'' de dicho libro:
 
 \begin{quote}
 
@@ -14,7 +59,9 @@ Es importante conocer d'onde es que el usuario pasa el tiempo esperando en la ca
 
 \end{quote}
 
-Plantea 14 reglas para la optimizaci'on de los sitios que se describen a continuaci'on.
+\section{T'ecnicas de optimizaci'on}
+
+Souders, plantea 14 reglas para la optimizaci'on de los sitios que se describen a continuaci'on.
 
 \begin{enumerate}
 

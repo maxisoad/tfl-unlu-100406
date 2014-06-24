@@ -108,12 +108,35 @@ Tiene un dise'no en capas similar al del Modelo OSI (ver Secci'on \ref{osi}), en
 
 \begin{enumerate}
 \item Aplicaci'on
-\item Transporte
-\item Red
-\item Enlace
-\end{enumerate}
 
-COMPLETAR CON LA FUNCIONALIDAD DE CADA CAPA
+En esta capa se manejan los detalles de una aplicaci'on particular. Aqu'i se encuentran protocolos muy conocidos tales como HTTP (Hipertext Transfer Protocol), FTP (File Transfer Protocol), SMTP (Simple Mail Transfer Protocol), SNMP (Simple Network Management Protocol), Telnet (para login remoto), DNS (Domain Name System).
+\item Transporte
+
+Provee el servicio de env'io de flujo de datos entre dos hosts. En esta capa se encuentran 2 protocolos muy importantes:
+
+	\subitem TCP (Transfer Control Protocol):
+	
+	Permite crear conexiones entre hosts para el env'io de flujos de datos. Se ocupa de dividir los datos que vienen de la capa de aplicaci'on en paquetes de un tama'no adecuado para realizar el env'io en las capas inferiores. Tambi'en se encarga del control de la recepci'on de los paquetes enviados, as'i tambi'en como el establecimiento de los tiempos de espera para asegurarse que el otro extremo reconoce los paquetes enviados. Realiza la multiplexaci'on de la conexi'on, es decir, que permite compartir el canal entre varias conexiones.
+	
+	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un paquete SYN\footnote{SYNchronize} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama Three Way Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
+	
+	\begin{figure}[ht]
+  	\centering
+	\includegraphics[width=\textwidth]{img/threeway}
+	\caption{\small Three Way Handshake, extra'ido de https://www.grc.com/}
+	\label{threeway}
+	\end{figure}
+
+	\subitem UDP (User Datagram Protocol):
+	
+	Se ocupa de enviar paquetes de datos llamados Datagramas de un extremo a otro, sin realizar una conexi'on previa, el mismo Datagrama posee suficiente informaci'on para llegar a destino. No brinda ninguna garant'ia de que el paquete llegue a su destino y tampoco hace control de flujo.
+\item Red
+
+Esta capa, a veces llamada Capa de Internet, maneja el movimiento de los paquetes a trav'es de la red. El enrutamiento y encaminamiento de los paquetes tiene lugar en esta capa. Protocolos como IP (Internet Protocol), ICMP (Internet Control Message Protocol) e IGMP (Internet Group Management Protocol) conforman esta capa.
+\item Enlace
+
+Esta capa, a veces llamada capa de Enlace de Datos o capa de Interfaz de Red, incluye el Driver\footnote{Controlador de Dispositivo} del Sistema Operativo y la correspondiente Placa de Red del dispositivo. Juntos se encargan de todos los detalles del Hardware y de la interconexi'on f'isica con el Medio (Cable, WiFi, Fibra 'Optica, etc.).
+\end{enumerate}
 
 \subsection{TCP/IP y el Modelo OSI}
 
@@ -261,11 +284,12 @@ El procedimiento para iniciar la conexi'on es el siguiente: El cliente abre una 
 \end{figure}
 
 \section{SPDY}
+\label{spdy}
 
 \subsection{Introducci'on}
 
-Desarrollado por Google a mediados del 2009, SPDY es un protocolo experimental cuya meta principal es reducir los tiempos de carga de los sitios enfoc'andose en las limitaciones de HTTP\ref{http}.
-Espec'ificamente se busca lo siguiente (extra'ido de \ref{highPerformance}):
+Desarrollado por Google a mediados del 2009, SPDY es un protocolo experimental cuya meta principal es reducir los tiempos de carga de los sitios enfoc'andose en las limitaciones de HTTP (ver \ref{http}).
+Espec'ificamente se busca lo siguiente (extra'ido de \citep{highPerformance}):
 \begin{enumerate}
 \item Reducir un 50\% el Tiempo de Carga de los Sitios.
 \item Evitar la necesidad de que los desarrolladores tengan que realizar cambios a los sitios actuales.
@@ -301,8 +325,25 @@ SPDY ofrece por sobre HTTP las siguientes mejoras:
 
 SPDY se enfoca en la manera en la que se transmiten los datos por la red, preserva toda la sem'antica del protocolo HTTP. De esta manera, para las aplicaciones se implementa de manera transparente, ya que reside entre la capa de aplicaci'on y la de transporte. Esta sesi'on es similar al par petici'on-respuesta de HTTP. Es obligatoria la compresi'on del mensaje.
 
-AGREGAR PROTOCOLOS PROPUESTOS ANTERIORMENTE
+\subsection{Alternativas Propuestas}
 
-\subsection{Estudios Anteriores}
+Hubo varias alternativas que se propusieron para mejorar la performance de Internet, 
 
-PAPERS DE SPDY, Y EL DEL ARBOL
+\subsubsection{Stream Control Transmission Protocol (SCTP)}
+Es una alternativa al Protocolo TCP, definido en la RFC 2960 \citep{rfcSCTP}, provee confiabilidad, control de flujo y secuenciaci'on, opcionalmente permite el env'io de mensajes sin un orden preestablecido. Permite Multihoming, que es la capacidad de que los extremos conectados puedan tener m'as de una direcci'on IP.
+
+\subsubsection{HTTP sobre SCTP}
+
+Fu'e una propuesta de utilizar HTTP sobre SCTP \footnote{http://tools.ietf.org/html/draft-natarajan-http-over-sctp-00}
+
+\subsubsection{Structured Stream Transport (SST)}
+
+Es un Protocolo de Transporte experimental \citep{sst} dise'nado para las aplicaciones que requieren de muchas conexiones as'incronas en paralelo, tales como la descarga de las diferentes partes que componen un sitio web y reproducir simult'aneamente m'ultiples flujos de audio y video a la vez.
+No realiza el 3-way Hanshake en el inicio como TCP. Multiplexa m'ultiples Flujos de Datos de aplicaciones en una sola conexi'on de red. Soporta mensajes/datagramas de cualquier tama'no, no hay necesidad de limitar el tama'no de los env'ios. Priorizaci'on de Flujos de Datos.
+\subsubsection{MUX y SMUX}
+
+MUX\footnote{http://www.w3.org/Protocols/MUX/} y SMUX\footnote{http://www.w3.org/TR/WD-mux} son protocolos de capa intermedia (entre la capa de transporte y la capa de aplicaci'on) que proporcionan la multiplexaci'on de flujos de datos. Se propusieron al mismo tiempo que HTTP/1.1.
+
+\subsection{Estudios Relacionados}
+
+PAPERS DE SPDY + ARBOL
