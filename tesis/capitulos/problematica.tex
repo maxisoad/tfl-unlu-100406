@@ -1,9 +1,13 @@
-\chapter{Problem'atica}
+\chapter{Problem'aticas asociadas a la Web}
 \label{problematica}
 
 \section{Introducci'on}
 
 Debido al crecimiento de Internet visto en el C'apitulo \ref{desarrolloWeb} y a los problemas que presenta el protocolo HTTP en su implementaci'on (visto en el C'apitulo \ref{protocolos}), mejorar los tiempos de carga de los sitios web es clave.
+
+VER http://munchweb.com/effect-of-website-speed
+
+\section{Performance}
 
 Cada aplicaci'on se desarrolla con los requerimientos del modelo de negocio, el contexto, las expectativas de los usuarios y la complejidad de la tarea. A causa de esto, hay que planificar y dise'nar, centr'andose en el usuario, y su percepci'on del tiempo de procesamiento \citep{highPerformance}.
 Nuestros tiempos de reacci'on son constantes, independientemente del tipo de aplicaci'on o dispositivo utilizado, puede verse en la tabla siguiente:
@@ -131,10 +135,9 @@ Una redirecci'on es utilizada para enrutar a los usuarios de una URL a otra. Gen
 Incluir archivos Javascript m'as de una vez en un sitio, afecta directamente la performance por 2 factores, peticiones innecesarias y tiempo de procesamiento innecesario del Script.
 \item \textbf{Configurar Etags}
 
-Los Etags son cadenas de texto 'unicas que identifican una versi'on espec'ifica de un componente (ver Cap'itulo \ref{cache}, Secci'on \ref{controlCache}) . Provee un mecanismo para poder realizar una petici'on condicional al servidor, comparando el Etag de la copia local con el del servidor. En el caso de que el valor coincida con el del servidor, la respuesta devuelve un c'odigo (ver \ref{http} REFERENCIAR LOS CODIGOS HTTP CUANDO EST'EN) que indica que el recurso est'a fresco (ver \ref{cache}), de esta manera, se reduce notablemente el tama'no de la respuesta y el tiempo ya que viaja por la red solamente los Headers.
+Los Etags son cadenas de texto 'unicas que identifican una versi'on espec'ifica de un componente (ver Cap'itulo \ref{cache}, Secci'on \ref{controlCache}) . Provee un mecanismo para poder realizar una petici'on condicional al servidor, comparando el Etag de la copia local con el del servidor. En el caso de que el valor coincida con el del servidor, la respuesta devuelve un c'odigo (ver \ref{http}) que indica que el recurso est'a fresco (ver \ref{cache}), de esta manera, se reduce notablemente el tama'no de la respuesta y el tiempo ya que viaja por la red solamente los Headers.
 
 Hay ciertas cuestiones referidas a la utilizaci'on de los Etags. Por un lado, en el caso de un cluster de servidores, los Etags generados por los mismos, no son iguales entre ellos. En este caso, si se realiza una petici'on condicional, a pesar de que el componente es igual, al no coincidir los Etags, el recurso es devuelto al usuario. Otra cuesti'on es que la petici'on condicional \textit{If-None-Match} toma precedencia ante \textit{If-Modified-Since}, seg'un la especificaci'on del protocolo HTTP 1.1 si ambos Headers se encuentran en la petici'on, ambas condiciones se tienen que cumplir para devolver un c'odigo 304. Por todas estas cuestiones, se recomienda, o bien configurar los Etags de manera que las peticiones sean precisas, o quitarlos.
-\item \textbf{Permitir que Ajax pueda ser almacenado en Cach'e}
+%\item \textbf{Permitir que Ajax pueda ser almacenado en Cach'e}
 
-SEGUIR
 \end{enumerate}

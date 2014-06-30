@@ -1,11 +1,11 @@
-\chapter{SpdyProxyPython}
+\chapter{Proxy Adaptativo para Protocolos Web Avanzados}
 \label{spdyproxypython}
 
 \section{Introducci'on}
 
-A lo largo de los cap'itulos anteriores, hemos visto, el crecimiento de Internet, en el Cap'itulo \ref{desarrolloWeb}, las deficiencias de los protocolos, en el Cap'itulo \ref{protocolos}, y la problem'atica de los tiempos de carga y sus posibles optimizaciones en el Cap'itulo \ref{problematica}. Tambi'en se ha visto SPDY como propuesta a resolver varios de los problemas actuales de la carga de los sitios, pero tambi'en, en ciertos contextos no funciona como lo esperado \ref{}. Por todo ello, se desarroll'o un Proxy (ver Cap'itulo \ref{proxy}), cuya funcionalidad principal es seleccionar de los m'etodos habilitados que ofrezca un sitio (HTTP HTTPS, SPDY) cu'al es el m'as 'optimo para recuperar el recurso. Posee otras funcionalidades tales como, ser MITM\footnote{Man in The Middle}, Cach'e (ver Cap'itulo \ref{cache}), c'alculo de RTT, recuperaci'on de los m'etodos habilitados para un sitio, cliente SPDY.
+A lo largo de los cap'itulos anteriores, hemos visto, el crecimiento de Internet, en el Cap'itulo \ref{desarrolloWeb}, las deficiencias de los protocolos, en el Cap'itulo \ref{protocolos}, y la problem'atica de los tiempos de carga y sus posibles optimizaciones en el Cap'itulo \ref{problematica}. Tambi'en se ha visto SPDY como propuesta a resolver varios de los problemas actuales de la carga de los sitios, pero tambi'en, en ciertos contextos no funciona como lo esperado (ver Secci'on \ref{estudiosSPDY}). Por todo ello, se desarrolla un Proxy (ver Cap'itulo \ref{proxy}), cuya funcionalidad principal, es seleccionar de los m'etodos habilitados que ofrezca un sitio (HTTP HTTPS, SPDY), cu'al es el 'optimo para recuperar el recurso. Posee otras funcionalidades tales como, ser MITM\footnote{Man in The Middle}, Cach'e (ver Cap'itulo \ref{cache}), c'alculo de RTT, recuperaci'on de los m'etodos habilitados para un sitio, cliente SPDY.
 
-Se eligi'o Python\footnote{https://www.python.org/} como lenguaje y MongoDB\footnote{http://http://www.mongodb.org/} para el almacenamiento de los datos de los sitios.
+Para el desarrollo del Proxy, se escogi'o Python\footnote{https://www.python.org/} como lenguaje principal, dada la facilidad del mismo y la gran documentaci'on disponible en la Web. Para el almacenamiento de los datos de los sitios se escogi'o MongoDB\footnote{http://http://www.mongodb.org/}, por su simple interacci'on con Python y su velocidad.
 
 \section{Funcionamiento}
 
@@ -32,7 +32,7 @@ Para indicarle que se va a realizar la conexi'on. Esta primera etapa puede verse
 
 Luego, se inicia la conexi'on SSL Cliente-Proxy y comienzan a recibirse las peticiones del Cliente, como puede verse en la Figura \ref{mitm2}, las conexiones\footnote{Tanto hacia el Cliente como hacia el Servidor.} se realizan individualmente (no como un T'unel HTTPS normal, ver Figura \ref{proxy_2}). Con cada una de las peticiones, se procede de manera similar a HTTP. Se analiza si el recurso se encuentra almacenado en la cach'e y se devuelve de la copia local, o se solicita el recurso al servidor final. En el caso de que el m'etodo seleccionado para devolver el recurso sea HTTS o SPDY, se establece una conexi'on segura entre el proxy y el servidor final.
 
-Cabe destacar que, todo el tr'afico que fluye entre el cliente y el proxy, y entre el proxy y el servidor final, viaja encriptado. Pero, todo el tr'afico se encuentra desencriptado en el Proxy, siendo un proxy HTTPS de confianza.
+Cabe destacar que, todo el tr'afico que fluye entre el cliente y el proxy, y entre el proxy y el servidor final, viaja encriptado. Pero, todo el tr'afico se encuentra desencriptado en el Proxy, siendo este, un proxy HTTPS de confianza (ver \ref{mitm}, discusi'on en \citep{draftTrustedProxy}).
 
 \begin{figure}[h]
   	\centering
@@ -43,9 +43,10 @@ Cabe destacar que, todo el tr'afico que fluye entre el cliente y el proxy, y ent
 
 \subsection{An'alisis de los Recursos}
 \label{analisisRecurso}
-Cada vez que el Proxy recibe una petici'on del cliente, se analiza si el recurso se encuentra en la Cach'e, en el caso de que el recurso se encuentre almacenado, se devuelve desde la copia local del Proxy y se actualiza la Cach'e con el Hit del elemento correspondiente. Caso contrario, se peticiona el recurso servidor final.
+Cada vez que el Proxy recibe una petici'on del cliente, se analiza si el recurso se encuentra en la Cach'e, en el caso de que el recurso se encuentre almacenado, se devuelve desde la copia local del Proxy y se actualiza la Cach'e con el HIT (ver Cap'itulo \ref{cache}) del elemento correspondiente. Caso contrario, se peticiona el recurso servidor final.
 Cada vez que el Proxy pide un recurso, se realiza un an'alisis del mismo en segundo plano:
 \begin{enumerate}
+\item C'alculo del tama'no del recurso.
 \item C'alculo del RTT: se realiza el c'alculo del RTT al host donde se aloja el recurso.
 \item Obtenci'on de Protocolos: Se obtienen los protocolos soportados (HTTP, HTTPS, SPDY) del host donde se aloja el recurso.
 \item C'alculo de Peticiones a Generar: en el caso de que el recurso sea un HTML plano, se calcula cuantas peticiones generar'ia. Se realiza analizando el texto y extrayendo los recursos que esa p'agina va a necesitar para su renderizaci'on.
@@ -53,3 +54,24 @@ Cada vez que el Proxy pide un recurso, se realiza un an'alisis del mismo en segu
 Toda esta informaci'on, luego es consumida por el 'Arbol de Decisi'on para determinar que protocolo es el m'as 'optimo para recuperar el recurso.
 
 \subsection{'Arbol de Decisi'on}
+
+Una vez que se recibe la petici'on del cliente, y hay que peticionar el recurso al servidor final, se decide con qu'e m'etodo se debe traer el recurso. Se tom'o como referencia, el 'arbol de ''How Speedy is SPDY?'' \citep{howSpeedy}, que puede verse en la Figura \ref{arbolDecision}.
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics{img/arbolDecision}
+	\caption{\small 'Arbol de Decisi'on, extra'ido de \citep{howSpeedy}}
+	\label{arbolDecision}
+\end{figure}
+
+Este 'arbol, se retroalimenta con la informaci'on que se extrae de los recursos a medida que el Proxy est'a en funcionamiento. Datos tales como tama'no, RTT, peticiones a generar, se obtienen del almacenamiento propio del Proxy. 
+
+\section{M'odulos Adicionales}
+
+\subsection{C'alculo del RTT}
+
+\subsection{Protocolos Habilitados}
+
+\subsection{Cliente SPDY}
+
+spdylay

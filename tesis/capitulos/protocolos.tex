@@ -1,4 +1,4 @@
-\chapter{Protocolos Web}
+\chapter{Conceptos sobre Protocolos}
 \label{protocolos}
 \section{Definici'on}
 Un protocolo de comunicaci'on es un conjunto de reglas y normas de transmisi'on, que permite a dos o m'as entidades, comunicarse entre s'i en un canal determinado. Es necesario que, antes de establecer una comunicaci'on entre partes, se definan ciertos protocolos para poder asegurar la interoperabilidad y hacer posible la comunicaci'on entre el emisor y receptor.
@@ -9,7 +9,7 @@ Para implementar los protocolos, se dividen las tareas a realizar y se realizan 
 
 \begin{enumerate}
 \item Dividir la comunicaci'on  en partes m'as peque'nas y sencillas
-\item normalizar los componentes de red para permitir el desarrollo y el soporte de los productos de diferentes fabricantes.
+\item Normalizar los componentes de red para permitir el desarrollo y el soporte de los productos de diferentes fabricantes.
 \item Permitir la interoperabilidad de diferentes tipos de hardware y software de red para comunicarse entre s'i.
 \item Impedir que los cambios en una capa puedan afectar a las otras capas. Facilita la actualizaci'on del protocolo pudiendo modificar un m'odulo a reemplazarlo todo por completo.
 \end{enumerate}
@@ -115,7 +115,7 @@ En esta capa se manejan los detalles de una aplicaci'on particular. Aqu'i se enc
 Provee el servicio de env'io de flujo de datos entre dos hosts. En esta capa se encuentran 2 protocolos muy importantes:
 
 	\subitem TCP (Transfer Control Protocol):
-	
+	\label{tcp}
 	Permite crear conexiones entre hosts para el env'io de flujos de datos. Se ocupa de dividir los datos que vienen de la capa de aplicaci'on en paquetes de un tama'no adecuado para realizar el env'io en las capas inferiores. Tambi'en se encarga del control de la recepci'on de los paquetes enviados, as'i tambi'en como el establecimiento de los tiempos de espera para asegurarse que el otro extremo reconoce los paquetes enviados. Realiza la multiplexaci'on de la conexi'on, es decir, que permite compartir el canal entre varias conexiones.
 	
 	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un paquete SYN\footnote{SYNchronize} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama Three Way Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
@@ -311,10 +311,18 @@ Su especificaci'on se puede ver en \citep{spdyWhitepaper} y su draft se puede en
 	\label{capaSPDY}
 \end{figure}
 
-El protocolo HTTP no tiene estado, y, por cada recurso existe la necesidad de abrir una conexi'on nueva y cerrarla. Esto trae varios problemas. Por cada conexi'on nueva que se hace, se necesitan varios mensajes para establecer la conexi'on TCP, lo que trae varios RTT adicionales a la comunicaci'on. Retrasos debido al ''Slow Start''\footnote{Se comienza enviando un volumen de datos pequeño hasta alcanzar cierto valor llamado Umbral de Congesti'on} de TCP. Clientes que evitan realizar m'ultiples conexiones con el mismo servidor (hasta 6 actualmente PONER REF). A su vez, los servidores crean varios subdominios para almacenar el contenido para que los clientes puedan realizar las peticiones sin tener que evitar las m'ultiples conexiones a un mismo dominio.
+El protocolo HTTP no tiene estado, y, por cada recurso existe la necesidad de abrir una conexi'on nueva y cerrarla. Esto trae varios problemas. Por cada conexi'on nueva que se hace, se necesitan varios mensajes para establecer la conexi'on TCP, lo que trae varios RTT adicionales a la comunicaci'on. Retrasos debido al ''Slow Start''\footnote{Se comienza enviando un volumen de datos pequeño hasta alcanzar cierto valor llamado Umbral de Congesti'on} de TCP. Clientes que evitan realizar m'ultiples conexiones con el mismo servidor (hasta 6 actualmente). A su vez, los servidores crean varios subdominios para almacenar el contenido para que los clientes puedan realizar las peticiones sin tener que evitar las m'ultiples conexiones a un mismo dominio.
+
+El funcionamiento b'asico de SPDY \ref{spdy} puede verse en la Figura \ref{spdy}. Inicia la conexi'on con el servidor realizando el ThreeWay Handshake de TCP (ver \ref{tcp}), se establece una conexi'on segura entre ambos extremos, y luego se pueden empezar a pedir los recursos a trav'es de la misma conexi'on y en paralelo.
+%\clearpage
+\begin{figure}[ht!]
+  	\centering
+	\includegraphics[width=230px]{img/spdy}
+	\caption{\small Funcionamiento de SPDY, extra'ido de \citep{towards}}
+	\label{spdy}
+\end{figure}
 
 SPDY ofrece por sobre HTTP las siguientes mejoras:
-
 \begin{enumerate}
 \item Peticiones Multiplexadas. No existen l'imites de peticiones que se pueden realizar en una sesi'on de SPDY. A causa de que las peticiones son multiplexadas aumenta la eficiencia del protocolo TCP.
 \item Priorizaci'on de Peticiones. Los clientes pueden solicitar al servidor cu'ales recursos quiere obtener antes que otros. Esto evita la congesti'on de recursos que no son cr'iticos cuando todav'ia est'a pendiente el env'io de algun recurso que tiene una prioridad mayor.
@@ -345,5 +353,35 @@ No realiza el 3-way Hanshake en el inicio como TCP. Multiplexa m'ultiples Flujos
 MUX\footnote{http://www.w3.org/Protocols/MUX/} y SMUX\footnote{http://www.w3.org/TR/WD-mux} son protocolos de capa intermedia (entre la capa de transporte y la capa de aplicaci'on) que proporcionan la multiplexaci'on de flujos de datos. Se propusieron al mismo tiempo que HTTP/1.1.
 
 \subsection{Estudios Relacionados}
+\label{estudiosSPDY}
+Se han realizado diversos estudios acerca de la performance de SPDY, que arrojan diferentes resultados. Estos resultados ayudan a ver en qu'e condiciones la utilizaci'on de SPDY realmente mejora la performance de la carga de un sitio.
 
-PAPERS DE SPDY + ARBOL
+Jitendra Padhye y Henrik Frystyk Nielsen, en su Paper ''A comparison of SPDY and HTTP performance'' \citep{comparision}, realizaron una comparaci'on de ambos protocolos en un ambiente controlado. Con un sitio de prueba\footnote{index.html + 20 im'agenes + 3 hojas de estilo}, variando el RTT y el Ancho de Banda, obtuvieron los resultados que se ven en los Gr'aficos \ref{comparision1} y \ref{comparision1}.
+
+\begin{figure}[ht!]
+  	\centering
+	\includegraphics[width=230px]{img/comparision1}
+	\caption{\small SPDY vs HTTP - 10Mbps, extra'ido de \citep{spdyWhitepaper}}
+	\label{comparision1}
+\end{figure}
+
+\begin{figure}[ht!]
+  	\centering
+	\includegraphics[width=230px]{img/comparision2}
+	\caption{\small SPDY vs HTTP - 1Mbps, extra'ido de \citep{spdyWhitepaper}}
+	\label{comparision2}
+\end{figure}
+
+Claramente se observa que, con Anchos de Banda m'as limitados, el incremento de performance de SPDY es bajo (del 3\% al 8\%) frente a un Ancho de Banda de 10mb en el cual el incremento es de hasta 39\%. Lo cual es un indicador de que, en un ambiente en el cual la velocidad del enlace sea pobre (por ejemplo una red 3G), que causa que est'e sujeto a una mayor probabilidad de p'erdidas de paquetes, SPDY no funciona como lo esperado. Posiblemente a causa del alto costo de retransmisi'on del Flujo de Datos, ya que si el Stream se pierde, se debe retransmitir todo completo ya que usa una sola conexi'on entre los extremos para comunicarse.
+
+Otro estudio interesante, relacionado con los resultados del estudio anterior, es ''Towards a SPDYier Mobile Web?'' \citep{towards}. En este paper se estudi'o el rendimiento de SPDY vs HTTP en redes de celulares. Tambi'en concluyen que no hay una diferencia significativa entre los protocolos estudiados. en ese ambiente.
+
+\vspace{5mm}
+
+FALTAN:
+
+SPDY Accelerator for Improving Web Access Speed
+
+The Effect of Network and Infrastructural Variables on SPDY?s Performance
+
+How Speedy is SPDY?
