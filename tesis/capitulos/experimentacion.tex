@@ -2,14 +2,38 @@
 
 \section{Introducci'on}
 
-\section{Extracci'on Top Alexa}
+A los efectos de probar el desempe'no del Proxy, se dise'no un experimento con sitios reales para simular un ambiente adecuado para la prueba. Se extrajeron sitios del Top de Alexa\footnote{http://www.alexa.com/}, que es una compan'ia de Amazon\footnote{http://www.amazon.com} que se especializa en realizar mediciones de tr'afico global y brinda las estad'isticas obtenidas. Tambi'en, ofrece un Ranking Global de los sitios m'as visitados de toda Internet, de este Ranking se extrajeron los sitios para la experimentaci'on. Se desarrollaron herramientas para extraer una porci'on del Ranking de Alexa y tambi'en para automatizar el experimento en s'i.
 
-Script, sitios utilizados (en anexo)
+\section{Ranking de Alexa}
+\label{rankingalexa}
+El Ranking de Alexa se encuentra online en su sitio, pero fue necesario desarrollar una peque'na aplicaci'on para extraer el listado y guardarlo en un archivo de texto para su posterior uso. Esta herramienta se encuentra disponible en Github \citep{alexatop}.
+
+\section{Chrome-har-capturer}
+
+Con la idea de automatizar el experimento, se utiliz'o la herramienta \emph{Chrome-har-capturer} que, a trav'es de la API de depuraci'on remota (ver \citep{debugger}) del Navegador Chrome o Chromium, permite que la herramienta pueda interactuar con dicha aplicaci'on. Esto permite  poder navegar un sitio en particular y obtener un archivo HAR, que contiene los resultados de la interacci'on del navegador con el sitio.
+
+El HAR\footnote{HTTP Archive} obtenido, es un archivo con formato JSON que contiene informaci'on de la interacci'on de un navegador con un sitio \citep{harSpec}. Contiene un registro de cada objeto que est'a siendo cargado por el navegador. La informaci'on acerca de los tiempos que se puede obtener es:
+\begin{enumerate}
+\item Cuanto tarda en recuperar la informaci'on de DNS.
+\item Cuanto tarda en peticionar un objeto.
+\item Cuanto tarda en conectarse al servidor.
+\item Cuanto tarda la transferencia desde el servidor al navegador de cada objeto.
+\end{enumerate}
+
+De este archivo, se pueden extraer 2 valores que son importantes para evaluar el tiempo de carga de los sitios. Estos valores son:
+\begin{enumerate}
+\item onContentLoad: Tiempo en el que el contenido del sitio se carga.
+\item onLoad: Tiempo en el que es sitio se carga seg'un el navegador.
+\end{enumerate}
+
+De los cuales, tomaremos como referencia \emph{onLoad} ya que es el tiempo m'as cercano a la experiencia que tiene un usuario final cuando navega el sitio en cuesti'on. Es decir, es el valor que est'a m'as cerca de lo que tarda el Navegador en renderizar el sitio completo.
 
 \section{Experimento}
 
+Se extrajeron 200 sitios utilizando la herramienta \ref{rankingalexa}, el listado completo para HTTP y HTTPS se puede ver en la Secci'on \ref{sitiosAlexa} de los Ap'endices.
+
+previo: Protocolos Soportados + rtt.
+
 Pseuc'odigo del experimento.
-Chrome-har-capturer
-Porque se usa el onLoad y no el onContentLoad.
 
 \section{Resultados}
