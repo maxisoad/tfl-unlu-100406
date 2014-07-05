@@ -1,11 +1,17 @@
 \chapter{Conceptos sobre Protocolos}
 \label{protocolos}
 \section{Definici'on}
-Un protocolo de comunicaci'on es un conjunto de reglas y normas de transmisi'on, que permite a dos o m'as entidades, comunicarse entre s'i en un canal determinado. Es necesario que, antes de establecer una comunicaci'on entre partes, se definan ciertos protocolos para poder asegurar la interoperabilidad y hacer posible la comunicaci'on entre el emisor y receptor.
+Un protocolo de comunicaci'on es un conjunto de reglas y normas de transmisi'on, que permite a dos o m'as entidades, comunicarse entre s'i.
 
-Las reglas definen la forma en la que debe efectuarse la comunicación, incluyendo cuestiones como la temporizaci'on, secuencia, revisi'on y correcci'on de errores. Define una \textit{sintaxis} (formato de los mensajes), una \textit{sem'antica} (significado de los mensajes) y \textit{sincronizaci'on} (secuenciamiento y temporizaci'on en la comunicaci'on).
+\begin{quote}
+\textit{''Un protocolo define el formato y el orden de los mensajes intercambiados entre dos o m'as entidades que se comunican, as'i como las acciones que se toman en la transmisi'on y/o recepci'on de un mensaje u otro evento \citep{redesComputadores}.''}
+\end{quote}
 
-Para implementar los protocolos, se dividen las tareas a realizar y se realizan en niveles separados (capas). Definir los modelos en capas brinda las siguientes ventajas:
+Es necesario que, antes de establecer una comunicaci'on entre partes, se definan ciertos protocolos para poder asegurar la interoperabilidad y hacer posible la comunicaci'on entre el emisor y receptor.
+
+Las reglas definen la forma en la que debe efectuarse la comunicaci'on, incluyendo cuestiones como la temporizaci'on, secuencia, revisi'on y correcci'on de errores. Define una \textit{sintaxis} (formato de los mensajes), una \textit{sem'antica} (significado de los mensajes) y \textit{sincronizaci'on} (secuenciamiento y temporizaci'on en la comunicaci'on).
+
+Las tareas a realizar se dividen en niveles (capas), luego, los protocolos de cada capa son los que resuelven las tareas. Definir los modelos en capas brinda las siguientes ventajas:
 
 \begin{enumerate}
 \item Dividir la comunicaci'on  en partes m'as peque'nas y sencillas
@@ -16,7 +22,7 @@ Para implementar los protocolos, se dividen las tareas a realizar y se realizan 
 
 \section{Modelo OSI}
 \label{osi}
-En los inicios de Internet, hubo un gran crecimiento tanto en cantidad como en tamaño de las redes. Debido a esto, muchas de las redes eran incompatibles entre s'i, y era extremadamente complicada la comunicaci'on entre ellas. Para solucionar este problema, la ISO\footnote{International Standard Organization}, realiz'o ciertas investigaciones acerca de los esquemas de red. En 1980 \citep{zim80}, cre'o un modelo de red para ayudar a los diseñadores de redes a poder implementar redes que puedan comunicarse entre s'i y trabajar en conjunto. Este es el modelo de referencia OSI, definida en la ISO/IEC 7498-1 \citep{osi74981}. Este modelo se agrupa en capas, cada capa agrupa una funci'on determinada. Est'an organizadas jer'arquicamente, cada capa ofrece un servicio a la capa superior.
+En los inicios de Internet, hubo un gran crecimiento tanto en cantidad como en tamaño de las redes. Debido a esto, muchas de las redes eran incompatibles entre s'i, y era extremadamente complicada la comunicaci'on entre ellas. Para solucionar este problema, la ISO\footnote{International Standard Organization}, realiz'o ciertas investigaciones acerca de los esquemas de red. En 1980 \citep{zim80}, cre'o un modelo de red para ayudar a los diseñadores de redes a poder implementar redes que puedan comunicarse entre s'i y trabajar en conjunto. Este es el modelo de referencia OSI, definida en la ISO/IEC 7498-1 \citep{osi74981}. Este modelo se agrupa en capas, cada capa agrupa una funci'on determinada. Est'an organizadas jer'arquicamente, cada capa ofrece un servicio a la capa superior. Es un modelo te'orico, toma la experiencia de la pila de protocolos TCP/IP (ver \ref{tcpip}), modelo que soporta Internet.
 
 El modelo tiene 7 capas:
 \begin{itemize}
@@ -32,21 +38,18 @@ Se puede ver su distribuci'on en la Figura \ref{capasOSI}
 
 \begin{figure}[h]
   	\centering
-	\includegraphics[width=\textwidth]{img/capasOSI}
-	\caption{\small Gr'afico de las capas OSI extra'ida de \cite{osi74981}}
+	\includegraphics[width=\textwidth]{img/osi}
+	\caption{\small Capas OSI, extra'ido de http://www.gargasz.info/}
 	\label{capasOSI}
 \end{figure}
 
 \subsection{Capa de Aplicaci'on}
 
-Proporciona servicios de red a las aplicaciones del Usuario, es la 'unica capa que no provee servicios a otra capa. Si bien es la interfaz hacia el usuario, este no interact'ua directamente con esta capa, sino que lo hace a trav'ez de una aplicaci'on que si tiene acceso directo a esta capa. Entre los protocolos de esta capa se encuentran FTP, POP, SMTP, HTTP, HTTPS, SSH entre otros.
+Proporciona servicios de red a las aplicaciones del usuario, es la 'unica capa que no provee servicios a otra capa. Si bien es la interfaz hacia el usuario, este no interact'ua directamente con esta capa, sino que lo hace a trav'ez de una aplicaci'on que si tiene acceso directo a esta capa.
 
 \subsection{Capa de Presentaci'on}
 
-Define el formato de los datos que se van a intercambiar entre 
-las aplicaciones y ofrece a los programas de aplicación un 
-conjunto de servicios de transformación de datos como
-podemos resumir definiendo a esta capa como la encargada de manejar las estructuras de datos abstractas y realizar las conversiones de representación de datos necesarias para la correcta interpretación de los mismos
+Define el formato de los datos que se van a intercambiar entre las aplicaciones y ofrece a los programas de aplicaci'on un conjunto de servicios de transformaci'on de datos. Esta capa es la encargada de manejar las estructuras de datos abstractas y realizar las conversiones de representaci'on de datos necesarias para la correcta interpretaci'on de los mismos.
 
 \subsection{Capa de Sesi'on}
 
@@ -54,7 +57,7 @@ Esta capa establece, administra y finaliza las sesiones entre las partes intervi
 
 \subsection{Capa de Transporte}
 
-Esta capa provee un Servicio de Transporte Universal. Ofrece transparencia en el intercambio de datos entre los hosts involucrados (extremo a extremo) y a'isla a las capas superiores de los detalles de implementaci'on del transporte. Asegura que los datos enviados lleguen en el mismo orden en el que han sido enviados y sin errores, brindando calidad de servicio y confiabilidad en la comunicaci'on.
+Esta capa provee un servicio de transporte universal. Ofrece transparencia en el intercambio de datos entre los hosts involucrados (extremo a extremo) y a'isla a las capas superiores de los detalles de implementaci'on del transporte. Asegura que los datos enviados lleguen en el mismo orden en el que han sido enviados y sin errores, brindando calidad de servicio y confiabilidad en la comunicaci'on.
 
 \subsection{Capa de Red}
 
@@ -66,7 +69,7 @@ Proporciona una comunicaci'on confiable entre equipos adyacentes. Se ocupa del d
 
 \subsection{Capa F'isica}
 
-Esta capa provee las caracter'isticas procedurales, funcionales, el'ectricas y mec'anicas para establecer, mantener y cerrar conexiones f'isicas. Define como se transmiten los datos al medio, recibe mensajes y los transforma en bits para su posterior env'io a trav'ez de se'nales. Ciertas caracter'isticas tales como los conectores f'isicos, niveles de voltaje, duraci'on de un bit, velocidad de los datos f'isicos, temporizaci'on y otros datos similares son definidos por las especificaciones de esta capa.
+Esta capa provee las caracter'isticas procedurales, funcionales, el'ectricas y mec'anicas para establecer, mantener y cerrar conexiones f'isicas. Define como se transmiten los datos al medio, recibe mensajes y los transforma en bits para su posterior env'io a trav'es de se'nales. Ciertas caracter'isticas tales como los conectores f'isicos, niveles de voltaje, duraci'on de un bit, velocidad de los datos f'isicos, temporizaci'on y otros datos similares son definidos por las especificaciones de esta capa.
 
 \subsection{Funciones de los Protocolos}
 
@@ -74,7 +77,7 @@ Entre las funciones de los protocolos se encuentran:
 \begin{enumerate}
 \item Encapsulamiento: 
 
-Cada capa tiene lo que se conoce como PDU (Unidad de Datos del Protocolo), que es el resultado de la capa anterior con informaci'on propia. A medida que los datos van bajando a trav'ez de las capas se agregan encabezados y eventualmente una cola a los datos con informaci'on correspondiente a cada capa. Estos agregados contienen informaci'on de control para asegurar la entrega de los datos y la correcta interpretaci'on de los mismos en el receptor. Una vez que se re'una la informaci'on de todas las capas, se convierten en bits y son enviadas por el medio f'isico. En la Figura \ref{encapsulamiento} puede verse como se van acoplando las PDUs a medida que se avanza hacia abajo en el Modelo OSI.
+Cada capa define lo que se conoce como PDU (Unidad de Datos del Protocolo), que es el resultado de la capa anterior con informaci'on propia. A medida que los datos van bajando a trav'es de las capas se agregan encabezados y eventualmente una cola a los datos con informaci'on correspondiente a cada capa. Estos agregados contienen informaci'on de control para asegurar la entrega de los datos y la correcta interpretaci'on de los mismos en el receptor. Una vez que se re'una la informaci'on de todas las capas, se convierten en bits y son enviadas por el medio f'isico. En la Figura \ref{encapsulamiento} puede verse como se van acoplando las PDUs a medida que se avanza hacia abajo en el Modelo OSI.
 
 \begin{figure}[h]
   	\centering
@@ -91,7 +94,7 @@ Asegurar que la velocidad de los datos no sature las posibilidades particulares 
 \end{enumerate}
 
 \section{TCP/IP}
-
+\label{tcpip}
 El conjunto de protocolos TCP/IP permite que computadoras de distintos tama'nos, marcas, y diferentes sistemas operativos puedan lograr una comunicaci'on entre s'i \citep{tcpipIluistrated}. Su desarrollo comenz'o hacia los a'nos 60', y en los 90' se convirtieron en los protocolos m'as utilizados en las redes.
 Conforma la base de Internet, la \textsc{wan}\footnote{Wide Area Network, Red de 'Area Amplia} que conecta millones de dispositivos en todo el planeta.
 
@@ -109,7 +112,7 @@ Tiene un dise'no en capas similar al del Modelo OSI (ver Secci'on \ref{osi}), en
 \begin{enumerate}
 \item Aplicaci'on
 
-En esta capa se manejan los detalles de una aplicaci'on particular. Aqu'i se encuentran protocolos muy conocidos tales como HTTP (Hipertext Transfer Protocol), FTP (File Transfer Protocol), SMTP (Simple Mail Transfer Protocol), SNMP (Simple Network Management Protocol), Telnet (para login remoto), DNS (Domain Name System).
+En esta capa se manejan los detalles de una aplicaci'on particular. Aqu'i se encuentran protocolos muy conocidos tales como HTTP (Hipertext Transfer Protocol), HTTPS (Hipertext Transfer Protocol Secure),  FTP (File Transfer Protocol), POP (Post Office Protocol), SMTP (Simple Mail Transfer Protocol), SNMP (Simple Network Management Protocol), Telnet (para login remoto), DNS (Domain Name System) \citep{redesComputadores}.
 \item Transporte
 
 Provee el servicio de env'io de flujo de datos entre dos hosts. En esta capa se encuentran 2 protocolos muy importantes:
@@ -118,7 +121,7 @@ Provee el servicio de env'io de flujo de datos entre dos hosts. En esta capa se 
 	\label{tcp}
 	Permite crear conexiones entre hosts para el env'io de flujos de datos. Se ocupa de dividir los datos que vienen de la capa de aplicaci'on en paquetes de un tama'no adecuado para realizar el env'io en las capas inferiores. Tambi'en se encarga del control de la recepci'on de los paquetes enviados, as'i tambi'en como el establecimiento de los tiempos de espera para asegurarse que el otro extremo reconoce los paquetes enviados. Realiza la multiplexaci'on de la conexi'on, es decir, que permite compartir el canal entre varias conexiones.
 	
-	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un paquete SYN\footnote{SYNchronize} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama Three Way Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
+	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un mensaje SYN\footnote{SYNchronize} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama Three Way Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
 	
 	\begin{figure}[ht]
   	\centering
@@ -129,13 +132,14 @@ Provee el servicio de env'io de flujo de datos entre dos hosts. En esta capa se 
 
 	\subitem UDP (User Datagram Protocol):
 	
-	Se ocupa de enviar paquetes de datos llamados Datagramas de un extremo a otro, sin realizar una conexi'on previa, el mismo Datagrama posee suficiente informaci'on para llegar a destino. No brinda ninguna garant'ia de que el paquete llegue a su destino y tampoco hace control de flujo.
+	Se ocupa de enviar paquetes de datos llamados datagramas de un extremo a otro, sin realizar una conexi'on previa, el mismo datagrama posee suficiente informaci'on para llegar a destino. No brinda ninguna garant'ia de que el paquete llegue a su destino y tampoco hace control de flujo.
 \item Red
 
-Esta capa, a veces llamada Capa de Internet, maneja el movimiento de los paquetes a trav'es de la red. El enrutamiento y encaminamiento de los paquetes tiene lugar en esta capa. Protocolos como IP (Internet Protocol), ICMP (Internet Control Message Protocol) e IGMP (Internet Group Management Protocol) conforman esta capa.
+Esta capa, a veces llamada capa de Internet, maneja el movimiento de los paquetes a trav'es de la red. El enrutamiento y encaminamiento de los paquetes tiene lugar en esta capa. El protocolo principal de esta capa es IP (Internet Protocol), define el direccionamiento de la capa de red, los campos del datagrama, y las acciones tomadas por los routers y los sistemas finales sobre el datagrama bas'andose en los valores de dichos campos \citep{redesComputadores}. Otros protocolos de esta capa son: ICMP (Internet Control Message Protocol) e IGMP (Internet Group Management Protocol).
+
 \item Enlace
 
-Esta capa, a veces llamada capa de Enlace de Datos o capa de Interfaz de Red, incluye el Driver\footnote{Controlador de Dispositivo} del Sistema Operativo y la correspondiente Placa de Red del dispositivo. Juntos se encargan de todos los detalles del Hardware y de la interconexi'on f'isica con el Medio (Cable, WiFi, Fibra 'Optica, etc.).
+Esta capa, a veces llamada capa de enlace de datos o capa de interfaz de red, incluye el driver\footnote{Controlador de Dispositivo} del sistema operativo y la correspondiente placa de red del dispositivo. Juntos se encargan de todos los detalles del hardware y de la interconexi'on f'isica con el medio (Cable, WiFi, Fibra 'Optica, etc.).
 \end{enumerate}
 
 \subsection{TCP/IP y el Modelo OSI}
@@ -144,15 +148,15 @@ Similitudes
 \begin{enumerate}
 \item Ambos se dividen en capas.
 \item Ambos tienen Capa de Aplicaci'on, pero ofrecen servicios diferentes.
-\item La Capa de Transporte y la de Red son similares.
+\item La capa de transporte y la de red son similares.
 \item La conmutaci'on es por paquetes\footnote{M'etodo de env'io de datos, cada paquete posee datos e informaci'on de control que indica la ruta a destino.} (no por circuitos).
 \end{enumerate}
 
 Diferencias:
 \begin{enumerate}
-\item En la Capa de Aplicaci'on de TCP/IP se combinan las Capas de Presentaci'on y de Sesi'on del Modelo OSI.
-\item En la Capa de Enlace de TCP/IP se combinan las Capas de Enlace y de F'isica del Modelo OSI.
-\item Al tener menos Capas, TCP/IP es m'as simple.
+\item En la capa de aplicaci'on de TCP/IP se combinan las capas de presentaci'on y de sesi'on del Modelo OSI.
+\item En la capa de enlace de TCP/IP se combinan las capas de enlace y de f'isica del Modelo OSI.
+\item Al tener menos capas, TCP/IP es m'as simple.
 \item TCP/IP es el est'andar de Internet, las redes no se desarrollan a partir del Modelo OSI, se utiliza como gu'ia.
 \end{enumerate}
 
@@ -165,9 +169,9 @@ Diferencias:
 
 \section{HTTP}
 \label{http}
-Las siglas de este protocolo son por HyperText Transfer Protocol (Protocolo de Transferencia de Hipertexto). Es un protocolo de capa de aplicaci'on (ver Secci'on \ref{osi}) que sirve para distribuir informaci'on. Fu'e utilizado en la Web desde el a'no 1990 en su primera versi'on (0.9), en la que simplemente se pod'ia transferir texto plano. Su evoluci'on fue el est'andar 1.0 en el que se mejor'o el protocolo permitiendo que los mensajes usen el formato \gls{mime}, se incorporaron metadatos acerca de la informaci'on transferida y modificadores en la sem'antica de petici'on/respuesta. La revisi'on del protocolo que se usa actualmente es la 1.1, definida en la RFC 2616 \citep{rfcHTTP1.1}. Contiene nuevos metodos, headers y otras caracter'isticas. Las principales diferencias de esta 'ultima definici'on se pueden ver en \citep{http1011}.
+Las siglas de este protocolo son por HyperText Transfer Protocol (Protocolo de Transferencia de Hipertexto). Es un protocolo de capa de aplicaci'on (ver Secci'on \ref{osi}) que sirve para distribuir informaci'on. Fu'e utilizado en la web desde el a'no 1990 en su primera versi'on (0.9), en la que simplemente se pod'ia transferir texto plano. Su evoluci'on fue el est'andar 1.0 en el que se mejor'o el protocolo permitiendo que los mensajes usen el formato \gls{mime}, se incorporaron metadatos acerca de la informaci'on transferida y modificadores en la sem'antica de petici'on/respuesta. La revisi'on del protocolo que se usa actualmente es la 1.1, definida en la RFC 2616 \citep{rfcHTTP1.1}. Contiene nuevos metodos, headers y otras caracter'isticas. Las principales diferencias de esta 'ultima definici'on se pueden ver en \citep{http1011}.
 
-El contenido web reside en Servidores, estos son los que se comunican utilizando este protocolo entre otros. Sirven \textsc{recursos}, estos recursos pueden ser p'aginas HTML, im'agenes, PDF's, video, etc, tanto contenido est'atico como din'amico (generado a demanda). Debido a la gran diversidad de contenido que provee un Servidor, es necesario identificar el tipo de recurso que se est'a enviando. Esto se hace utilizando una etiqueta llamada MIME-Type, que define el tipo de contenido a transferir.
+El contenido web reside en servidores, estos son los que se comunican utilizando este protocolo entre otros. Sirven \textsc{recursos}, estos recursos pueden ser p'aginas HTML, im'agenes, PDF's, video, etc, tanto contenido est'atico como din'amico (generado a demanda). Debido a la gran diversidad de contenido que provee un Servidor, es necesario identificar el tipo de recurso que se est'a enviando. Esto se hace utilizando una etiqueta llamada MIME-Type, que define el tipo de contenido a transferir.
 
 Cada recurso del servidor tiene un nombre, para que los clientes puedan apuntar directamente al recurso deseado. Se nombra con una URL, que tiene el siguiente formato:
 
@@ -175,7 +179,7 @@ Cada recurso del servidor tiene un nombre, para que los clientes puedan apuntar 
 PROTOCOLO://SERVIDOR/PATH\_AL\_RECURSO/RECURSO
 \end{quote}
 
-El funcionamiento b'asico es, el cliente env'ia una petici'on al Servidor (al puerto 80 por defecto) y este le responde. Esta comunicaci'on se realiza a trav'ez de mensajes HTTP. Existen diferentes m'etodos que se pueden utilizar cuando se env'ia una petici'on al servidor, tales como
+El funcionamiento b'asico es, el cliente env'ia una petici'on al servidor (al puerto 80 por defecto) y este le responde. Esta comunicaci'on se realiza a trav'es de mensajes HTTP. Existen diferentes m'etodos que se pueden utilizar cuando se env'ia una petici'on al servidor, tales como
 
 \begin{enumerate}
 \item GET - El cliente solicita un recurso espec'ifico del servidor.
@@ -183,8 +187,8 @@ El funcionamiento b'asico es, el cliente env'ia una petici'on al Servidor (al pu
 \item HEAD - El cliente solicita s'olo los Headers (se detallar'an m'as adelante).
 \end{enumerate}
 
-Estos son algunos de los m'etodos, hay otros tales como PUT, DELETE, etc. Seg'un el m'etodo, el servidor opera de manera diferente. En la petici'on se env'ia el m'etodo, el recurso solicitado, la versi'on del protocolo utilizado, el host, el user-agent\footnote{Qui'en est'a generando la petici'on, por ejemplo Mozilla o Safari (browser, proxy, etc.).}, entre otros.
-El Servidor, responde a la petici'on con una respuesta, que contiene un c'odigo de estado de 3 d'igitos que le dice al cliente que la petici'on fue exitosa u otras, por ejemplo 200 (OK) o 404 (Documento no encontrado) de los m'as comunes.
+Estos son algunos de los m'etodos, hay otros tales como PUT, DELETE, etc. Seg'un el m'etodo, el servidor opera de manera diferente. En la petici'on se env'ia el m'etodo, el recurso solicitado, la versi'on del protocolo utilizado, el host, el user-agent\footnote{Qui'en est'a generando la petici'on, por ejemplo Mozilla, Safari, Squid (browser, proxy, etc.).}, entre otros.
+El servidor, responde a la petici'on con una respuesta, que contiene un c'odigo de estado de 3 d'igitos que le dice al cliente que la petici'on fue exitosa u otras, por ejemplo 200 (OK) o 404 (Documento no encontrado) de los m'as comunes.
 
 Los mensajes de HTTP consisten en peticiones y respuestas, sus formatos son similares. Consisten en 3 partes:
 
@@ -216,37 +220,34 @@ $<$cuerpo$>$
 
 \subsection{HEADERS}
 \label{headers}
-Los Headers, a'naden informacion adicional a las peticiones y respuestas. El protocolo define varios Headers, pero se pueden inventar tambi'en, los servidores y clientes son libres de hacerlo. Hay diferentes tipos de Headers, entre los que se encuentran:
+Los headers, a'naden informacion adicional a las peticiones y respuestas. El protocolo define varios headers, pero se pueden inventar tambi'en, los servidores y clientes son libres de hacerlo. Hay diferentes tipos de headers, entre los que se encuentran:
 
 \begin{enumerate}
-\item Headers Generales
+\item Headers generales
 
 Pueden aparecer en peticiones y respuestas.
-\item Headers de Peticiones.
+\item Headers de peticiones.
 
 Proveen m'as informaci'on acerca de las peticiones.
 \item Headers de respuesta.
 
-Proveen m'as informaci'on acerca de las respuestas.
-\item Entity Headers (ENTIDAD?)
-
 Proveen informaci'on acerca del recurso del mensaje.
-\item Headers de Extensi'on
+\item Headers de extensi'on
 
 Permite agregar nuevos headers que no est'en dentro de la especificaci'on est'andar \citep{rfcHTTP1.1}.
 \end{enumerate}
 
-La definici'on completa de los Headers se encuentra en la Secci'on 14 de \citep{rfcHTTP1.1}.
+La definici'on completa de los headers se encuentra en la Secci'on 14 de \citep{rfcHTTP1.1}.
 
 \section{HTTPS}
 
 Los usuarios de Internet, utilizan la web para hacer transacciones que requieren que el nivel de seguridad sea fuerte. Operaciones como realizar transacciones bancarias o hacer compras online, no se realizar'ian si los datos que el usuario env'ia al servidor viajan desprotegidos. Ante esta necesidad, se combina el protocolo HTTP con la tecnolog'ia de encriptaci'on digital.
-HTTPS es la versi'on ''segura'' de HTTP, a'nade a este protocolo, una capa de cifrado utilizando SSL (el predecesor de TLS) sobre TCP, como se puede ver en la Figura \ref{httpvshttps}. Se define en la RFC 2818 \citep{rfcHTTPS}. Se distingue el tr'afico seguro del inseguro por la utilizaci'on de un n'umero de puerto diferente.
+HTTPS es la versi'on ''segura'' de HTTP, a'nade a este protocolo, una capa de cifrado utilizando SSL \footnote{Secure Sockets Layer.} (el predecesor de TLS\footnote{Transport Layer Security.}) sobre TCP, como se puede ver en la Figura \ref{httpvshttps}. Se define en la RFC 2818 \citep{rfcHTTPS}. Se distingue el tr'afico seguro del inseguro por la utilizaci'on de un n'umero de puerto diferente.
 
 \begin{figure}[h]
   	\centering
 	\includegraphics{img/httpvshttps}
-	\caption{\small Comparaci'on entre HTTP y HTTPS, extra'ido del libro \citep{httpGuide}}
+	\caption{\small Comparaci'on entre HTTP y HTTPS, extra'ido de \citep{httpGuide}}
 	\label{httpvshttps}
 \end{figure}
 
@@ -256,14 +257,28 @@ La conexi'on se hace con otro puerto diferente al de HTTP ya que SSL es un proto
 
 \subsection{Criptograf'ia}
 
-La criptograf'ia es el arte y la ciencia de codificar y decodificar mensajes, alterando la representaci'on lingu;istica de mensajes, buscando la confidencialidad y para prevenir la manipulaci'on de los mismos. Tambi'en se utiliza para probar quien fue el autor del mensaje o una transacci'on (no repudio).
+La criptograf'ia es el arte y la ciencia de codificar y decodificar mensajes, alterando la representaci'on lingu'istica de mensajes, buscando la confidencialidad y para prevenir la manipulaci'on de los mismos. Tambi'en se utiliza para probar quien fue el autor del mensaje o una transacci'on (no repudio).
 
-Se basa en Algoritmos de Cifrado (Ciphers) que tiene un m'etodo para codificar el mensaje y otro para decodificarlo posteriormente. Comenzaron siendo algoritmos simples hasta que se empezaron a construir m'aquinas \footnote{Ver Alemana M'aquina Enigma, http://www.bbc.co.uk/history/topics/enigma} para reforzar la seguridad de la encriptaci'on haciendo operaciones m'as complejas. A causa de que estos algoritmos y m'aquinas pod'ian llegar a manos no apropiadas, se incluyeron diversos m'etodos (llaves met'alicas, diales de configuraci'on), que actuan como entrada para que el algoritmo o m'aquina pudiera funcionar. De esta manera, a'un teniendo el algoritmo o dispositivo, sin la clave no se puede decodificar.
+Se basa en Algoritmos de Cifrado (Ciphers) que tienen un m'etodo para codificar el mensaje y otro para decodificarlo posteriormente. Comenzaron siendo algoritmos simples hasta que se empezaron a construir m'aquinas\footnote{Ver M'aquina Enigma Alemana, http://www.bbc.co.uk/history/topics/enigma} para reforzar la seguridad de la encriptaci'on haciendo operaciones m'as complejas. A causa de que estos algoritmos y m'aquinas pod'ian llegar a manos no apropiadas, se incluyeron diversos m'etodos (llaves met'alicas, diales de configuraci'on), que actuan como entrada para que el algoritmo o m'aquina pudiera funcionar. De esta manera, a'un teniendo el algoritmo o dispositivo, sin la clave no se puede decodificar.
 
-En la Era Digital, los m'etodos (clave) para la entrada de los algoritmos de encriptaci'on son simplemente n'umeros. Estos algoritmos son funciones que toman una porci'on de datos y la codifican/decodifican basados en el algoritmo de encriptaci'on y la clave proporcionada.
+En la era digital, los m'etodos (clave) para la entrada de los algoritmos de encriptaci'on son simplemente n'umeros. Estos algoritmos son funciones que toman una porci'on de datos y la codifican/decodifican basados en el algoritmo de encriptaci'on y la clave proporcionada.
 
-La Criptograf'ia puede ser Sim'etrica, es decir, que la clave para encriptar y desencriptar el mensaje es la misma. De esta manera, tanto el emisor como el receptor deben intercambiarse previamente la clave, antes de comenzar la comunicaci'on.
-En la Criptograf'ia de Clave P'ublica (ver Figura \ref{clavePublica}), las claves son Asim'etricas, es decir, que la clave para encriptar difiere de la clave para desencriptar el mensaje. En este tipo de Criptograf'ia, la clave para encriptar el mensaje es P'ublica, cualquiera que quiera establecer una conexi'on con seguridad, puede obtener la clave\footnote{Almacenada en Servidores de Acceso P'ublico} para iniciar la comunicaci'on. Por otro lado, la clave para desencriptar los mensajes es privada, pertenece al Servidor que es el 'unico que puede decodificar los mensajes recibidos por el Cliente.
+\subsubsection{Criptograf'ia Sim'etrica}
+
+La criptograf'ia puede ser sim'etrica, es decir, que la clave para encriptar y desencriptar el mensaje es la misma. De esta manera, tanto el emisor como el receptor deben intercambiarse previamente la clave, antes de comenzar la comunicaci'on.
+
+El algoritmo m'as conocido de criptograf'ia sim'etrica es el DES (Data Encryption Standard) \citep{des}. Se trata de un algoritmo que utiliza claves de 56 bits para cifrar/descifrar bloques de datos de 64 bits. El uso de m'ultiples claves conduce al algoritmo Triple-DES, en el que DES se aplica 3 veces, consiste en 3 claves de 56 bits que se utilizan sucesivamente en los datos a cifrar/descifrar como puede verse en la Figura \ref{tripleDes}.
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=300px]{img/tripleDes}
+	\caption{\small Algoritmo Triple-DES, extra'ido de http://flylib.com/}
+	\label{tripleDes}
+\end{figure}
+
+\subsubsection{Criptograf'ia As'imetrica}
+
+En la criptograf'ia de clave p'ublica (ver Figura \ref{clavePublica}), las claves son Asim'etricas, es decir, que la clave para encriptar difiere de la clave para desencriptar el mensaje. En este tipo de criptograf'ia, la clave para encriptar el mensaje es p'ublica, cualquiera que quiera establecer una conexi'on con seguridad, puede obtener la clave\footnote{Almacenada en servidores de acceso p'ublico.} para iniciar la comunicaci'on. Por otro lado, la clave para desencriptar los mensajes es privada, pertenece al servidor que es el 'unico que puede decodificar los mensajes recibidos por el cliente.
 
 \begin{figure}[h]
   	\centering
@@ -272,9 +287,28 @@ En la Criptograf'ia de Clave P'ublica (ver Figura \ref{clavePublica}), las clave
 	\label{clavePublica}
 \end{figure}
 
+RSA (Rivest, Shamir y Adleman) \citep{rsa} es un algoritmo asim'etrico que se utiliza en firma digital\footnote{Mecanismo criptogr'afico que permite al receptor del mensaje poder determinar la entidad del emisor y confirmar que el mensaje no ha sido alterado desde que fue firmado.}. La clave utilizada para cifrar es diferente (pero relacionada) a la que se utiliza para descifrar. El algoritmo consta de los siguientes pasos:
+
+\begin{enumerate}
+\item Se seleccionan 2 n'umeros primos \textit{p} y \textit{q}.
+\item Se calcula el producto de ambos n'umeros \textit{n = p * q}, este n'umero se llama \textit{m'odulo}.
+\item Se elige un n'umero entero \textit{e} tal que \textit{1 $<$ e $<$ (p-1)*(q-1)}.
+\item Se calcula \textit{d = $e^{-1}$ mod[(p-1)*(q-1)]}.
+\end{enumerate}
+La clave p'ublica es el par de n'umeros (n,e) y la clave privada es el par de n'umeros (n,d).
+
+Para encriptar un mensaje \textit{m} se calcula:
+\begin{quote}
+$c \equiv m^e \pmod{n}$
+\end{quote}
+Para desencriptar un mensaje \textit{c} se calcula:
+\begin{quote}
+$\equiv c^d \pmod{n}$
+\end{quote}
+
 \subsection{Conexi'on}
 
-El procedimiento para iniciar la conexi'on es el siguiente: El cliente abre una conexi'on con el puerto 443 al servidor. Una vez que la conexi'on TCP est'a establecida, el cliente y el servidor inicializan la capa SSL negociando algunos par'ametros criptogr'aficos e intercambiando llaves. Una vez concluida esta negociaci'on, ya pueden empezar a intercambiar mensajes encriptados. Se puede ver el resumen en la Figura \ref{httpsConnection}.
+Una conexi'on es el enlace que se establece entre el emisor y el receptor a trav'es del cual, se env'ia un mensaje. El procedimiento para iniciar una comunicaci'on HTTPS es el siguiente: El cliente abre una conexi'on con el puerto 443 al servidor. Una vez que la conexi'on TCP est'a establecida, el cliente y el servidor inicializan la capa SSL negociando algunos par'ametros criptogr'aficos e intercambiando llaves. Una vez concluida esta negociaci'on, ya pueden empezar a intercambiar mensajes encriptados. Se puede ver en detalle en la Figura \ref{httpsConnection}.
 
 \begin{figure}[h!]
   	\centering
@@ -288,20 +322,20 @@ El procedimiento para iniciar la conexi'on es el siguiente: El cliente abre una 
 
 \subsection{Introducci'on}
 
-Desarrollado por Google a mediados del 2009, SPDY es un protocolo experimental cuya meta principal es reducir los tiempos de carga de los sitios enfoc'andose en las limitaciones de HTTP (ver \ref{http}).
-Espec'ificamente se busca lo siguiente (extra'ido de \citep{highPerformance}):
+SPDY es un protocolo experimental desarrollado por Google a mediados del 2009, cuya meta principal es reducir los tiempos de carga de los sitios enfoc'andose en las limitaciones de HTTP (ver \ref{http}).
+Espec'ificamente se busca lo siguiente \citep{highPerformance}:
 \begin{enumerate}
-\item Reducir un 50\% el Tiempo de Carga de los Sitios.
+\item Reducir el Tiempo de Carga de los Sitios.
 \item Evitar la necesidad de que los desarrolladores tengan que realizar cambios a los sitios actuales.
 \item Evitar cambios en la infraestructura de las redes y minificar la complejidad de implementaci'on.
 \item Liberar el desarrollo a la comunidad de c'odigo abierto.
 \item Recopilar datos reales de rendimiento para validar o invalidar el protoclo experimental.
 \end{enumerate}
-Ya para el 2012 el protocolo era soportado por Chrome\footnote{http://www.google.com/intl/es\_AR/chrome/browser/}, Mozilla Firefox\footnote{http://www.mozilla.org/es-AR/firefox/new/}, y Opera\footnote{http://www.opera.com/} y varios sitios populares (Google, Facebook, Twitter) ya ofrec'ian un cliente para la utilizaci'on del protocolo.
+Desde el a'no 2012 el protocolo es soportado por los navegadores Chrome\footnote{http://www.google.com/intl/es\_AR/chrome/browser/}, Mozilla Firefox\footnote{http://www.mozilla.org/es-AR/firefox/new/}, y Opera\footnote{http://www.opera.com/}. Existen varias opciones de servidores que soportan el protocolo tales como Apache\footnote{http://code.google.com/p/mod-spdy/}, Jetty\footnote{http://wiki.eclipse.org/Jetty/Feature/SPDY} y NodeJS\footnote{https://github.com/indutny/node-spdy}. Varios sitios populares (Google, Facebook, Twitter) ya ofrecen un cliente para la utilizaci'on del protocolo. 
 
-\subsection{El Protocolo}
+\subsection{Detalles del Protocolo}
 
-Es un protocolo de aplicaci'on que a'nade una capa de sesi'on que funciona sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples Streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
+Es un protocolo que a'nade una capa de sesi'on que funciona sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples Streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
 Su especificaci'on se puede ver en \citep{spdyWhitepaper} y su draft se puede encontrar en \citep{spdyDraft}.
 
 \begin{figure}[h]
@@ -311,7 +345,21 @@ Su especificaci'on se puede ver en \citep{spdyWhitepaper} y su draft se puede en
 	\label{capaSPDY}
 \end{figure}
 
-El protocolo HTTP no tiene estado, y, por cada recurso existe la necesidad de abrir una conexi'on nueva y cerrarla. Esto trae varios problemas. Por cada conexi'on nueva que se hace, se necesitan varios mensajes para establecer la conexi'on TCP, lo que trae varios RTT adicionales a la comunicaci'on. Retrasos debido al ''Slow Start''\footnote{Se comienza enviando un volumen de datos pequeño hasta alcanzar cierto valor llamado Umbral de Congesti'on} de TCP. Clientes que evitan realizar m'ultiples conexiones con el mismo servidor (hasta 6 actualmente). A su vez, los servidores crean varios subdominios para almacenar el contenido para que los clientes puedan realizar las peticiones sin tener que evitar las m'ultiples conexiones a un mismo dominio.
+El protocolo HTTP no tiene estado, y, por cada recurso que requiera existe la necesidad de abrir una conexi'on nueva y cerrarla. Esto trae varios problemas:
+\begin{enumerate}
+\item Por cada conexi'on nueva que se hace, se necesitan varios mensajes para establecer la conexi'on TCP, lo que trae varios RTT (Round Trip Time) adicionales a la comunicaci'on. El RTT es el tiempo estimado para enviar y recibir un mensaje por parte del interlocutor \citep{tcpipIluistrated}, puede verse en la Figura \ref{rtt}.
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=200px]{img/rtt}
+	\caption{\small RTT}
+	\label{rtt}
+\end{figure}
+
+\item Retrasos debido al ''Slow Start'' de TCP. Se comienza enviando un volumen de datos peque'no hasta alcanzar cierto valor llamado Umbral de Congesti'on.
+\item Clientes que evitan realizar m'ultiples conexiones con el mismo servidor (hasta 6 actualmente).
+\item  A su vez, los servidores crean varios subdominios para almacenar el contenido para que los clientes puedan realizar las peticiones sin tener que evitar las m'ultiples conexiones a un mismo dominio.
+\end{enumerate}
 
 El funcionamiento b'asico de SPDY \ref{spdy} puede verse en la Figura \ref{spdy}. Inicia la conexi'on con el servidor realizando el ThreeWay Handshake de TCP (ver \ref{tcp}), se establece una conexi'on segura entre ambos extremos, y luego se pueden empezar a pedir los recursos a trav'es de la misma conexi'on y en paralelo.
 %\clearpage
@@ -325,9 +373,9 @@ El funcionamiento b'asico de SPDY \ref{spdy} puede verse en la Figura \ref{spdy}
 SPDY ofrece por sobre HTTP las siguientes mejoras:
 \begin{enumerate}
 \item Peticiones Multiplexadas. No existen l'imites de peticiones que se pueden realizar en una sesi'on de SPDY. A causa de que las peticiones son multiplexadas aumenta la eficiencia del protocolo TCP.
-\item Priorizaci'on de Peticiones. Los clientes pueden solicitar al servidor cu'ales recursos quiere obtener antes que otros. Esto evita la congesti'on de recursos que no son cr'iticos cuando todav'ia est'a pendiente el env'io de algun recurso que tiene una prioridad mayor.
+\item Priorizaci'on de Peticiones. Los clientes pueden solicitar al servidor cu'ales recursos quiere obtener antes que otros. Esto evita la congesti'on de recursos que no son cr'iticos cuando todav'ia est'a pendiente el env'io de alg'un recurso que tiene una prioridad mayor.
 \item Compresi'on de Headers. A causa de que hoy en d'ia los clientes env'ian mucha informaci'on redundante en forma de Headers, como la cantidad de peticiones para obtener un sitio promedio va desde 50 a 100, esta cantidad de informaci'on es relevante. Comprimir los Headers reduce el ancho de banda utilizado.
-\item Server Push. Al permitir la comunicaci'on bi-direccional a trav'ez de streams, cualquiera de los 2 (cliente o servidor) puede iniciar un stream hacia el otro. El servidor puede enviar un recurso al cliente antes de que este lo pida\footnote{El servidor conoce de antemano que el cliente va a necesitar el recurso en cuesti'on.}, esto reduce el tiempo de carga del sitio y disminuye la cantidad de peticiones del cliente.
+\item Server Push. Al permitir la comunicaci'on bi-direccional a trav'es de streams, cualquiera de los 2 (cliente o servidor) puede iniciar un stream hacia el otro. El servidor puede enviar un recurso al cliente antes de que este lo pida\footnote{El servidor conoce de antemano que el cliente va a necesitar el recurso en cuesti'on.}, esto reduce el tiempo de carga del sitio y disminuye la cantidad de peticiones del cliente.
 \item Server Hint. El servidor puede ''sugerirle'' al cliente que pida un recurso en particular, ya que lo va a necesitar. De todas maneras, el servidor espera a que el cliente peticione el recurso en cuesti'on antes de enviarlo. Esto reduce el tiempo que tarda el cliente en descubrir cuales son los recursos que tiene que pedirle al servidor.
 \end{enumerate}
 
@@ -335,19 +383,19 @@ SPDY se enfoca en la manera en la que se transmiten los datos por la red, preser
 
 \subsection{Alternativas Propuestas}
 
-Hubo varias alternativas que se propusieron para mejorar la performance de Internet, 
+Existen varias alternativas que se propusieron para mejorar la performance de Internet, 
 
-\subsubsection{Stream Control Transmission Protocol (SCTP)}
+\subsubsection{SCTP (Stream Control Transmission Protocol)}
 Es una alternativa al Protocolo TCP, definido en la RFC 2960 \citep{rfcSCTP}, provee confiabilidad, control de flujo y secuenciaci'on, opcionalmente permite el env'io de mensajes sin un orden preestablecido. Permite Multihoming, que es la capacidad de que los extremos conectados puedan tener m'as de una direcci'on IP.
 
 \subsubsection{HTTP sobre SCTP}
 
-Fu'e una propuesta de utilizar HTTP sobre SCTP definida en el draft ''draft-natarajan-http-over-sctp-00'' \citep{sctpHTTP}. El servicio de m'ultiples streams de SCTP es la caracter'istica que beneficia la combinaci'on de protocolos. Las transacciones HTTP independientes cuando se transmiten sobre diferentes streams de SCTP mejoran significativamente los tiempos de respuesta.
+Es una propuesta de utilizar HTTP sobre SCTP definida en el draft ''draft-natarajan-http-over-sctp-00'' \citep{sctpHTTP}. El servicio de m'ultiples streams de SCTP es la caracter'istica que beneficia la combinaci'on de protocolos. Las transacciones HTTP independientes cuando se transmiten sobre diferentes streams de SCTP mejoran significativamente los tiempos de respuesta.
 
 \subsubsection{Structured Stream Transport (SST)}
 
-Es un Protocolo de Transporte experimental \citep{sst} dise'nado para las aplicaciones que requieren de muchas conexiones as'incronas en paralelo, tales como la descarga de las diferentes partes que componen un sitio web y reproducir simult'aneamente m'ultiples flujos de audio y video a la vez.
-No realiza el 3-way Hanshake en el inicio como TCP. Multiplexa m'ultiples Flujos de Datos de aplicaciones en una sola conexi'on de red. Soporta mensajes/datagramas de cualquier tama'no, no hay necesidad de limitar el tama'no de los env'ios. Priorizaci'on de Flujos de Datos.
+Es un protocolo de transporte experimental \citep{sst} dise'nado para las aplicaciones que requieren de muchas conexiones as'incronas en paralelo, tales como la descarga de las diferentes partes que componen un sitio web y reproducir simult'aneamente m'ultiples flujos de audio y video a la vez.
+No realiza el 3-way Handshake en el inicio como TCP. Multiplexa flujos de datos de aplicaciones en una sola conexi'on de red. Soporta mensajes/datagramas de cualquier tama'no, no hay necesidad de limitar el tama'no de los env'ios. Priorizaci'on de flujos de datos.
 \subsubsection{MUX y SMUX}
 
 MUX\footnote{http://www.w3.org/Protocols/MUX/} y SMUX\footnote{http://www.w3.org/TR/WD-mux} son protocolos de capa intermedia (entre la capa de transporte y la capa de aplicaci'on) que proporcionan la multiplexaci'on de flujos de datos. Se propusieron al mismo tiempo que HTTP/1.1.
@@ -356,7 +404,7 @@ MUX\footnote{http://www.w3.org/Protocols/MUX/} y SMUX\footnote{http://www.w3.org
 \label{estudiosSPDY}
 Se han realizado diversos estudios acerca de la performance de SPDY, que arrojan diferentes resultados. Estos resultados ayudan a ver en qu'e condiciones la utilizaci'on de SPDY realmente mejora la performance de la carga de un sitio.
 
-Jitendra Padhye y Henrik Frystyk Nielsen, en su Paper ''A comparison of SPDY and HTTP performance'' \citep{comparision}, realizaron una comparaci'on de ambos protocolos en un ambiente controlado. Con un sitio de prueba\footnote{index.html + 20 im'agenes + 3 hojas de estilo}, variando el RTT y el Ancho de Banda, obtuvieron los resultados que se ven en los Gr'aficos \ref{comparision1} y \ref{comparision1}.
+Jitendra Padhye y Henrik Frystyk Nielsen, en su paper ''A comparison of SPDY and HTTP performance'' \citep{comparision}, realizaron una comparaci'on de ambos protocolos en un ambiente controlado. Con un sitio de prueba\footnote{index.html + 20 im'agenes + 3 hojas de estilo}, variando el RTT y el ancho de banda, obtuvieron los resultados que se ven en los Gr'aficos \ref{comparision1} y \ref{comparision1}.
 
 \begin{figure}[ht!]
   	\centering
@@ -372,15 +420,13 @@ Jitendra Padhye y Henrik Frystyk Nielsen, en su Paper ''A comparison of SPDY and
 	\label{comparision2}
 \end{figure}
 
-Claramente se observa que, con Anchos de Banda m'as limitados, el incremento de performance de SPDY es bajo (del 3\% al 8\%) frente a un Ancho de Banda de 10mb en el cual el incremento es de hasta 39\%. Lo cual es un indicador de que, en un ambiente en el cual la velocidad del enlace sea pobre (por ejemplo una red 3G), que causa que est'e sujeto a una mayor probabilidad de p'erdidas de paquetes, SPDY no funciona como lo esperado. Posiblemente a causa del alto costo de retransmisi'on del Flujo de Datos, ya que si el Stream se pierde, se debe retransmitir todo completo ya que usa una sola conexi'on entre los extremos para comunicarse.
+Claramente se observa que, con anchos de banda m'as limitados, el incremento de performance de SPDY es bajo (del 3\% al 8\%) frente a un ancho de banda de 10mb en el cual el incremento es de hasta 39\%. Lo cual es un indicador de que, en un ambiente en el cual la velocidad del enlace sea pobre (por ejemplo una red 3G), que causa que est'e sujeto a una mayor probabilidad de p'erdidas de paquetes, SPDY no funciona como lo esperado. Posiblemente a causa del alto costo de retransmisi'on del flujo de datos, ya que si el Stream se pierde, se debe retransmitir todo completo ya que usa una sola conexi'on entre los extremos para comunicarse.
 
-Otro estudio interesante, relacionado con los resultados del estudio anterior, es ''Towards a SPDYier Mobile Web?'' \citep{towards}. En este paper se estudi'o el rendimiento de SPDY vs HTTP en redes de celulares. Tambi'en concluyen que no hay una diferencia significativa entre los protocolos estudiados. en ese ambiente.
+Otro estudio interesante, relacionado con los resultados del estudio anterior, es ''Towards a SPDYier Mobile Web?'' \citep{towards}. En este paper se estudi'o el rendimiento de SPDY vs HTTP en redes de celulares. Tambi'en concluyen que no hay una diferencia significativa entre los protocolos estudiados en ese ambiente en particular.
 
 \vspace{5mm}
 
-FALTAN:
-
-SPDY Accelerator for Improving Web Access Speed
+FALTAN
 
 The Effect of Network and Infrastructural Variables on SPDY?s Performance
 

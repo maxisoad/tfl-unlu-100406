@@ -1,10 +1,11 @@
 \chapter{Conclusiones}
 
-se ven mejoras, pero no son tan significativas, si con https.
+Es necesario abordar los problemas vistos a lo largo de este trabajo, tanto de la parte de los protocolos como del crecimiento de la Web. Si bien existen diversos enfoques para mejorar los tiempos de respuesta de la carga de los sitios, ofrecen una soluci'on dada ciertas caracter'isticas del contexto en el que se est'an utilizando. SPDY es un protocolo que pudo demostrar que se pueden mejorar ciertos aspectos sin tener un gran impacto en la implementaci'on. Pero, su rendimiento se encuentra relacionado directamente con el contexto en que se est'a utilizando, cuestiones como el ancho de banda, p'erdida de paquetes, tama'no de los recursos, cantidad de recursos peticionados, afectan los tiempos de respuesta.
 
-del top actual, solo el 20\% soportan spdy
+La adecuaci'on de los protocolos al contexto en el que se est'a operando, es decir, utilizar el protocolo que se vea m'as beneficiado con las condiciones dadas, provee una leve mejora en el rendimiento general de la carga de los sitios. Esta mejora es m'as significativa en el caso de las conexiones que se realizan con HTTPS como se pudo ver en el Cap'itulo \ref{experimentacion}.
 
-el proxy permite usar spdy con browsers que no lo soportan
+En cuanto a los sitios del Ranking de Alexa a la fecha actual, la mayor'ia utiliza HTTPS para operar, pero solo el 20\% soportan SPDY. Con lo cual, no existe esta opci'on para poder mejorar el rendimiento. Es importante, al menos ofrecer el protocolo alternativo, ya que uno podr'ia, dado el contexto, tomar la decisi'on por uno u otro dadas las condiciones del contexto.
 
-el mitm permite utilizar cache para https
+SPDY sent'o las bases del nuevo HTTP 2.0 que, si bien todav'ia no est'a implementado, est'a en v'ias de implementarse en un futuro cercano. La utilizaci'on de SPDY, servir'ia para poder experimentar con el protocolo y poder adecuar los sitios para que su rendimiento sea 'optimo, cuesti'on importante previendo una futura migraci'on a HTTP 2.0.
 
+Otra cuesti'on importante es que, la utilizaci'on de un Proxy que pueda manejar SPDY u otros protocolos en un futuro, brinda la posibilidad de aprovechar las caracter'isticas de dichos protocolos, sin necesidad de que el Cliente conectado al Proxy, tenga un Navegador que soporte dichos protocolos. Tambi'en, que el Proxy act'ue de MITM\footnote{Man in The Middle}, ofrece la posibilidad de utilizar herramientas como una Cach'e Web, para mejorar la performance, en sitios en los que no se puede utilizar esta opci'on (por ejemplo, HTTPS\footnote{El contenido viaja encriptado, los intermediarios s'olo act'uan de t'unel (ver Cap'itulo \ref{proxy})}).

@@ -10,7 +10,7 @@ VER http://munchweb.com/effect-of-website-speed
 \section{Performance}
 
 Cada aplicaci'on se desarrolla con los requerimientos del modelo de negocio, el contexto, las expectativas de los usuarios y la complejidad de la tarea. A causa de esto, hay que planificar y dise'nar, centr'andose en el usuario, y su percepci'on del tiempo de procesamiento \citep{highPerformance}.
-Nuestros tiempos de reacci'on son constantes, independientemente del tipo de aplicaci'on o dispositivo utilizado, puede verse en la tabla siguiente:
+Los tiempos de reacci'on de las personas son constantes, independientemente del tipo de aplicaci'on o dispositivo utilizado, puede verse en la tabla siguiente:
 
 \begin{quote}
 \begin{center}
@@ -31,19 +31,19 @@ Percepci'on del usuario ante los retardos, extra'ido de \citep{highPerformance}.
 Para que la experiencia del usuario sea positiva, el sitio debe renderizarse, o al menos tener una respuesta visual de que el sitio se est'a cargando, en al menos 250 milisegundos.
 
 En agosto del 2010, Mike Belsche\footnote{Ingeniero de Software, fu'e uno de los desarrolladores del protocolo SPDY (ver Secci'on \ref{spdy}) - https://www.belshe.com} public'o un estudio \citep{moreBand} acerca de 2 factores importantes en el Tiempo de Carga de los Sitios, Ancho de Banda y RTT. El RTT\footnote{Round Trip Time} es el tiempo que demora un paquete en ir del emisor al receptor y volver al emisor nuevamente.
-Realiz'o 2 experimentos, el primero variando el Ancho de Banda y el segundo variando el RTT.
+Realiz'o 2 experimentos, el primero variando el ancho de banda y el segundo variando el RTT.
 
-En el Gr'afico \ref{belshePLTxBW} puede observarse el resultado del primer experimento, al aumentar el Ancho de Banda hay mejoras en el tiempo de respuesta en los valores m'as bajos, pero, a partir de cierto ancho de banda, el aumento no produce mejoras en el rendimiento.
+En el Gr'afico \ref{belshePLTxBW} puede observarse el resultado del primer experimento, al aumentar el ancho de banda hay mejoras en el tiempo de respuesta en los valores m'as bajos, pero, a partir de cierto ancho de banda, el aumento no produce mejoras en el rendimiento.
 
 \begin{figure}[ht]
 	\begin{center}
 	\includegraphics[width=300px]{img/belshePLTxBW}
-	\caption{\small Latencia por Ancho de Banda, extra'ido de \citep{moreBand}}
+	\caption{\small Latencia por ancho de banda, extra'ido de \citep{moreBand}}
 	\end{center}
 	\label{belshePLTxBW}
 \end{figure}
 
-En cambio, en el Gr'afico \ref{belshePLTxRTT}, se ve claramente que a medida que el RTT se va reduciendo, tambi'ien lo hace el Tiempo de Carga del Sitio, incluso cuando ya el RTT es bajo.
+En cambio, en el Gr'afico \ref{belshePLTxRTT}, se ve claramente que a medida que el RTT se va reduciendo, tambi'en lo hace el tiempo de carga del sitio, incluso cuando ya el RTT es bajo.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -53,19 +53,19 @@ En cambio, en el Gr'afico \ref{belshePLTxRTT}, se ve claramente que a medida que
 	\label{belshePLTxRTT}
 \end{figure}
 
-La conclusi'on del estudio de Belshe es que, si se duplica su Ancho de Banda sin reducir el RTT significantemente, s'olo se obtiene una mejora m'inima en la Navegaci'on. Disminuir el RTT, sin importar el Ancho de Banda utilizado, siempre supone una mejora en la velocidad. Para acelerar Internet, o bien hay que ocuparse de reducir el RTT, o reducir la cantidad de RTT's requeridos para cargar un sitio.
+La conclusi'on del estudio de Belshe es que, si se duplica su ancho de banda sin reducir el RTT significantemente, s'olo se obtiene una mejora m'inima en la navegaci'on. Disminuir el RTT, sin importar el ancho de banda utilizado, siempre supone una mejora en la velocidad. Para acelerar Internet, o bien hay que ocuparse de reducir el RTT, o reducir la cantidad de RTT's requeridos para cargar un sitio.
 
 Es importante tambi'en conocer, d'onde es que el usuario pasa el tiempo esperando en la carga de un sitio web. Seg'un el estudio de Steve Souders en su libro \citep{highPerformanceWebSites}, el cliente tarda menos del 20\% para obtener el documento HTML, y el tiempo restante para recibir el resto de los componentes del sitio. Es importante enfocarse en el 80\%, 90\% restante, ya que el tiempo no se desperdicia en descargar el documento HTML ni en el procesamiento que realiza el servidor antes de enviarnos la petici'on. Esto se resume en la ''Regla de Oro de la Performance'' de dicho libro:
 
 \begin{quote}
 
-\textit{Solo el 10-20\% del tiempo de respuesta del usuario es consumido descargando el documento HTML. El otro 80-90\% se consume descargando todos los componentes de la p'agina.}
+\textit{''Solo el 10-20\% del tiempo de respuesta del usuario es consumido descargando el documento HTML. El otro 80-90\% se consume descargando todos los componentes de la p'agina.''}
 
 \end{quote}
 
 \section{T'ecnicas de optimizaci'on}
 
-Souders, plantea 14 reglas para la optimizaci'on de los sitios que se describen a continuaci'on.
+Souders \citep{highPerformanceWebSites}, plantea 14 reglas para la optimizaci'on de los sitios que se describen a continuaci'on.
 
 \begin{enumerate}
 
@@ -75,7 +75,7 @@ La idea b'asica es eliminar las peticiones al servidor, esto se hace utilizando 
 
 	\begin{enumerate}
 	\item Mapa de Im'agenes - Permite asociar m'ultiples 'areas en una imagen para que se puedan cliquear y realizar cierta acci'on (el ejemplo m'as b'asico es el de navegar un hiperv'inculo). En vez de utilizar m'ultiples im'agenes para realizar un men'u por ejemplo, se utilizar'ia una sola mapeada. De esta manera se ahorran las peticiones de las im'agenes por 1 sola petici'on.
-	\item CSS Sprites - Permite combinar v'arias im'agenes en una sola, luego en el sitio, se define que parte de la imagen combinada desea mostrarse. Por ejemplo, en el sitio de Google cuando se realiza una b'usqueda, se utiliza el Sprite que se ve en la Figura \ref{css_sprites}.
+	\item CSS Sprites - Permite combinar v'arias im'agenes en una sola, luego en el sitio, se define que parte de la imagen combinada desea mostrarse. Por ejemplo, en el sitio de Google cuando se realiza una b'usqueda, se utiliza el sprite que se ve en la Figura \ref{css_sprites}.
 		\begin{figure}[htbp]
 		\begin{center}
 			\includegraphics[width=150px]{img/css_sprites}
@@ -84,60 +84,59 @@ La idea b'asica es eliminar las peticiones al servidor, esto se hace utilizando 
 		\label{css_sprites}
 		\end{figure}
 
-	A simple vista se ven 44 im'agenes combinadas. La utilizaci'on de este Sprite reducir'ia todas estas peticiones a 1 sola.
-	\item Im'agenes Inline - Se pueden incluir im'agenes en un sitio web sin necesidad de realizar una petici'on al servidor definiendolas con el esquema \textit{data:} \ref{rfcData} dentro del c'odigo HTML de la p'agina.
-	\item Combinar Scripts y Hojas de Estilo - Como la mayor'ia de los sitios actuales utilizan Javascript y CSS, es preferible que los Scripts se combinen en uno solo al igual que las Hojas de Estilo. En el caso de tener varios archivos, el navegador va a generar una petici'on por cada uno de ellos de no tenerlo almacenado en una copia local.
+	A simple vista se ven 44 im'agenes combinadas. La utilizaci'on de este sprite reducir'ia todas estas peticiones a 1 sola.
+	\item Im'agenes Inline - Se pueden incluir im'agenes en un sitio web sin necesidad de realizar una petici'on al servidor definiendolas con el esquema \textit{data:} \citep{rfcData} dentro del c'odigo HTML de la p'agina.
+	\item Combinar Scripts y Hojas de Estilo - Como la mayor'ia de los sitios actuales utilizan Javascript y CSS\footnote{Cascade Style Sheets.}, es preferible que los scripts se combinen en uno solo al igual que las hojas de estilo. En el caso de tener varios archivos, el navegador va a generar una petici'on por cada uno de ellos de no tenerlo almacenado en una copia local.
 	\end{enumerate}
-\item \textbf{Utilizar un CDN}
+\item \textbf{Utilizar un CDN\footnote{Content Delivery Networks.}}
 
 La proximidad del cliente al servidor web tiene un impacto en el tiempo de respuesta de las peticiones. No es lo mismo solicitar un recurso localizado China estando en Argentina que uno ubicado dentro del mismo pa'is. Por ende, si los contenidos est'an cerca\footnote{En t'erminos de distancia f'isica.} el tiempo de respuesta es menor. Debido a que solo el 10-20\% del tiempo de respuesta se dedica al HTML (visto al inicio de este cap'itulo), si el resto de los recursos del sitio se encuentran cerca del cliente, se mejorar'ian los tiempos de respuesta. Para esto es necesario dispersar estos recursos geogr'aficamente.
 
-Un CDN\footnote{Content Delivery Networks} es una red de distribuci'on de contenidos. Son servidores dispersados geogr'aficamente que ofrecen r'eplicas de los recursos de un sitio particular para brindarlos al cliente desde el m'as cercano a su locaci'on.
+Un CDN es una red de distribuci'on de contenidos. Son servidores dispersados geogr'aficamente que ofrecen r'eplicas de los recursos de un sitio particular para brindarlos al cliente desde el m'as cercano a su locaci'on.
 
 Utilizar el servicio que brinda un CDN mejora los tiempos de respuesta de los usuarios.
 \item \textbf{A'nadir Headers para Cach'es}
 
-Cuando un usuario visita el sitio por primera vez, realiza tantas peticiones HTTP como recursos tenga la p'agina. Utilizando Headers Expires o Cache-Control\footnote{Desde HTTP 1.1} (Cap'itulo \ref{protocolos}, Secci'on \ref{headers}) se puede hacer que los recursos puedan ser almacenados en Cach'es (Cap'itulo \ref{cache}). Esto disminuye la cantidad de peticiones en una posterior visita a la p'agina del mismo usuario.
+Cuando un usuario visita el sitio por primera vez, realiza tantas peticiones HTTP como recursos tenga la p'agina. Utilizando headers Expires o Cache-Control\footnote{Desde HTTP 1.1} (Cap'itulo \ref{protocolos}, Secci'on \ref{headers}) se puede hacer que los recursos puedan ser almacenados en cach'es (Cap'itulo \ref{cache}.). Esto disminuye la cantidad de peticiones en una posterior visita a la p'agina del mismo usuario.
 
-La performance del tiempo de respuesta del sitio mejora seg'un la cantidad de ''Hits''\footnote{Necesidad de solicitar un recurso que ya tengo almacenado en la Cach'e} que el usuario tenga de los componentes del sitio.
+La performance del tiempo de respuesta del sitio mejora seg'un la cantidad de ''Hits''\footnote{Necesidad de solicitar un recurso que ya tengo almacenado en la cach'e.} que el usuario tenga de los componentes del sitio.
 \item \textbf{Comprimir los componentes (Gzip)}
 
 Se puede reducir el tiempo de respuesta, disminuyendo el tama'no de la respuesta HTTP. Esto se puede realizar comprimiendo el recurso que se est'a solicitando. La reducci'on del tiempo es mayor en ambientes en donde el ancho de banda es bajo. El formato \textit{Gzip}\footnote{http://www.gzip.org/} \citep{rfcGzip} es el m'as popular y el m'as efectivo, el otro formato que se usa con menos frecuencia es \textit{deflate} \citep{rfcDeflate}.
 
-El usuario tiene que enviar en la petici'on un Header \textit{Accept-Encoding} indicando los m'etodos aceptados. Cuando el servidor recibe este Header, puede comprimir el recurso utilizando alguno de los m'etodos indicados por el usuario. Este devuelve la respuesta con un Header \textit{Content-Encoding} indicando el tipo de compresi'on utilizado en el recurso que se est'a enviando.
+El usuario tiene que enviar en la petici'on un header \textit{Accept-Encoding} indicando los m'etodos aceptados. Cuando el servidor recibe este header, puede comprimir el recurso utilizando alguno de los m'etodos indicados por el usuario. Este devuelve la respuesta con un header \textit{Content-Encoding} indicando el tipo de compresi'on utilizado en el recurso que se est'a enviando.
 
-Los tipos de archivos que se deber'ian comprimir son aquellos de texto, tales como HTML, Scripts, CSS, etc. Aquellos formatos que ya se encuentran comprimidos como las im'agenes o los archivos PDF no deber'ian comprimirse ya que se desperdicia tiempo de CPU del servidor\footnote{Para realizar la compresi'on.} y adem'as puede incluso incrementar el tama'no del archivo.
+Los tipos de archivos que se deber'ian comprimir son aquellos de texto, tales como HTML, scripts, CSS, etc. Aquellos formatos que ya se encuentran comprimidos como las im'agenes o los archivos PDF\footnote{Portable Document Format.} no deber'ian comprimirse ya que se desperdicia tiempo de CPU del servidor\footnote{Para realizar la compresi'on.} y adem'as puede incluso incrementar el tama'no del archivo.
 
 \item \textbf{CSS en la parte superior del HTML}
 
-Las Hojas de Estilo deben incluirse en la parte superior del HTML. De esta manera, los navegadores pueden ir renderizando la p'agina a medida que van llegando las respuestas de las peticiones. Esto es importante en t'erminos de usabilidad, para brindarle un medio visual \footnote{Carga progresiva del sitio.} al usuario que est'a esperando el sitio.
+Las hojas de estilo deben incluirse en la parte superior del HTML. De esta manera, los navegadores pueden ir renderizando la p'agina a medida que van llegando las respuestas de las peticiones. Esto es importante en t'erminos de usabilidad, para brindarle un medio visual \footnote{Carga progresiva del sitio.} al usuario que est'a esperando el sitio.
 \item \textbf{Scripts en la parte inferior del HTML}
 
-Cuando se realizan las peticiones al servidor, las descargas pueden hacerse en paralelo con ciertos l'imites\footnote{2 seg'un la especificaci'on HTTP 1.1, hasta 6 seg'un el navegador}, eso claramente es beneficioso, ya que al paralelizar las descargas, el tiempo es menor comparado con descargas secuenciales. En el caso de los Scripts, esta caracter'istica se deshabilita por 2 motivos,    uno es que si es script altera contenido de la p'agina, el navegador debe esperar a recibirlo para mostrar el contenido correctamente. El otro motivo es que el navegador debe respetar el orden de ejecuci'on de los scripts, si estos vinieran en paralelo, no se puede asegurar que su ejecuci'on tenga el mismo orden en el que se solicitaron.
+Cuando se realizan las peticiones al servidor, las descargas pueden hacerse en paralelo con ciertos l'imites\footnote{2 seg'un la especificaci'on HTTP 1.1, hasta 6 seg'un el navegador}, eso claramente es beneficioso, ya que al paralelizar las descargas, el tiempo es menor comparado con descargas secuenciales. En el caso de los scripts, esta caracter'istica se deshabilita por 2 motivos, uno es que si es script altera contenido de la p'agina, el navegador debe esperar a recibirlo para mostrar el contenido correctamente. El otro motivo es que el navegador debe respetar el orden de ejecuci'on de los scripts, si estos vinieran en paralelo, no se puede asegurar que su ejecuci'on tenga el mismo orden en el que se solicitaron.
 \item \textbf{Evitar expresiones en CSS}
 
-Las expresiones en CSS se encuentran deprecadas\footnote{http://blogs.msdn.com/b/ie/archive/2008/10/16/ending-expressions.aspx} en los navegadores modernos. Afectaban directamente a la performance de la renderizaci'on del sitio una vez que todos los componentes eran recibidos.
+Las expresiones en CSS se encuentran obsoletas\footnote{http://blogs.msdn.com/b/ie/archive/2008/10/16/ending-expressions.aspx} en los navegadores modernos. Afectaban directamente a la performance de la renderizaci'on del sitio una vez que todos los componentes eran recibidos.
 \item \textbf{Utilizar JavaScript y CSS de manera externa (no embebido en el HTML)}
 
 Al embeber los scripts y el estilo en el HTML, se minimiza la cantidad de peticiones al servidor, pero se aumenta el tamaño del archivo HTML. Incluir archivos externos al HTML, permite a los navegadores y proxys que puedan almacenar en su cach'e el objeto. Esto es 'util ya que si en todas las p'aginas del sitio se utilizan el mismo Javascript y CSS, al ir navegando las diferentes p'aginas del sitio, estos recursos ya est'an almacenados en el navegador. Tambi'en disminuye el tiempo de respuesta en visitas posteriores.
 \item \textbf{Reducir las b'usquedas de DNS\footnote{Domain Name System.}}
 
-Cada servidor tiene una direcci'on IP asignada, esta direcci'on se encuentra asociada a un nombre de Dominio, esto se almacena en los DNS. Cuando se ingresa un nombre de un sitio en el navegador, este necesita la direcci'on IP asociada a ese Dominio. Para ello necesita solicitar esa asociaci'on a un DNS Resolver, antes de empezar a solicitar los recursos debe esperar la respuesta del DNS. Esto al igual que los recursos se almacenan en una cach'e local del navegador. A ra'iz de esta cuesti'on, tener menos dominios en las URL's de los componentes de una p'agina, requiere menos peticiones (DNS lookups) a los servidores que almacenan los dominios para solicitar las direcciones IP que corresponden a esos dominios.
+Cada servidor tiene una direcci'on IP asignada, esta direcci'on se encuentra asociada a un nombre de dominio, esto se almacena en los DNS. Cuando se ingresa un nombre de un sitio en el navegador, este necesita la direcci'on IP asociada a ese dominio. Para ello necesita solicitar esa asociaci'on a un DNS Resolver, antes de empezar a solicitar los recursos debe esperar la respuesta del DNS. Esto al igual que los recursos se almacenan en una cach'e local del navegador. A ra'iz de esta cuesti'on, tener menos dominios en las URL's de los componentes de una p'agina, requiere menos peticiones (DNS lookups) a los servidores que almacenan los dominios para solicitar las direcciones IP que corresponden a esos dominios.
 \item \textbf{Minificar el JavaScript}
 
-La Minificaci'on, es la pr'actica de remover caracteres innecesarios del c'odigo para reducir el tama'no del archivo. Se quitan los comentarios, los espacios en blanco (tabulaciones, espacios, saltos de l'inea). Una optimizaci'on alternativa tiene el nombre de Ofuscaci'on, adem'as de lo que hace la Minificaci'on, renombra las variables del codigo por cadenas de texto m'as peque'nas. Este m'etodo disminuye a'un m'as el tama'no de los archivos, que el m'etodo visto anteriormente.
+La minificaci'on, es la pr'actica de remover caracteres innecesarios del c'odigo para reducir el tama'no del archivo. Se quitan los comentarios, los espacios en blanco (tabulaciones, espacios, saltos de l'inea). Una optimizaci'on alternativa tiene el nombre de ofuscaci'on, adem'as de lo que hace la minificaci'on, renombra las variables del codigo por cadenas de texto m'as peque'nas. Este m'etodo disminuye a'un m'as el tama'no de los archivos, que el m'etodo visto anteriormente.
 Con esta optimizaci'on se mejora el tiempo de respuesta ya que los recursos tienen menor tama'no.
 \item \textbf{Evitar redirecciones}
 
 Una redirecci'on es utilizada para enrutar a los usuarios de una URL a otra. Generalmente se utilizan para documentos HTML, pero, ocasionalmente, tambi'en cuando se peticionan componentes de la p'agina. Los retrasos ocasionados por una redirecci'on retrasan directamente el documento HTML completo. Insertar una redirecci'on entre el usuario y el HTML retrasa todo en el sitio.
-\item \textbf{Remover Scripts duplicados}
+\item \textbf{Remover scripts duplicados}
 
-Incluir archivos Javascript m'as de una vez en un sitio, afecta directamente la performance por 2 factores, peticiones innecesarias y tiempo de procesamiento innecesario del Script.
+Incluir archivos Javascript m'as de una vez en un sitio, afecta directamente la performance por 2 factores, peticiones innecesarias y tiempo de procesamiento innecesario del script.
 \item \textbf{Configurar Etags}
 
-Los Etags son cadenas de texto 'unicas que identifican una versi'on espec'ifica de un componente (ver Cap'itulo \ref{cache}, Secci'on \ref{controlCache}) . Provee un mecanismo para poder realizar una petici'on condicional al servidor, comparando el Etag de la copia local con el del servidor. En el caso de que el valor coincida con el del servidor, la respuesta devuelve un c'odigo (ver \ref{http}) que indica que el recurso est'a fresco (ver \ref{cache}), de esta manera, se reduce notablemente el tama'no de la respuesta y el tiempo ya que viaja por la red solamente los Headers.
+Los Etags son cadenas de texto 'unicas que identifican una versi'on espec'ifica de un componente (ver Cap'itulo \ref{cache}, Secci'on \ref{controlCache}) . Provee un mecanismo para poder realizar una petici'on condicional al servidor, comparando el Etag de la copia local con el del servidor. En el caso de que el valor coincida con el del servidor, la respuesta devuelve un c'odigo (ver \ref{http}) que indica que el recurso est'a fresco (ver \ref{cache}), de esta manera, se reduce notablemente el tama'no de la respuesta y el tiempo ya que viaja por la red solamente los headers.
 
-Hay ciertas cuestiones referidas a la utilizaci'on de los Etags. Por un lado, en el caso de un cluster de servidores, los Etags generados por los mismos, no son iguales entre ellos. En este caso, si se realiza una petici'on condicional, a pesar de que el componente es igual, al no coincidir los Etags, el recurso es devuelto al usuario. Otra cuesti'on es que la petici'on condicional \textit{If-None-Match} toma precedencia ante \textit{If-Modified-Since}, seg'un la especificaci'on del protocolo HTTP 1.1 si ambos Headers se encuentran en la petici'on, ambas condiciones se tienen que cumplir para devolver un c'odigo 304. Por todas estas cuestiones, se recomienda, o bien configurar los Etags de manera que las peticiones sean precisas, o quitarlos.
-%\item \textbf{Permitir que Ajax pueda ser almacenado en Cach'e}
+Hay ciertas cuestiones referidas a la utilizaci'on de los Etags. Por un lado, en el caso de un cluster de servidores, los Etags generados por los mismos, no son iguales entre ellos. En este caso, si se realiza una petici'on condicional, a pesar de que el componente es igual, al no coincidir los Etags, el recurso es devuelto al usuario. Otra cuesti'on es que la petici'on condicional \textit{If-None-Match} toma precedencia ante \textit{If-Modified-Since}, seg'un la especificaci'on del protocolo HTTP 1.1 si ambos headers se encuentran en la petici'on, ambas condiciones se tienen que cumplir para devolver un c'odigo 304. Por todas estas cuestiones, se recomienda, o bien configurar los Etags de manera que las peticiones sean precisas, o quitarlos.
 
 \end{enumerate}
