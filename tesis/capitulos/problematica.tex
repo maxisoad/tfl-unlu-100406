@@ -3,9 +3,31 @@
 
 \section{Introducci'on}
 
-Debido al crecimiento de Internet visto en el C'apitulo \ref{desarrolloWeb} y a los problemas que presenta el protocolo HTTP en su implementaci'on (visto en el C'apitulo \ref{protocolos}), mejorar los tiempos de carga de los sitios web es clave.
+Debido al crecimiento de Internet visto en el C'apitulo \ref{desarrolloWeb} y a los problemas que presenta el protocolo HTTP en su implementaci'on (visto en el C'apitulo \ref{protocolos}), mejorar los tiempos de carga de los sitios web es clave. Un estudio realizado por Akamai\footnote{http://www.akamai.com/} \citep{akamaiPerf}, concluye:
 
-VER http://munchweb.com/effect-of-website-speed
+\begin{enumerate}
+\item El 47\% de las personas esperan que una p'agina tarde 2 segundos o menos en cargarse. Ver Figura \ref{aka1}.
+\item El 40\% de las personas, abandonan el sitio si este tarda m'as de 3 segundos en cargar. Ver Figura \ref{aka2}.
+\item El 52\% de los compradores online, afirman que una carga r'apida del sitio es importante para la lealtad con el mismo.
+\item El 14\% va a comenzar a hacer compras en un sitio diferente si la carga de las p'aginas es lenta, el 23\% dejar'a de comprar.
+\item De los compradores insatisfechos con el sitio, el 64\% visitar'a otro sitio la pr'oxima vez.
+\end{enumerate}
+
+\begin{figure}[ht!]
+	\begin{center}
+	\includegraphics[width=340px]{img/aka1}
+	\caption{\small Expectativa del tiempo de carga de un sitio, extra'ido de \citep{akamaiPerf}}
+	\end{center}
+	\label{aka1}
+\end{figure}
+
+\begin{figure}[ht!]
+	\begin{center}
+	\includegraphics[width=340px]{img/aka2}
+	\caption{\small Tiempo m'aximo de espera antes de abandonar el sitio, extra'ido de \citep{akamaiPerf}}
+	\end{center}
+	\label{aka2}
+\end{figure}
 
 \section{Performance}
 
@@ -43,9 +65,11 @@ En el Gr'afico \ref{belshePLTxBW} puede observarse el resultado del primer exper
 	\label{belshePLTxBW}
 \end{figure}
 
+\vspace{2cm}
+
 En cambio, en el Gr'afico \ref{belshePLTxRTT}, se ve claramente que a medida que el RTT se va reduciendo, tambi'en lo hace el tiempo de carga del sitio, incluso cuando ya el RTT es bajo.
 
-\begin{figure}[ht]
+\begin{figure}[ht!]
 	\begin{center}
 	\includegraphics[width=300px]{img/belshePLTxRTT}
 	\caption{\small Tiempo de Carga de un sitio a medida que el RTT se decrementa, extra'ido de \citep{moreBand}}
@@ -75,6 +99,7 @@ La idea b'asica es eliminar las peticiones al servidor, esto se hace utilizando 
 
 	\begin{enumerate}
 	\item Mapa de Im'agenes - Permite asociar m'ultiples 'areas en una imagen para que se puedan cliquear y realizar cierta acci'on (el ejemplo m'as b'asico es el de navegar un hiperv'inculo). En vez de utilizar m'ultiples im'agenes para realizar un men'u por ejemplo, se utilizar'ia una sola mapeada. De esta manera se ahorran las peticiones de las im'agenes por 1 sola petici'on.
+	\vspace{2cm}
 	\item CSS Sprites - Permite combinar v'arias im'agenes en una sola, luego en el sitio, se define que parte de la imagen combinada desea mostrarse. Por ejemplo, en el sitio de Google cuando se realiza una b'usqueda, se utiliza el sprite que se ve en la Figura \ref{css_sprites}.
 		\begin{figure}[htbp]
 		\begin{center}
@@ -113,7 +138,8 @@ Los tipos de archivos que se deber'ian comprimir son aquellos de texto, tales co
 Las hojas de estilo deben incluirse en la parte superior del HTML. De esta manera, los navegadores pueden ir renderizando la p'agina a medida que van llegando las respuestas de las peticiones. Esto es importante en t'erminos de usabilidad, para brindarle un medio visual \footnote{Carga progresiva del sitio.} al usuario que est'a esperando el sitio.
 \item \textbf{Scripts en la parte inferior del HTML}
 
-Cuando se realizan las peticiones al servidor, las descargas pueden hacerse en paralelo con ciertos l'imites\footnote{2 seg'un la especificaci'on HTTP 1.1, hasta 6 seg'un el navegador}, eso claramente es beneficioso, ya que al paralelizar las descargas, el tiempo es menor comparado con descargas secuenciales. En el caso de los scripts, esta caracter'istica se deshabilita por 2 motivos, uno es que si es script altera contenido de la p'agina, el navegador debe esperar a recibirlo para mostrar el contenido correctamente. El otro motivo es que el navegador debe respetar el orden de ejecuci'on de los scripts, si estos vinieran en paralelo, no se puede asegurar que su ejecuci'on tenga el mismo orden en el que se solicitaron.
+Cuando se realizan las peticiones al servidor, las descargas pueden hacerse en paralelo con ciertos l'imites\footnote{2 seg'un la especificaci'on HTTP 1.1, hasta 6 seg'un el navegador.}, eso claramente es beneficioso, ya que al paralelizar las descargas, el tiempo es menor comparado con descargas secuenciales. En el caso de los scripts, esta caracter'istica se deshabilita por 2 motivos, uno es que si es script altera contenido de la p'agina, el navegador debe esperar a recibirlo para mostrar el contenido correctamente. El otro motivo es que el navegador debe respetar el orden de ejecuci'on de los scripts, si estos vinieran en paralelo, no se puede asegurar que su ejecuci'on tenga el mismo orden en el que se solicitaron.
+\clearpage
 \item \textbf{Evitar expresiones en CSS}
 
 Las expresiones en CSS se encuentran obsoletas\footnote{http://blogs.msdn.com/b/ie/archive/2008/10/16/ending-expressions.aspx} en los navegadores modernos. Afectaban directamente a la performance de la renderizaci'on del sitio una vez que todos los componentes eran recibidos.
@@ -140,3 +166,114 @@ Los Etags son cadenas de texto 'unicas que identifican una versi'on espec'ifica 
 Hay ciertas cuestiones referidas a la utilizaci'on de los Etags. Por un lado, en el caso de un cluster de servidores, los Etags generados por los mismos, no son iguales entre ellos. En este caso, si se realiza una petici'on condicional, a pesar de que el componente es igual, al no coincidir los Etags, el recurso es devuelto al usuario. Otra cuesti'on es que la petici'on condicional \textit{If-None-Match} toma precedencia ante \textit{If-Modified-Since}, seg'un la especificaci'on del protocolo HTTP 1.1 si ambos headers se encuentran en la petici'on, ambas condiciones se tienen que cumplir para devolver un c'odigo 304. Por todas estas cuestiones, se recomienda, o bien configurar los Etags de manera que las peticiones sean precisas, o quitarlos.
 
 \end{enumerate}
+
+\section{SPDY}
+\label{spdy}
+
+\subsection{Introducci'on}
+
+SPDY es un protocolo experimental desarrollado por Google a mediados del 2009, cuya meta principal es reducir los tiempos de carga de los sitios enfoc'andose en las limitaciones de HTTP (ver \ref{http}).
+Espec'ificamente se busca lo siguiente \citep{highPerformance}:
+\begin{enumerate}
+\item Reducir el Tiempo de Carga de los Sitios.
+\item Evitar la necesidad de que los desarrolladores tengan que realizar cambios a los sitios actuales.
+\item Evitar cambios en la infraestructura de las redes y minificar la complejidad de implementaci'on.
+\item Liberar el desarrollo a la comunidad de c'odigo abierto.
+\item Recopilar datos reales de rendimiento para validar o invalidar el protoclo experimental.
+\end{enumerate}
+Desde el a'no 2012 el protocolo es soportado por los navegadores Chrome\footnote{http://www.google.com/intl/es\_AR/chrome/browser/}, Mozilla Firefox\footnote{http://www.mozilla.org/es-AR/firefox/new/}, y Opera\footnote{http://www.opera.com/}. Existen varias opciones de servidores que soportan el protocolo tales como Apache\footnote{http://code.google.com/p/mod-spdy/}, Jetty\footnote{http://wiki.eclipse.org/Jetty/Feature/SPDY} y NodeJS\footnote{https://github.com/indutny/node-spdy}. Varios sitios populares (Google, Facebook, Twitter) ya ofrecen un cliente para la utilizaci'on del protocolo. 
+
+\subsection{Detalles del Protocolo}
+
+Es un protocolo que a'nade una capa de sesi'on que funciona sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples Streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
+Su especificaci'on se puede ver en \citep{spdyWhitepaper} y su draft se puede encontrar en \citep{spdyDraft}.
+
+\begin{figure}[h]
+  	\centering
+	\includegraphics[width=200px]{img/capaSPDY}
+	\caption{\small Protocolo de Aplicaci'on SPDY, extra'ido de \citep{spdyWhitepaper}}
+	\label{capaSPDY}
+\end{figure}
+
+El protocolo HTTP no tiene estado, y, por cada recurso que requiera existe la necesidad de abrir una conexi'on nueva y cerrarla. Esto trae varios problemas:
+\begin{enumerate}
+\item Por cada conexi'on nueva que se hace, se necesitan varios mensajes para establecer la conexi'on TCP, lo que trae varios RTT (Round Trip Time) adicionales a la comunicaci'on. El RTT es el tiempo estimado para enviar y recibir un mensaje por parte del interlocutor \citep{tcpipIluistrated}, puede verse en la Figura \ref{rtt}.
+
+\begin{figure}[h!]
+  	\centering
+	\includegraphics[width=140px]{img/rtt}
+	\caption{\small RTT}
+	\label{rtt}
+\end{figure}
+
+\item Retrasos debido al ''Slow Start'' de TCP. Se comienza enviando un volumen de datos peque'no hasta alcanzar cierto valor llamado Umbral de Congesti'on.
+\item Clientes que evitan realizar m'ultiples conexiones con el mismo servidor (hasta 6 actualmente).
+\item  A su vez, los servidores crean varios subdominios para almacenar el contenido para que los clientes puedan realizar las peticiones sin tener que evitar las m'ultiples conexiones a un mismo dominio.
+\end{enumerate}
+
+El funcionamiento b'asico de SPDY puede verse en la Figura \ref{spdy}. Inicia la conexi'on con el servidor realizando el ThreeWay Handshake de TCP (ver \ref{tcp}), se establece una conexi'on segura entre ambos extremos, y luego se pueden empezar a pedir los recursos a trav'es de la misma conexi'on y en paralelo.
+%\clearpage
+\begin{figure}[ht!]
+  	\centering
+	\includegraphics[width=230px]{img/spdy}
+	\caption{\small Funcionamiento de SPDY, extra'ido de \citep{towards}}
+	\label{spdy}
+\end{figure}
+
+SPDY ofrece por sobre HTTP las siguientes mejoras:
+\begin{enumerate}
+\item Peticiones Multiplexadas. No existen l'imites de peticiones que se pueden realizar en una sesi'on de SPDY. A causa de que las peticiones son multiplexadas aumenta la eficiencia del protocolo TCP.
+\item Priorizaci'on de Peticiones. Los clientes pueden solicitar al servidor cu'ales recursos quiere obtener antes que otros. Esto evita la congesti'on de recursos que no son cr'iticos cuando todav'ia est'a pendiente el env'io de alg'un recurso que tiene una prioridad mayor.
+\item Compresi'on de Headers. A causa de que hoy en d'ia los clientes env'ian mucha informaci'on redundante en forma de Headers, como la cantidad de peticiones para obtener un sitio promedio va desde 50 a 100, esta cantidad de informaci'on es relevante. Comprimir los Headers reduce el ancho de banda utilizado.
+\item Server Push. Al permitir la comunicaci'on bi-direccional a trav'es de streams, cualquiera de los 2 (cliente o servidor) puede iniciar un stream hacia el otro. El servidor puede enviar un recurso al cliente antes de que este lo pida\footnote{El servidor conoce de antemano que el cliente va a necesitar el recurso en cuesti'on.}, esto reduce el tiempo de carga del sitio y disminuye la cantidad de peticiones del cliente.
+\item Server Hint. El servidor puede ''sugerirle'' al cliente que pida un recurso en particular, ya que lo va a necesitar. De todas maneras, el servidor espera a que el cliente peticione el recurso en cuesti'on antes de enviarlo. Esto reduce el tiempo que tarda el cliente en descubrir cuales son los recursos que tiene que pedirle al servidor.
+\end{enumerate}
+
+SPDY se enfoca en la manera en la que se transmiten los datos por la red, preserva toda la sem'antica del protocolo HTTP. De esta manera, para las aplicaciones se implementa de manera transparente, ya que reside entre la capa de aplicaci'on y la de transporte. Esta sesi'on es similar al par petici'on-respuesta de HTTP. Es obligatoria la compresi'on del mensaje.
+
+\subsection{Alternativas Propuestas}
+
+Existen varias alternativas que se propusieron para mejorar la performance de Internet, 
+
+\subsubsection{SCTP (Stream Control Transmission Protocol)}
+Es una alternativa al Protocolo TCP, definido en la RFC 2960 \citep{rfcSCTP}, provee confiabilidad, control de flujo y secuenciaci'on, opcionalmente permite el env'io de mensajes sin un orden preestablecido. Permite Multihoming, que es la capacidad de que los extremos conectados puedan tener m'as de una direcci'on IP.
+
+\subsubsection{HTTP sobre SCTP}
+
+Es una propuesta de utilizar HTTP sobre SCTP definida en el draft ''draft-natarajan-http-over-sctp-00'' \citep{sctpHTTP}. El servicio de m'ultiples streams de SCTP es la caracter'istica que beneficia la combinaci'on de protocolos. Las transacciones HTTP independientes cuando se transmiten sobre diferentes streams de SCTP mejoran significativamente los tiempos de respuesta.
+
+\subsubsection{Structured Stream Transport (SST)}
+
+Es un protocolo de transporte experimental \citep{sst} dise'nado para las aplicaciones que requieren de muchas conexiones as'incronas en paralelo, tales como la descarga de las diferentes partes que componen un sitio web y reproducir simult'aneamente m'ultiples flujos de audio y video a la vez.
+No realiza el 3-way Handshake en el inicio como TCP. Multiplexa flujos de datos de aplicaciones en una sola conexi'on de red. Soporta mensajes/datagramas de cualquier tama'no, no hay necesidad de limitar el tama'no de los env'ios. Priorizaci'on de flujos de datos.
+\subsubsection{MUX y SMUX}
+
+MUX\footnote{http://www.w3.org/Protocols/MUX/} y SMUX\footnote{http://www.w3.org/TR/WD-mux} son protocolos de capa intermedia (entre la capa de transporte y la capa de aplicaci'on) que proporcionan la multiplexaci'on de flujos de datos. Se propusieron al mismo tiempo que HTTP/1.1.
+
+\subsection{Estudios Relacionados}
+\label{estudiosSPDY}
+Se han realizado diversos estudios acerca de la performance de SPDY, que arrojan diferentes resultados. Estos resultados ayudan a ver en qu'e condiciones la utilizaci'on de SPDY realmente mejora la performance de la carga de un sitio.
+
+Jitendra Padhye y Henrik Frystyk Nielsen, en su paper ''A comparison of SPDY and HTTP performance'' \citep{comparision}, realizaron una comparaci'on de ambos protocolos en un ambiente controlado. Con un sitio de prueba\footnote{index.html + 20 im'agenes + 3 hojas de estilo}, variando el RTT y el ancho de banda, obtuvieron los resultados que se ven en los Gr'aficos \ref{comparision1} y \ref{comparision2}.
+
+\begin{figure}[ht!]
+  	\centering
+	\includegraphics[width=230px]{img/comparision1}
+	\caption{\small SPDY vs HTTP - 10Mbps, extra'ido de \citep{comparision}}
+	\label{comparision1}
+\end{figure}
+
+\begin{figure}[ht!]
+  	\centering
+	\includegraphics[width=230px]{img/comparision2}
+	\caption{\small SPDY vs HTTP - 1Mbps, extra'ido de \citep{comparision}}
+	\label{comparision2}
+\end{figure}
+
+Claramente se observa que, con anchos de banda m'as limitados, el incremento de performance de SPDY es bajo (del 3\% al 8\%) frente a un ancho de banda de 10mb en el cual el incremento es de hasta 39\%. Lo cual es un indicador de que, en un ambiente en el cual la velocidad del enlace sea pobre (por ejemplo una red 3G), que causa que est'e sujeto a una mayor probabilidad de p'erdidas de paquetes, SPDY no funciona como lo esperado. Posiblemente a causa del alto costo de retransmisi'on del flujo de datos, ya que si el Stream se pierde, se debe retransmitir todo completo ya que usa una sola conexi'on entre los extremos para comunicarse.
+
+Otro estudio interesante, relacionado con los resultados del estudio anterior, es ''Towards a SPDYier Mobile Web?'' \citep{towards}. En este paper se estudi'o el rendimiento de SPDY vs HTTP en redes de celulares. Tambi'en concluyen que no hay una diferencia significativa entre los protocolos estudiados en ese ambiente en particular.
+
+En ''The Effect of Network and Infrastructural Variables on SPDY?s Performance'' \citep{effect} tambi'en se realiza una experimentaci'on en diferentes ambientes, en donde se observa que con valores de RTT bajos, los beneficios de SPDY sobre HTTPS son marginales, en cambio, a medida que el valor del RTT va aumentando, los beneficios van creciendo. Este beneficio se da por la multiplexaci'on de streams que realiza SPDY, es muy costoso para HTTPS establecer conexiones separadas para cada recurso. Otra cuesti'on es la p'erdida de paquetes, el costo de retransmisi'on de SPDY es muy costoso ya que debe enviar el stream completo nuevamente, resultado similar al de \citep{comparision}.
+
+En el paper ''How Speedy is SPDY?'' \citep{howSpeedy}, se realiza una comparaci'on de la performance de HTTP vs SPDY. Desarrollaron una herramienta para emular la carga de diferentes p'aginas. Utilizaron un 'arbol de decisi'on para identificar las situaciones en las que SPDY se comporta mejor que HTTP y viceversa. En conclusi'on, SPDY mejora de manera significativa el tiempo de caga de las p'aginas en ciertos escenarios en los que se ve beneficiado por la utilizaci'on de una sola conexi'on TCP. Pero empeora la performance en situaciones con alta p'erdida de paquetes para objetos de mayor tama'no.

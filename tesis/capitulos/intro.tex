@@ -6,6 +6,26 @@ Los sitios web de la actualidad difieren de las p'aginas de hace m'as de 10 a'no
 Google propuso un protocolo llamado SPDY\footnote{SPeeDY.} como soluci'on a los problemas actuales, busca mejorar la performance de HTTP siendo transparente su implementaci'on.
 Se ver'a en los cap'itulos siguientes, los problemas que presentan los protocolos, y bajo qu'e circunstancias se ven beneficiados o perjudicados en cuanto a su performance.
 
+\section{Motivaci'on}
+
+La IETF\footnote{Internet Engineering Task Force - http://www.ietf.org} es una organizaci'on internacional que regula las propuestas y los est'andares de Internet, conocidos como RFC\footnote{Request For Comments}. Un grupo de trabajo que pertenece a la IETF llamado \textit{HTTPbis}\footnote{Hypertext Transfer Protocol Bis.} se encuentra desarrollando el nuevo protocolo HTTP 2.0 \citep{http2} que es la evoluci'on de HTTP. Este protocolo, toma como punto de partida a SPDY y se contin'uan realizando cambios y mejoras. Por esto, es importante estudiar el rendimiento de los protocolos, en especial el de SPDY que es la base de la evoluci'on del protocolo m'as utilizado en Internet.
+
+\section{Objetivos}
+
 En este trabajo, se presenta la problem'atica, se propone, y desarrolla un servidor proxy con un algoritmo adaptativo que determina seg'un el perfil de cada sitio que m'etodo (\textsc{http}, \textsc{https} 'o \textsc{spdy}) elegir para mejorar la performance, es decir, que decisi'on ser'ia la 'optima.
 
-El trabajo se encuentra organizado de la siguiente manera, veremos el desarrollo que tuvo la Web a lo largo de estos a'nos, avanzaremos sobre diversos conceptos de los Protocolos que se utilizan actualmente, as'i tambi'en como sus debilidades. Estudiaremos las problem'aticas asociadas a la Web y ciertas t'ecnicas de optimizaci'on. Conoceremos el concepto de Proxy, necesario para comprender el desarrollo en s'i, tambi'en se introducir'an ciertas cuestiones de Cach'e Web. Ya con toda la informaci'on necesaria, nos adentraremos en el desarrollo del Proxy propuesto, con sus caracter'isticas y funcionalidades. Hacia el final, con el fin de probar el Proxy en un ambiente real, veremos un experimento, sus resultados y las conclusiones finales. El glosario, la bibliograf'ia y los anexos se encuentran al final de este trabajo. No existe un cap'itulo dedicado a Trabajos Relacionados como tal, pero estos pueden encontrarse a lo largo de los cap'itulos, especialmente en el cap'itulo de Protocolos (Cap'itulo \ref{protocolos}) y del Desarrollo de la Web (Cap'itulo \ref{desarrolloWeb}).
+\section{Organizaci'on del trabajo}
+
+En el Cap'itulo 2 se conoce el desarrollo que tuvo la web a lo largo de estos a'nos, se observa el crecimiento  de Internet y de los sitios
+
+En el Cap'itulo 3, se avanza sobre diversos conceptos de los protocolos que se utilizan actualmente, as'i tambi'en como sus debilidades. 
+
+En el Cap'itulo 4, se estudian las problem'aticas asociadas a la web y ciertas t'ecnicas de optimizaci'on. 
+
+En el Cap'itulo 5, se ve el concepto de proxy, necesario para comprender el desarrollo en s'i, tambi'en se introducen ciertas cuestiones de cach'e web en el Cap'itulo 6. Ya con toda la informaci'on necesaria, en el Cap'itulo 7, se ve el desarrollo del proxy propuesto, con sus caracter'isticas y funcionalidades. 
+
+Hacia el final, en el Cap'itulo 8, con el fin de evaluar las prestaciones del proxy en un ambiente real, se realiza un experimento y se comentan sus resultados. En el 'ultimo Cap'itulo se exponen las conclusiones finales y los trabajos futuros.
+
+El glosario, la bibliograf'ia y los anexos se encuentran al final de este trabajo. 
+
+No existe un cap'itulo dedicado a trabajos relacionados como tal, pero estos pueden encontrarse a lo largo de los cap'itulos, especialmente en el cap'itulo de protocolos (Cap'itulo \ref{protocolos}) y del Desarrollo de la Web (Cap'itulo \ref{desarrolloWeb}).

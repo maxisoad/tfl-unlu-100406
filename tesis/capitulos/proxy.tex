@@ -4,14 +4,14 @@
 
 Los servidores proxy son Intermediarios entre el cliente y el servidor. Act'uan enviando los mensajes del cliente al servidor y viceversa. En una comunicaci'on normal, le cliente se comunica directamente con el servidor, en el caso de que en la red haya un proxy presente, el cliente se comunica con el proxy y este es el que se comunica con el servidor.
 
+El proxy HTTP es un web server y tambi'en es cliente. Para recibir los pedidos de los clientes, tiene que actuar como un servidor y manejar correctamente las peticiones, conexiones y respuestas. A su vez, para poder conectarse a los destinos finales y recuperar los recursos que le son pedidos por el usuario del proxy, tiene que actuar como un cliente, enviando peticiones y recibiendo las respuestas. Se puede ver el funcionamiento b'asico de un proxy en la Figura \ref{proxy_1}.
+
 \begin{figure}[ht!]
   	\centering
-	\includegraphics[width=\textwidth]{img/proxy_1}
+	\includegraphics[width=310px]{img/proxy_1}
 	\caption{\small Esquema del funcionamiento de un proxy, extra'ido de \cite{httpGuide}}
 	\label{proxy_1}
 \end{figure}
-
-El proxy HTTP es un web server y tambi'en es cliente. Para recibir los pedidos de los clientes, tiene que actuar como un servidor y manejar correctamente las peticiones, conexiones y respuestas. A su vez, para poder conectarse a los destinos finales y recuperar los recursos que le son pedidos por el usuario del proxy, tiene que actuar como un cliente, enviando peticiones y recibiendo las respuestas. Se puede ver el funcionamiento b'asico de un proxy en la Figura \ref{proxy_1}.
 
 El esquema de la Figura \ref{proxy_1} muestra una conexi'on utilizando HTTP, las peticiones viajan directamente al proxy y de ah'i al servidor final. En el caso de HTTPS se hace de manera diferente. Primero el cliente env'ia una petici'on con el M'etodo CONNECT que incluye la direcci'on y el puerto del destino final. El proxy autentica la conexi'on, completa la negociaci'on con el destino y responde al cliente con un mensaje que contiene el c'odigo 200 que indica que la conexi'on fu'e establecida. Luego, el proxy se convierte en un t'unel que solo reenv'ia los paquetes del cliente hacia el servidor y viceversa (todo el tr'afico se encuentra encriptado). Esto puede ilustrarse en la Figura \ref{proxy_2}.
 \label{mitm}
@@ -54,7 +54,7 @@ Puede utilizarse para mantener copias locales de los recursos peticionados por l
 
 \item Proxy Reverso / Surrogate Server
 
-Puede actuar delante de un servidor web, atendiendo peticiones de los clientes como si fuera 'el Servidor mismo. Esto permite por ejemplo, generar una Red de Distribuci'on de Contenidos\footnote{CDN}. Recibe una petici'on de un cliente, y, en vez de devolver el contenido directamente, inicia una comunicaci'on con otros servidores para localizar el recurso pedido, de manera m'as eficiente. Tambi'en protege a los servidores web, a'nadiendo una capa adicional de defensa. Puede distribuir la carga entre varios servidores web.
+Puede actuar delante de un servidor web, atendiendo peticiones de los clientes como si fuera 'el Servidor mismo. Esto permite por ejemplo, generar una Red de Distribuci'on de Contenidos (CDN). Recibe una petici'on de un cliente, y, en vez de devolver el contenido directamente, inicia una comunicaci'on con otros servidores para localizar el recurso pedido, de manera m'as eficiente. Tambi'en protege a los servidores web, a'nadiendo una capa adicional de defensa. Puede distribuir la carga entre varios servidores web.
 
 \item Content-Router
 
@@ -78,6 +78,7 @@ Permite navegar de manera privada y an'onima removiendo ciertos datos de los men
 \item Control
 
 Al ser intermediario, es el proxy el 'unico que va a realizar el trabajo de comunicaci'on hacia el exterior, es el que tiene la potestad de limitar y restringir los derechos de los clientes, ya que todo pasa a trav'es de 'el.
+\clearpage
 \item Optimizaci'on de los tiempos de carga
 
 En el caso de los proxies que ofrecen servicio de cach'e, se optimizan los tiempos de carga de los sitios, al tener almacenada copias locales que puede brindar directamente al usuario sin tener que realizar la petici'on al servidor final.
@@ -93,12 +94,12 @@ Recibir todas las peticiones del usuario, da la posibilidad de poder decidir que
 
 \item Tr'afico controlado
 
-Debido a que todo el tr'afico pasa a trav'ez del proxy, se puede registrar un gran volumen de informaci'on que luego puede usarse para auditor'ia y seguridad.
+Debido a que todo el tr'afico pasa a trav'es del proxy, se puede registrar un gran volumen de informaci'on que luego puede usarse para auditor'ia y seguridad.
 \item Anonimato
 
 Permite a los usuarios acceder a los servicios que brinda Internet, protegiendo la red interna. Al acceder al exterior identific'andose como el mismo, es dif'icil para el recurso diferenciar quien es el que est'a realizando la petici'on.
 \end{enumerate}
-
+\clearpage
 \subsection{Desventajas}
 
 \begin{enumerate}

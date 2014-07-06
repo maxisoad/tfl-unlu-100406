@@ -8,6 +8,8 @@ Internet es una red de interconexi'on global de redes individuales alrededor del
 
 Internet es un medio que sigue creciendo de manera exponencial. Hacia 1995 la cantidad de usuarios promedio era de 16 millones, 1 a'no despu'es, la cifra ascendi'o a m'as del doble. Para el a'no 2000 se increment'o 10 veces la cantidad de usuarios. Esta informaci'on puede verse en el Cuadro \ref{cuadroCrecInternet}.
 
+\clearpage
+
 \begin{longtable}{l c c}
 \hline
  Fecha & Usuarios(mill) & \% Poblaci'on Mundial\\
@@ -39,10 +41,8 @@ Diciembre,  2005 & 1018 & 15.7 \\
 Diciembre, 2006 & 1093 & 16.7 \\
 Diciembre, 2007 & 1319 & 20.0 \\
 Diciembre, 2008 & 1574 & 23.5 \\
-Marzo, 2009 & 1596 & 23.8 \\
 Junio, 2009 & 1669 & 24.7 \\
 Septiembre, 2009 & 1734 & 25.6 \\
-Diciembre, 2009 & 1802 & 26.6 \\
 Junio, 2010 & 1966 & 28.7 \\
 Septiembre, 2010 & 1971 & 28.8 \\
 Marzo, 2011 & 2095 & 30.2 \\
@@ -70,7 +70,9 @@ Tambi'en puede observarse en el Gr'afico \ref{grafCrecInternet} el crecimiento e
 
 Adem'as de la cantidad de usuarios, en paralelo iba creciendo la cantidad de dominios\footnote{Nombre que identifica un sitio web, se asocia a una direcci'on IP (ver \ref{tcpip}) 'unica.}. En sus inicios, la cantidad de dominios era de 19.732 (medici'on realizada en Agosto de 1995), la medici'on m'as actual (Febrero 2014) realizada por Netcraft\footnote{NetCraft - http://news.netcraft.com/} da un total aproximado de sitios de 920.102.079 \citep{netcraft} (58 millones m'as que el mes anterior). Esto se puede ver en el Gr'afico \ref{grafNetcraft}.
 
-\begin{figure}[h]
+\vspace{2cm}
+
+\begin{figure}[h!]
   	\centering
 	\includegraphics[width=\textwidth]{img/grafNetcraft}
 	\caption{\small Crecimiento de la cantidad de sitios en Internet, extra'ido de \cite{netcraft}}
@@ -92,7 +94,9 @@ En el a'no 1997, el tama'no promedio de un sitio era de 60Kb \citep{atw}, pr'act
 
 Hoy en d'ia, el contenido de los sitios es mucho m'as variado e interactivo. Se componen de diversos tipos de recursos: scripts, hojas de estilo, variados tipos de im'agenes, video, contenido Flash\footnote{http://www.adobe.com/}, etc. Esto produce un aumento en el tiempo de carga de las p'aginas y la necesidad de poseer un dispositivo con la capacidad necesaria para procesarla y renderizarla\footnote{El navegador "dibuja" la p'agina seg'un el c'odigo HTML y el estilo.}.
 
-Comparando 2 medidas realizadas por HTTP Archive\citep{httparchive}  con casi 4 a'nos de diferencia, se observa que, en la primera medici'on el promedio es de 702Kb\footnote{Medici'on extra'ida de \citep{httparchive} el 15 de Noviembre de 2010.}, el promedio detallado por contenido de los sitios se puede ver en el Gr'afico \ref{grafSitios2010}. En la segunda medici'on realizada en Junio de 2014, se observa que el promedio es de 1808Kb, es decir, que hubo un aumento de un 157\%.
+\vspace{1cm}
+
+Comparando 2 medidas realizadas por HTTP Archive \citep{httparchive}  con casi 4 a'nos de diferencia, se observa que, en la primera medici'on el promedio es de 702Kb\footnote{Medici'on extra'ida de \citep{httparchive} el 15 de Noviembre de 2010.}, el promedio detallado por contenido de los sitios se puede ver en el Gr'afico \ref{grafSitios2010}. En la segunda medici'on realizada en Junio de 2014, se observa que el promedio es de 1808Kb, es decir, que hubo un aumento de un 157\%.
 
 \begin{figure}[h]
   	\centering
@@ -107,6 +111,8 @@ Comparando 2 medidas realizadas por HTTP Archive\citep{httparchive}  con casi 4 
 	\caption{\small Tama'no promedio de los sitios en Internet (Junio 2014), detallado por contenido, extra'ido de \cite{httparchive}}
 	\label{grafSitios2014}
 \end{figure}
+
+\clearpage
 
 Otra cuesti'on es el aumento de la utilizaci'on de HTTPS\footnote{Hypertext Transfer Protocol Secure.}, la versi'on segura de HTTP (ver Cap'itulo \ref{protocolos}), como se ver'a m'as adelante, este protocolo a'nade tiempo en la negociaci'on previa a recuperar la p'agina.
 
@@ -123,5 +129,7 @@ Otra cuesti'on es el aumento de la utilizaci'on de HTTPS\footnote{Hypertext Tran
 	\caption{\small Porcentaje de utilizaci'on de HTTP/HTTPS (Junio 2014), extra'ido de \cite{httparchive}}
 	\label{httphttps2014}
 \end{figure}
+
+\clearpage
 
 El aumento de complejidad de los sitios, hace que el protocolo HTTP, que originalmente fu'e dise'nado para p'aginas ''simples'', baje su performance, aumentando el tiempo de carga de las p'aginas. No fu'e especialmente dise'nado para latencia, la demanda actual de la web no se pudo haber previsto cuando se desarroll'o. Esto motiva a repensar el protocolo, y revisar cuestiones como: petici'on individual por conexi'on, peticiones iniciadas exclusivamente por los clientes, headers de petici'on y respuesta sin compresi'on, headers redundantes, compresi'on opcional. Estas caracter'isticas y otras se ver'an en el Cap'itulo siguiente.

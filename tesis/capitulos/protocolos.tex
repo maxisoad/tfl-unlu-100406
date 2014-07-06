@@ -11,6 +11,8 @@ Es necesario que, antes de establecer una comunicaci'on entre partes, se definan
 
 Las reglas definen la forma en la que debe efectuarse la comunicaci'on, incluyendo cuestiones como la temporizaci'on, secuencia, revisi'on y correcci'on de errores. Define una \textit{sintaxis} (formato de los mensajes), una \textit{sem'antica} (significado de los mensajes) y \textit{sincronizaci'on} (secuenciamiento y temporizaci'on en la comunicaci'on).
 
+\clearpage
+
 Las tareas a realizar se dividen en niveles (capas), luego, los protocolos de cada capa son los que resuelven las tareas. Definir los modelos en capas brinda las siguientes ventajas:
 
 \begin{enumerate}
@@ -24,6 +26,8 @@ Las tareas a realizar se dividen en niveles (capas), luego, los protocolos de ca
 \label{osi}
 En los inicios de Internet, hubo un gran crecimiento tanto en cantidad como en tamaño de las redes. Debido a esto, muchas de las redes eran incompatibles entre s'i, y era extremadamente complicada la comunicaci'on entre ellas. Para solucionar este problema, la ISO\footnote{International Standard Organization}, realiz'o ciertas investigaciones acerca de los esquemas de red. En 1980 \citep{zim80}, cre'o un modelo de red para ayudar a los diseñadores de redes a poder implementar redes que puedan comunicarse entre s'i y trabajar en conjunto. Este es el modelo de referencia OSI, definida en la ISO/IEC 7498-1 \citep{osi74981}. Este modelo se agrupa en capas, cada capa agrupa una funci'on determinada. Est'an organizadas jer'arquicamente, cada capa ofrece un servicio a la capa superior. Es un modelo te'orico, toma la experiencia de la pila de protocolos TCP/IP (ver \ref{tcpip}), modelo que soporta Internet.
 
+\clearpage
+
 El modelo tiene 7 capas:
 \begin{itemize}
 \item[7.] Aplicaci'on
@@ -36,16 +40,18 @@ El modelo tiene 7 capas:
 \end{itemize}
 Se puede ver su distribuci'on en la Figura \ref{capasOSI}
 
-\begin{figure}[h]
+\begin{figure}[ht!]
   	\centering
-	\includegraphics[width=\textwidth]{img/osi}
+	\includegraphics[width=420px]{img/osi}
 	\caption{\small Capas OSI, extra'ido de http://www.gargasz.info/}
 	\label{capasOSI}
 \end{figure}
 
+\clearpage
+
 \subsection{Capa de Aplicaci'on}
 
-Proporciona servicios de red a las aplicaciones del usuario, es la 'unica capa que no provee servicios a otra capa. Si bien es la interfaz hacia el usuario, este no interact'ua directamente con esta capa, sino que lo hace a trav'ez de una aplicaci'on que si tiene acceso directo a esta capa.
+Proporciona servicios de red a las aplicaciones del usuario, es la 'unica capa que no provee servicios a otra capa. Si bien es la interfaz hacia el usuario, este no interact'ua directamente con esta capa, sino que lo hace a trav'es de una aplicaci'on que si tiene acceso directo a esta capa.
 
 \subsection{Capa de Presentaci'on}
 
@@ -61,7 +67,7 @@ Esta capa provee un servicio de transporte universal. Ofrece transparencia en el
 
 \subsection{Capa de Red}
 
-Se encarga de la conexi'on de hosts que pueden encontrarse en redes diferentes, define un esquema de direccionamiento, enrutamiento y selecci'on de rutas. Permite que los datos viajen de un extremo a otro a trav'ez de redes interconectadas. Se utilizan los paquetes como unidad de informaci'on, estos paquetes son los que se rutean a trav'ez de la red para llegar del origen al destino.
+Se encarga de la conexi'on de hosts que pueden encontrarse en redes diferentes, define un esquema de direccionamiento, enrutamiento y selecci'on de rutas. Permite que los datos viajen de un extremo a otro a trav'es de redes interconectadas. Se utilizan los paquetes como unidad de informaci'on, estos paquetes son los que se rutean a trav'es de la red para llegar del origen al destino.
 
 \subsection{Capa de Enlace}
 
@@ -85,6 +91,9 @@ Cada capa define lo que se conoce como PDU (Unidad de Datos del Protocolo), que 
 	\caption{\small Encapsulamiento en el Modelo OSI, extra'ida de \cite{encapsulamiento}}
 	\label{encapsulamiento}
 \end{figure}
+
+\vspace{1cm}
+
 \item Establecimiento, control y cierre de la conexi'on.
 \item Control de Flujo:
 Asegurar que la velocidad de los datos no sature las posibilidades particulares de cada capa.
@@ -113,24 +122,26 @@ Tiene un dise'no en capas similar al del Modelo OSI (ver Secci'on \ref{osi}), en
 \item Aplicaci'on
 
 En esta capa se manejan los detalles de una aplicaci'on particular. Aqu'i se encuentran protocolos muy conocidos tales como HTTP (Hipertext Transfer Protocol), HTTPS (Hipertext Transfer Protocol Secure),  FTP (File Transfer Protocol), POP (Post Office Protocol), SMTP (Simple Mail Transfer Protocol), SNMP (Simple Network Management Protocol), Telnet (para login remoto), DNS (Domain Name System) \citep{redesComputadores}.
+\clearpage
 \item Transporte
 
 Provee el servicio de env'io de flujo de datos entre dos hosts. En esta capa se encuentran 2 protocolos muy importantes:
 
-	\subitem TCP (Transfer Control Protocol):
+	\subitem \textbf{TCP (Transfer Control Protocol):}
 	\label{tcp}
+	
 	Permite crear conexiones entre hosts para el env'io de flujos de datos. Se ocupa de dividir los datos que vienen de la capa de aplicaci'on en paquetes de un tama'no adecuado para realizar el env'io en las capas inferiores. Tambi'en se encarga del control de la recepci'on de los paquetes enviados, as'i tambi'en como el establecimiento de los tiempos de espera para asegurarse que el otro extremo reconoce los paquetes enviados. Realiza la multiplexaci'on de la conexi'on, es decir, que permite compartir el canal entre varias conexiones.
 	
-	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un mensaje SYN\footnote{SYNchronize} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama Three Way Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
+	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un mensaje SYN\footnote{SYNchronize.} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement.} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama Three Way Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
 	
 	\begin{figure}[ht]
   	\centering
-	\includegraphics[width=\textwidth]{img/threeway}
+	\includegraphics[width=380px]{img/threeway}
 	\caption{\small Three Way Handshake, extra'ido de https://www.grc.com/}
 	\label{threeway}
 	\end{figure}
 
-	\subitem UDP (User Datagram Protocol):
+	\subitem \textbf{UDP (User Datagram Protocol):}
 	
 	Se ocupa de enviar paquetes de datos llamados datagramas de un extremo a otro, sin realizar una conexi'on previa, el mismo datagrama posee suficiente informaci'on para llegar a destino. No brinda ninguna garant'ia de que el paquete llegue a su destino y tampoco hace control de flujo.
 \item Red
@@ -166,6 +177,8 @@ Diferencias:
 	\caption{\small Comparaci'on entre TCP/IP y OSI}
 	\label{tcpiposi}
 \end{figure}
+
+\clearpage
 
 \section{HTTP}
 \label{http}
@@ -271,7 +284,7 @@ El algoritmo m'as conocido de criptograf'ia sim'etrica es el DES (Data Encryptio
 
 \begin{figure}[h]
   	\centering
-	\includegraphics[width=300px]{img/tripleDes}
+	\includegraphics[width=200px]{img/tripleDes}
 	\caption{\small Algoritmo Triple-DES, extra'ido de http://flylib.com/}
 	\label{tripleDes}
 \end{figure}
@@ -316,118 +329,3 @@ Una conexi'on es el enlace que se establece entre el emisor y el receptor a trav
 	\caption{\small Establecimiento de Conexiones HTTP y HTTPS, extra'ido de \citep{httpGuide}}
 	\label{httpsConnection}
 \end{figure}
-
-\section{SPDY}
-\label{spdy}
-
-\subsection{Introducci'on}
-
-SPDY es un protocolo experimental desarrollado por Google a mediados del 2009, cuya meta principal es reducir los tiempos de carga de los sitios enfoc'andose en las limitaciones de HTTP (ver \ref{http}).
-Espec'ificamente se busca lo siguiente \citep{highPerformance}:
-\begin{enumerate}
-\item Reducir el Tiempo de Carga de los Sitios.
-\item Evitar la necesidad de que los desarrolladores tengan que realizar cambios a los sitios actuales.
-\item Evitar cambios en la infraestructura de las redes y minificar la complejidad de implementaci'on.
-\item Liberar el desarrollo a la comunidad de c'odigo abierto.
-\item Recopilar datos reales de rendimiento para validar o invalidar el protoclo experimental.
-\end{enumerate}
-Desde el a'no 2012 el protocolo es soportado por los navegadores Chrome\footnote{http://www.google.com/intl/es\_AR/chrome/browser/}, Mozilla Firefox\footnote{http://www.mozilla.org/es-AR/firefox/new/}, y Opera\footnote{http://www.opera.com/}. Existen varias opciones de servidores que soportan el protocolo tales como Apache\footnote{http://code.google.com/p/mod-spdy/}, Jetty\footnote{http://wiki.eclipse.org/Jetty/Feature/SPDY} y NodeJS\footnote{https://github.com/indutny/node-spdy}. Varios sitios populares (Google, Facebook, Twitter) ya ofrecen un cliente para la utilizaci'on del protocolo. 
-
-\subsection{Detalles del Protocolo}
-
-Es un protocolo que a'nade una capa de sesi'on que funciona sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples Streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
-Su especificaci'on se puede ver en \citep{spdyWhitepaper} y su draft se puede encontrar en \citep{spdyDraft}.
-
-\begin{figure}[h]
-  	\centering
-	\includegraphics[width=200px]{img/capaSPDY}
-	\caption{\small Protocolo de Aplicaci'on SPDY, extra'ido de \citep{spdyWhitepaper}}
-	\label{capaSPDY}
-\end{figure}
-
-El protocolo HTTP no tiene estado, y, por cada recurso que requiera existe la necesidad de abrir una conexi'on nueva y cerrarla. Esto trae varios problemas:
-\begin{enumerate}
-\item Por cada conexi'on nueva que se hace, se necesitan varios mensajes para establecer la conexi'on TCP, lo que trae varios RTT (Round Trip Time) adicionales a la comunicaci'on. El RTT es el tiempo estimado para enviar y recibir un mensaje por parte del interlocutor \citep{tcpipIluistrated}, puede verse en la Figura \ref{rtt}.
-
-\begin{figure}[h]
-  	\centering
-	\includegraphics[width=200px]{img/rtt}
-	\caption{\small RTT}
-	\label{rtt}
-\end{figure}
-
-\item Retrasos debido al ''Slow Start'' de TCP. Se comienza enviando un volumen de datos peque'no hasta alcanzar cierto valor llamado Umbral de Congesti'on.
-\item Clientes que evitan realizar m'ultiples conexiones con el mismo servidor (hasta 6 actualmente).
-\item  A su vez, los servidores crean varios subdominios para almacenar el contenido para que los clientes puedan realizar las peticiones sin tener que evitar las m'ultiples conexiones a un mismo dominio.
-\end{enumerate}
-
-El funcionamiento b'asico de SPDY \ref{spdy} puede verse en la Figura \ref{spdy}. Inicia la conexi'on con el servidor realizando el ThreeWay Handshake de TCP (ver \ref{tcp}), se establece una conexi'on segura entre ambos extremos, y luego se pueden empezar a pedir los recursos a trav'es de la misma conexi'on y en paralelo.
-%\clearpage
-\begin{figure}[ht!]
-  	\centering
-	\includegraphics[width=230px]{img/spdy}
-	\caption{\small Funcionamiento de SPDY, extra'ido de \citep{towards}}
-	\label{spdy}
-\end{figure}
-
-SPDY ofrece por sobre HTTP las siguientes mejoras:
-\begin{enumerate}
-\item Peticiones Multiplexadas. No existen l'imites de peticiones que se pueden realizar en una sesi'on de SPDY. A causa de que las peticiones son multiplexadas aumenta la eficiencia del protocolo TCP.
-\item Priorizaci'on de Peticiones. Los clientes pueden solicitar al servidor cu'ales recursos quiere obtener antes que otros. Esto evita la congesti'on de recursos que no son cr'iticos cuando todav'ia est'a pendiente el env'io de alg'un recurso que tiene una prioridad mayor.
-\item Compresi'on de Headers. A causa de que hoy en d'ia los clientes env'ian mucha informaci'on redundante en forma de Headers, como la cantidad de peticiones para obtener un sitio promedio va desde 50 a 100, esta cantidad de informaci'on es relevante. Comprimir los Headers reduce el ancho de banda utilizado.
-\item Server Push. Al permitir la comunicaci'on bi-direccional a trav'es de streams, cualquiera de los 2 (cliente o servidor) puede iniciar un stream hacia el otro. El servidor puede enviar un recurso al cliente antes de que este lo pida\footnote{El servidor conoce de antemano que el cliente va a necesitar el recurso en cuesti'on.}, esto reduce el tiempo de carga del sitio y disminuye la cantidad de peticiones del cliente.
-\item Server Hint. El servidor puede ''sugerirle'' al cliente que pida un recurso en particular, ya que lo va a necesitar. De todas maneras, el servidor espera a que el cliente peticione el recurso en cuesti'on antes de enviarlo. Esto reduce el tiempo que tarda el cliente en descubrir cuales son los recursos que tiene que pedirle al servidor.
-\end{enumerate}
-
-SPDY se enfoca en la manera en la que se transmiten los datos por la red, preserva toda la sem'antica del protocolo HTTP. De esta manera, para las aplicaciones se implementa de manera transparente, ya que reside entre la capa de aplicaci'on y la de transporte. Esta sesi'on es similar al par petici'on-respuesta de HTTP. Es obligatoria la compresi'on del mensaje.
-
-\subsection{Alternativas Propuestas}
-
-Existen varias alternativas que se propusieron para mejorar la performance de Internet, 
-
-\subsubsection{SCTP (Stream Control Transmission Protocol)}
-Es una alternativa al Protocolo TCP, definido en la RFC 2960 \citep{rfcSCTP}, provee confiabilidad, control de flujo y secuenciaci'on, opcionalmente permite el env'io de mensajes sin un orden preestablecido. Permite Multihoming, que es la capacidad de que los extremos conectados puedan tener m'as de una direcci'on IP.
-
-\subsubsection{HTTP sobre SCTP}
-
-Es una propuesta de utilizar HTTP sobre SCTP definida en el draft ''draft-natarajan-http-over-sctp-00'' \citep{sctpHTTP}. El servicio de m'ultiples streams de SCTP es la caracter'istica que beneficia la combinaci'on de protocolos. Las transacciones HTTP independientes cuando se transmiten sobre diferentes streams de SCTP mejoran significativamente los tiempos de respuesta.
-
-\subsubsection{Structured Stream Transport (SST)}
-
-Es un protocolo de transporte experimental \citep{sst} dise'nado para las aplicaciones que requieren de muchas conexiones as'incronas en paralelo, tales como la descarga de las diferentes partes que componen un sitio web y reproducir simult'aneamente m'ultiples flujos de audio y video a la vez.
-No realiza el 3-way Handshake en el inicio como TCP. Multiplexa flujos de datos de aplicaciones en una sola conexi'on de red. Soporta mensajes/datagramas de cualquier tama'no, no hay necesidad de limitar el tama'no de los env'ios. Priorizaci'on de flujos de datos.
-\subsubsection{MUX y SMUX}
-
-MUX\footnote{http://www.w3.org/Protocols/MUX/} y SMUX\footnote{http://www.w3.org/TR/WD-mux} son protocolos de capa intermedia (entre la capa de transporte y la capa de aplicaci'on) que proporcionan la multiplexaci'on de flujos de datos. Se propusieron al mismo tiempo que HTTP/1.1.
-
-\subsection{Estudios Relacionados}
-\label{estudiosSPDY}
-Se han realizado diversos estudios acerca de la performance de SPDY, que arrojan diferentes resultados. Estos resultados ayudan a ver en qu'e condiciones la utilizaci'on de SPDY realmente mejora la performance de la carga de un sitio.
-
-Jitendra Padhye y Henrik Frystyk Nielsen, en su paper ''A comparison of SPDY and HTTP performance'' \citep{comparision}, realizaron una comparaci'on de ambos protocolos en un ambiente controlado. Con un sitio de prueba\footnote{index.html + 20 im'agenes + 3 hojas de estilo}, variando el RTT y el ancho de banda, obtuvieron los resultados que se ven en los Gr'aficos \ref{comparision1} y \ref{comparision1}.
-
-\begin{figure}[ht!]
-  	\centering
-	\includegraphics[width=230px]{img/comparision1}
-	\caption{\small SPDY vs HTTP - 10Mbps, extra'ido de \citep{spdyWhitepaper}}
-	\label{comparision1}
-\end{figure}
-
-\begin{figure}[ht!]
-  	\centering
-	\includegraphics[width=230px]{img/comparision2}
-	\caption{\small SPDY vs HTTP - 1Mbps, extra'ido de \citep{spdyWhitepaper}}
-	\label{comparision2}
-\end{figure}
-
-Claramente se observa que, con anchos de banda m'as limitados, el incremento de performance de SPDY es bajo (del 3\% al 8\%) frente a un ancho de banda de 10mb en el cual el incremento es de hasta 39\%. Lo cual es un indicador de que, en un ambiente en el cual la velocidad del enlace sea pobre (por ejemplo una red 3G), que causa que est'e sujeto a una mayor probabilidad de p'erdidas de paquetes, SPDY no funciona como lo esperado. Posiblemente a causa del alto costo de retransmisi'on del flujo de datos, ya que si el Stream se pierde, se debe retransmitir todo completo ya que usa una sola conexi'on entre los extremos para comunicarse.
-
-Otro estudio interesante, relacionado con los resultados del estudio anterior, es ''Towards a SPDYier Mobile Web?'' \citep{towards}. En este paper se estudi'o el rendimiento de SPDY vs HTTP en redes de celulares. Tambi'en concluyen que no hay una diferencia significativa entre los protocolos estudiados en ese ambiente en particular.
-
-\vspace{5mm}
-
-FALTAN
-
-The Effect of Network and Infrastructural Variables on SPDY?s Performance
-
-How Speedy is SPDY?
