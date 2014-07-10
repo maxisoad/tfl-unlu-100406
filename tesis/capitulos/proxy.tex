@@ -2,7 +2,7 @@
 \label{proxy}
 \section{Definici'on}
 
-Los servidores proxy son Intermediarios entre el cliente y el servidor. Act'uan enviando los mensajes del cliente al servidor y viceversa. En una comunicaci'on normal, le cliente se comunica directamente con el servidor, en el caso de que en la red haya un proxy presente, el cliente se comunica con el proxy y este es el que se comunica con el servidor.
+Los servidores proxy son intermediarios entre el cliente y el servidor. Act'uan enviando los mensajes del cliente al servidor y viceversa. En una comunicaci'on normal, le cliente se comunica directamente con el servidor, en el caso de que en la red haya un proxy presente, el cliente se comunica con el proxy y este es el que se comunica con el servidor.
 
 El proxy HTTP es un web server y tambi'en es cliente. Para recibir los pedidos de los clientes, tiene que actuar como un servidor y manejar correctamente las peticiones, conexiones y respuestas. A su vez, para poder conectarse a los destinos finales y recuperar los recursos que le son pedidos por el usuario del proxy, tiene que actuar como un cliente, enviando peticiones y recibiendo las respuestas. Se puede ver el funcionamiento b'asico de un proxy en la Figura \ref{proxy_1}.
 
@@ -13,21 +13,21 @@ El proxy HTTP es un web server y tambi'en es cliente. Para recibir los pedidos d
 	\label{proxy_1}
 \end{figure}
 
-El esquema de la Figura \ref{proxy_1} muestra una conexi'on utilizando HTTP, las peticiones viajan directamente al proxy y de ah'i al servidor final. En el caso de HTTPS se hace de manera diferente. Primero el cliente env'ia una petici'on con el M'etodo CONNECT que incluye la direcci'on y el puerto del destino final. El proxy autentica la conexi'on, completa la negociaci'on con el destino y responde al cliente con un mensaje que contiene el c'odigo 200 que indica que la conexi'on fu'e establecida. Luego, el proxy se convierte en un t'unel que solo reenv'ia los paquetes del cliente hacia el servidor y viceversa (todo el tr'afico se encuentra encriptado). Esto puede ilustrarse en la Figura \ref{proxy_2}.
+El esquema de la Figura \ref{proxy_1} muestra una conexi'on utilizando HTTP, las peticiones viajan directamente al proxy y de ah'i al servidor final. En el caso de HTTPS se hace de manera diferente. Primero el cliente env'ia una petici'on con el m'etodo CONNECT que incluye la direcci'on y el puerto del destino final. El proxy autentica la conexi'on, completa la negociaci'on con el destino y responde al cliente con un mensaje que contiene el c'odigo 200 que indica que la conexi'on fu'e establecida. Luego, el proxy se convierte en un t'unel que solo reenv'ia los paquetes del cliente hacia el servidor y viceversa (todo el tr'afico se encuentra encriptado). Esto puede ilustrarse en la Figura \ref{proxy_2}.
 \label{mitm}
 Los browsers actuales no soportan proxies HTTP Seguros, es decir, que se establezca una sesi'on SSL del cliente al proxy y otra del proxy al servidor final como puede verse en la Figura \ref{trustedProxy}. Este 'ultimo punto est'a en discusi'on, se propuso un borrador \citep{draftTrustedProxy} al respecto.
 
 \begin{figure}[h]
   	\centering
 	\includegraphics[width=\textwidth]{img/proxy_2}
-	\caption{\small T'unel HTTPS sobre un Proxy, extra'ido de \cite{secureProxies}}
+	\caption{\small T'unel HTTPS sobre un proxy, extra'ido de \cite{secureProxies}}
 	\label{proxy_2}
 \end{figure}
 
 \begin{figure}[h]
   	\centering
 	\includegraphics[width=\textwidth]{img/trustedProxy}
-	\caption{\small T'unel HTTPS sobre un Proxy, extra'ido de \cite{draftTrustedProxy}}
+	\caption{\small T'unel HTTPS sobre un proxy, extra'ido de \cite{draftTrustedProxy}}
 	\label{trustedProxy}
 \end{figure}
 
@@ -38,11 +38,11 @@ Hay diversas utilizaciones de los servidores proxy, entre ellas se destacan:
 \begin{enumerate}
 \item Proxy NAT\footnote{Network Address Translation.} / Enmascaramiento
 
-El enmascaramiento IP o tambi'on llamado traducci'on de direciones de red, es el proceso por el cual las direcciones IP del origen/destino son reescritas, se sustituyen por otras. Es 'util cuando se dispone de una 'unica direcci'on p'ublica que se comparte entre varios usuarios. El proxy se encarga de enmascarar las direcciones privadas de los clientes, traduciendol'a a la direcci'on p'ublica, para realizar las peticiones al exterior. Cuando recibe la respuesta de los servidores exteriores, se encarga de derivarla al usuario que inici'o el pedido.
+El enmascaramiento IP o tambi'en llamado traducci'on de direcciones de red, es el proceso por el cual las direcciones IP del origen/destino son reescritas, se sustituyen por otras. Es 'util cuando se dispone de una 'unica direcci'on p'ublica que se comparte entre varios usuarios. El proxy se encarga de enmascarar las direcciones privadas de los clientes, traduciendol'a a la direcci'on p'ublica, para realizar las peticiones al exterior. Cuando recibe la respuesta de los servidores exteriores, se encarga de derivarla al usuario que inici'o el pedido.
 
 \item Filtro
 
-El Proxy al recibir las peticiones de los clientes, puede permitir o denegar esas peticiones seg'un ciertas pol'iticas definidas. Por ejemplo, en una Instituci'on Educativa se podr'ia bloquear el acceso a ciertas redes sociales o sitios para adultos.
+El proxy al recibir las peticiones de los clientes, puede permitir o denegar esas peticiones seg'un ciertas pol'iticas definidas. Por ejemplo, en una Instituci'on Educativa se podr'ia bloquear el acceso a ciertas redes sociales o sitios para adultos.
 
 \item Cortafuegos\footnote{Firewall.}
 
@@ -50,15 +50,15 @@ Al ser un intermediario, y muchas veces como puerta de acceso hacia internet, se
 
 \item Web Cach'e
 
-Puede utilizarse para mantener copias locales de los recursos peticionados por los clientes, y al momento de recibir una petici'on por un recurso que se encuentra almacenado, se brinda esa copia al cliente. Al servir varios clientes esto incrementa la velocidad de respuesta. Es uno de los usos m'as importantes de un proxy, ya que reduce notablemente los tiempos de carga de los sitios cuando se produce un cach'e Hit. Esto se ver'a detalladamente en el Cap'itulo \ref{cache}.
+Puede utilizarse para mantener copias locales de los recursos peticionados por los clientes, y al momento de recibir una petici'on por un recurso que se encuentra almacenado, se brinda esa copia al cliente. Al servir varios clientes esto incrementa la velocidad de respuesta. Es uno de los usos m'as importantes de un proxy, ya que reduce notablemente los tiempos de carga de los sitios cuando se produce un cach'e hit. Esto se ver'a detalladamente en el Cap'itulo \ref{cache}.
 
 \item Proxy Reverso / Surrogate Server
 
-Puede actuar delante de un servidor web, atendiendo peticiones de los clientes como si fuera 'el Servidor mismo. Esto permite por ejemplo, generar una Red de Distribuci'on de Contenidos (CDN). Recibe una petici'on de un cliente, y, en vez de devolver el contenido directamente, inicia una comunicaci'on con otros servidores para localizar el recurso pedido, de manera m'as eficiente. Tambi'en protege a los servidores web, a'nadiendo una capa adicional de defensa. Puede distribuir la carga entre varios servidores web.
+Puede actuar delante de un servidor web, atendiendo peticiones de los clientes como si fuera 'el servidor mismo. Esto permite por ejemplo, generar una red de distribuci'on de contenidos (CDN). Recibe una petici'on de un cliente, y, en vez de devolver el contenido directamente, inicia una comunicaci'on con otros servidores para localizar el recurso pedido, de manera m'as eficiente. Tambi'en protege a los servidores web, a'nadiendo una capa adicional de defensa. Puede distribuir la carga entre varios servidores web.
 
 \item Content-Router
 
-Pueden redirigir las peticiones a diferentes Servidores, basados en las condiciones del Tr'afico de Internet y el tipo de contenido.
+Pueden redirigir las peticiones a diferentes servidores, basados en las condiciones del tr'afico de Internet y el tipo de contenido.
 
 \item Transcoder
 
@@ -114,7 +114,7 @@ Al ser el intermediario de todos los usuarios, el proxy tiene que realizar el tr
 Pueden aparecer usuarios que no se sientan c'omodos con que todo su tr'afico sea interceptado. Adem'as, todas las transacciones realizadas se guardan en archivos de logs\footnote{Registro oficial de eventos durante un rango de tiempo en particular.}, es decir que toda la actividad que el usuario realice a trav'es del proxy quedan registradas. En una conexi'on sin intermediarios, es imposible tener la informaci'on completa de las transacciones realizadas ya que se encuentra esparcida en servidores diseminados por todo el mundo.
 \item Modificaci'on en el Software de los usuarios
 
-La utilizaci'on de un proxy, requiere que las aplicaciones que interact'uan con Internet que los usuarios utilizan en la red interna, se configuren (Ver Secci'on \ref{proxyConf}) para que puedan tener acceso hacia el exterior a trav'es del proxy. 
+La utilizaci'on de un proxy, requiere que las aplicaciones que interact'uan con Internet que los usuarios utilizan en la red interna, se configuren (ver Secci'on \ref{proxyConf}) para que puedan tener acceso hacia el exterior a trav'es del proxy. 
 \item Servicios no disponibles
 
 Existen algunos aplicaciones que no funcionan con un proxy de por medio, por ejemplo el servicio de mensajer'ia Whatsapp\footnote{http://www.whatsapp.com/}.

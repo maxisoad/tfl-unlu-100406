@@ -7,7 +7,7 @@ A lo largo de los cap'itulos anteriores, se ha visto, el crecimiento de Internet
 
 Por todo ello, se propone, desarrolla y eval'ua un \textit{Proxy Adaptativo}, que selecciona, de los m'etodos habilitados que ofrezca un sitio (HTTP HTTPS, SPDY), cu'al es el 'optimo para recuperar el recurso, en base a informaci'on almacenada de recuperaciones previas. Posee otras funcionalidades tales como, ser MITM\footnote{Man in The Middle.}, cach'e, c'alculo de RTT, recuperaci'on de los m'etodos habilitados para un sitio, cliente SPDY.
 
-Para el desarrollo del Proxy, se escogi'o Python\footnote{https://www.python.org/} como lenguaje principal, dada la facilidad del mismo y la gran documentaci'on disponible en la web. Para el almacenamiento de los datos de los sitios se escogi'o MongoDB\footnote{http://http://www.mongodb.org/}, por su simple interacci'on con Python y su alta velocidad.
+Para el desarrollo del proxy, se escogi'o Python\footnote{https://www.python.org/} como lenguaje principal, dada la facilidad del mismo y la gran documentaci'on disponible en la web. Para el almacenamiento de los datos de los sitios se escogi'o MongoDB\footnote{http://http://www.mongodb.org/}, por su simple interacci'on con Python y su alta velocidad.
 
 Todo el c'odigo del trabajo se encuentra alojado en un repositorio de Github\footnote{https://www.github.com}, que es un repositorio para alojar proyectos de c'odigo abierto. El repositorio puede navegarse desde \citep{spdyproxypython}.
 
@@ -19,7 +19,7 @@ El proxy se inicia en una direcci'on y en un puerto, por ejemplo: \textit{localh
 \end{quote}
 Acepta tanto conexiones HTTP, como HTTPS en el mismo puerto. Al realizar la conexi'on por SSL con el cliente en vez de actuar de ''puente'' con el destino final, utiliza un certificado SSL para realizar la autenticaci'on.
 
-Cuando recibe una petici'on HTTP, el m'etodo que llega al proxy es \textit{GET}, se consulta la cach'e para ver si el recurso se encuentra almacenado para retornarlo desde la copia del proxy, si no se encuentra, se pide al servidor correspondiente y se devuelve el recurso al cliente. Luego, se realiza el An'alisis del Recurso (ver \ref{analisisRecurso}) en segundo plano.
+Cuando recibe una petici'on HTTP, el m'etodo que llega al proxy es \textit{GET}, se consulta la cach'e para ver si el recurso se encuentra almacenado para retornarlo desde la copia del proxy, si no se encuentra, se pide al servidor correspondiente y se devuelve el recurso al cliente. Luego, se realiza el an'alisis del recurso (ver \ref{analisisRecurso}) en segundo plano.
 
 Cuando recibe una petici'on HTTPS, el m'etodo que llega al proxy es CONNECT, que es un m'etodo especial para solicitarle a un proxy una conexi'on al servidor final. En este caso, el proxy responde con el mensaje:
 \begin{quote}
@@ -34,7 +34,7 @@ para indicarle que se va a realizar la conexi'on. Esta primera etapa puede verse
 	\label{mitm1}
 \end{figure}
 \vspace{3cm}
-Luego, se inicia la conexi'on SSL Cliente-Proxy y comienzan a recibirse las peticiones del cliente, como puede verse en la Figura \ref{mitm2}, las conexiones\footnote{Tanto hacia el cliente como hacia el Servidor.} se realizan individualmente (no como un t'unel HTTPS normal, ver Figura \ref{proxy_2}). Con cada una de las peticiones, se procede de manera similar a HTTP. Se analiza si el recurso se encuentra almacenado en la cach'e y se devuelve de la copia local, o se solicita el recurso al servidor final. En el caso de que el m'etodo seleccionado para devolver el recurso sea HTTS o SPDY, se establece una conexi'on segura entre el proxy y el servidor final.
+Luego, se inicia la conexi'on SSL cliente-proxy y comienzan a recibirse las peticiones del cliente, como puede verse en la Figura \ref{mitm2}, las conexiones\footnote{Tanto hacia el cliente como hacia el Servidor.} se realizan individualmente (no como un t'unel HTTPS normal, ver Figura \ref{proxy_2}). Con cada una de las peticiones, se procede de manera similar a HTTP. Se analiza si el recurso se encuentra almacenado en la cach'e y se devuelve de la copia local, o se solicita el recurso al servidor final. En el caso de que el m'etodo seleccionado para devolver el recurso sea HTTS o SPDY, se establece una conexi'on segura entre el proxy y el servidor final.
 
 \begin{figure}[h]
   	\centering
@@ -43,7 +43,7 @@ Luego, se inicia la conexi'on SSL Cliente-Proxy y comienzan a recibirse las peti
 	\label{mitm2}
 \end{figure}
 
-Cabe destacar que, todo el tr'afico que fluye entre el cliente y el proxy, y entre el proxy y el servidor final, viaja encriptado. Pero, todo el tr'afico se encuentra desencriptado en el Proxy, siendo este, un proxy HTTPS de confianza (ver \ref{mitm}, discusi'on en \citep{draftTrustedProxy}).
+Cabe destacar que, todo el tr'afico que fluye entre el cliente y el proxy, y entre el proxy y el servidor final, viaja encriptado. Pero, todo el tr'afico se encuentra desencriptado en el proxy, siendo este, un proxy HTTPS de confianza (ver \ref{mitm}, discusi'on en \citep{draftTrustedProxy}).
 
 \subsection{An'alisis de los Recursos}
 \label{analisisRecurso}
@@ -52,10 +52,10 @@ Cada vez que el proxy pide un recurso, se realiza un an'alisis del mismo en segu
 \begin{enumerate}
 \item C'alculo del tama'no del recurso.
 \item C'alculo del RTT: se realiza el c'alculo del RTT al host donde se aloja el recurso.
-\item Obtenci'on de Protocolos: Se obtienen los protocolos soportados (HTTP, HTTPS, SPDY) del host donde se aloja el recurso.
+\item Obtenci'on de Protocolos: se obtienen los protocolos soportados (HTTP, HTTPS, SPDY) del host donde se aloja el recurso.
 \item C'alculo de Peticiones a Generar: en el caso de que el recurso sea un HTML plano, se calcula cuantas peticiones generar'ia. Se realiza analizando el texto y extrayendo los recursos que esa p'agina va a necesitar para su renderizaci'on.
 \end{enumerate}
-Toda esta informaci'on, luego es consumida por un 'Arbol de Decisi'on para determinar que protocolo es el m'as 'optimo para recuperar el recurso.
+Toda esta informaci'on, luego es consumida por un 'arbol de decisi'on para determinar que protocolo es el m'as 'optimo para recuperar el recurso.
 
 \subsection{'Arbol de Decisi'on}
 
@@ -96,4 +96,4 @@ Al igual que el m'odulo que calcula el RTT (ver \ref{measureRTT}), 'este posee u
 \subsection{Cliente SPDY}
 \label{clienteSPDY}
 
-Python no trae soporte nativo para SPDY, por ello se busc'o una libreria que pueda brindar la funcionalidad del protocolo. La seleccionada fue Spdylay \citep{spdylay} de Tatsuhiro Tsujikawa, que, si bien es para el lenguaje C, provee una extensi'on para utilizarla desde Python\footnote{http://tatsuhiro-t.github.io/spdylay/python.html}. Utilizando esta librer'ia, se dise'no un cliente para poder realizar y mantener una sesi'on a trav'es de una conexi'on TCP con un servidor que soporte SPDY. El m'odulo permite iniciar una conexi'on con un servidor y luego iniciar la sesi'on SPDY. Luego, se pueden realizar peticiones a trav'es de la misma conexi'on.
+Python no trae soporte nativo para SPDY, por ello se busc'o una librer'ia que pueda brindar la funcionalidad del protocolo. La seleccionada fue Spdylay \citep{spdylay} de Tatsuhiro Tsujikawa, que, si bien es para el lenguaje C, provee una extensi'on para utilizarla desde Python\footnote{http://tatsuhiro-t.github.io/spdylay/python.html}. Utilizando esta librer'ia, se dise'no un cliente para poder realizar y mantener una sesi'on a trav'es de una conexi'on TCP con un servidor que soporte SPDY. El m'odulo permite iniciar una conexi'on con un servidor y luego iniciar la sesi'on SPDY. Luego, se pueden realizar peticiones a trav'es de la misma conexi'on.

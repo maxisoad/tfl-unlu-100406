@@ -39,10 +39,10 @@ A diferencia de los de navegador, estos sirven a un n'umero grande de usuarios. 
 
 Son intermediarios que act'uan con la autoridad del servidor original para servir contenidos como si fueran el servidor mismo \citep{edgeArch}. Generalmente se encuentran cerca de los servidores originales, sirviendo el contenido de los mismos, generalmente desde una cach'e interna.
 
-Se usan como Redes de Distribuci'on de Contenidos (CDN), para tener replicaciones de los recursos de un servidor en diferentes lugares. Los recursos peticionados por los clientes, son revueltos por el CDN m'as cercano fisicamente. Tambi'en se usan como aceleradores, simplemente almacenando en la cach'e las respuestas del servidor.
+Se usan como redes de distribuci'on de contenidos (CDN), para tener replicaciones de los recursos de un servidor en diferentes lugares. Los recursos peticionados por los clientes, son revueltos por el CDN m'as cercano f'isicamente. Tambi'en se usan como aceleradores, simplemente almacenando en la cach'e las respuestas del servidor.
 \end{enumerate}
 
-\section{Politicas de Reemplazo / Algoritmos de Cach'e}
+\section{Pol'iticas de Reemplazo / Algoritmos de Cach'e}
 \label{politicasReemplazo}
 Para el buen funcionamiento de la cach'e, hay que definir de qu'e manera se van reemplazando los contenidos almacenados en la misma. Para esto se utiliza una pol'itica de reemplazo de objetos, orientado a ciertas caracter'isticas de los objetos, tales como el tama'no, cantidad de peticiones de dicho objeto, tiempo almacenado en la cach'e, etc.
 Hay diversos algoritmos que se detallan a continuaci'on.
@@ -71,24 +71,24 @@ Existen otras pol'iticas m'as sofisticadas que consideran el costo de cada objet
 \section{Control de Cach'e}
 \label{controlCache}
 
-Cuando el cliente realiza una petici'on, y esta coincide con un elemento que tenemos almacenado en la Cach'e se debe evaluar si es viable enviar la copia local, o hacer la petici'on nuevamente, a esto se le llama Revalidaci'on. Para esto se realizan ciertos controles (extra'idos de \citep{cacheDef}) en base a los Headers de HTTP (vistos en \ref{headers}).
+Cuando el cliente realiza una petici'on, y esta coincide con un elemento que tenemos almacenado en la Cach'e se debe evaluar si es viable enviar la copia local, o hacer la petici'on nuevamente, a esto se le llama revalidaci'on. Para esto se realizan ciertos controles (extra'idos de \citep{cacheDef}) en base a los headers de HTTP (vistos en \ref{headers}).
 
 \begin{enumerate}
 \item El Header \textsl{Expires}, indica cuanto tiempo va a estar ''fresco''\footnote{No va a tener cambios.} el recurso. Si en el momento de la petici'on, todav'ia no expir'o el recurso, puedo servirlo de la copia local. Tiene algunas limitaciones, como por ejemplo que el valor permitido es una fecha en GMT\footnote{Greenwich Mean Time.}, lo que lleva a que los relojes del servidor y del cach'e est'en sincronizados, de otra manera no tiene sentido una comparaci'on de fechas. Otro problema que se encuentra es que si se env'ia este header, pero no est'a actualizado, siempre va a enviar una fecha anterior a la actual lo que llevar'ia a generar siempre la petici'on del recurso.
 \item Se puede utilizar el header \textsl{Cache-control}\footnote{Implementado a partir de la versi'on 1.1 de HTTP.} que brinda informaci'on variada. El formato es: \textbf{Cache-control: especificaci'on1, especificaci'on2, especificaci'onN}.
 	\begin{enumerate}
 	\item \textsl{max-age} - Especifica en tiempo en el que el recurso puede ser considerado ''fresco'' en segundos. Es el similar a \textsl{Expires} pero con un valor espec'ifico a diferencia de una marca de tiempo.
-	\item \textsl{s-maxage} - Similar al anterior pero para los cach'es compartidos\footnote{Por ejemplo un Proxy.}.
+	\item \textsl{s-maxage} - Similar al anterior pero para los cach'es compartidos\footnote{Por ejemplo un proxy.}.
 	\item \textsl{public} - Indica que las peticiones que requieren autenticaci'on pueden almacenarse en la cach'e.
 	\item \textsl{private} - Permite que el recurso puede almacenarse en aquellos cach'es que son solo para 1 solo usuario\footnote{Por ejemplo la cach'e de un browser.} y no en una cach'e compartida.
 	\item \textsl{no-cache} - Fuerza a que el recurso tenga que revalidarse antes de devolver la copia local de la cach'e al cliente.
 	\item \textsl{no-store} - Indica que el recurso no debe quedar almacenado en la cach'e bajo ninguna circunstancia.
 	\item \textsl{must-revalidate} - Si el recurso luego de validarlo en la cach'e no esta ''fresco'', debe revalidarse.
-	\item \textsl{proxy-revalidate} - Igual que \textsl{must-revalidate} pero aplicado a Proxies.
+	\item \textsl{proxy-revalidate} - Igual que \textsl{must-revalidate} pero aplicado a proxies.
 	\end{enumerate}
 \end{enumerate}
 
-Cuando ambos Headers, \textsl{Expires} y \textsl{Cache-control} est'an presentes en la respuesta, \textsl{Cache-control} es el que toma mayor importancia.
+Cuando ambos headers, \textsl{Expires} y \textsl{Cache-control} est'an presentes en la respuesta, \textsl{Cache-control} es el que toma mayor importancia.
 
-Para realizar la revalidaci'on se utilizan ciertos headers en la petici'on. Los servidores utilizan 2 headers para realizar las validaciones, uno es \textsl{Last-Modified}, que indica cu'ando fu'e modificado por 'ultima vez el recurso. Cuando 'este est'a presente, el cliente puede realizar una petici'on con el header \textsl{If-Modified-Since}:fecha, para que el servidor devuelva el recurso unicamente si se cumple con esta condici'on, de no ser as'i, devuelve un mensaje con el c'odigo \texttt{304 Not Modified}, que indica que el recurso no fue modificado y se puede servir la copia local.
+Para realizar la revalidaci'on se utilizan ciertos headers en la petici'on. Los servidores utilizan 2 headers para realizar las validaciones, uno es \textsl{Last-Modified}, que indica cu'ando fu'e modificado por 'ultima vez el recurso. Cuando 'este est'a presente, el cliente puede realizar una petici'on con el header \textsl{If-Modified-Since}:fecha, para que el servidor devuelva el recurso 'unicamente si se cumple con esta condici'on, de no ser as'i, devuelve un mensaje con el c'odigo \texttt{304 Not Modified}, que indica que el recurso no fue modificado y se puede servir la copia local.
 Por otro lado, se utiliza un identificador llamado \textsl{ETag} que se genera cada vez que el recurso se modifica. Es una cadena de texto que identifica una versi'on espec'ifica del recurso. En este caso, el cliente puede utilizar el header \textsl{If-None-Match}:ETag\_local, que el servidor responde con el recurso en el caso de que el identificador enviado por el cliente no coincida con el del objeto peticionado.

@@ -10,14 +10,14 @@ En cuanto a los sitios del ranking de Alexa a la fecha actual, la mayor'ia utili
 
 SPDY sent'o las bases del nuevo HTTP 2.0 que, si bien todav'ia no est'a implementado, est'a en v'ias de implementarse en un futuro cercano. La utilizaci'on de SPDY, servir'ia para poder experimentar con el protocolo y poder adecuar los sitios para que su rendimiento sea 'optimo, cuesti'on importante previendo una futura migraci'on a HTTP 2.0.
 
-Otra cuesti'on importante es que, la utilizaci'on de un proxy que pueda manejar SPDY u otros protocolos en un futuro, brinda la posibilidad de aprovechar las caracter'isticas de dichos protocolos, sin necesidad de que el Cliente conectado al Proxy, tenga un Navegador que soporte dichos protocolos. Tambi'en, que el Proxy act'ue de MITM, ofrece la posibilidad de utilizar herramientas como una Cach'e Web, para mejorar la performance, en sitios en los que no se puede utilizar esta opci'on (por ejemplo, HTTPS).
+Otra cuesti'on importante es que, la utilizaci'on de un proxy que pueda manejar SPDY u otros protocolos en un futuro, brinda la posibilidad de aprovechar las caracter'isticas de dichos protocolos, sin necesidad de que el cliente conectado al proxy, tenga un navegador que soporte dichos protocolos. Tambi'en, que el proxy act'ue de MITM, ofrece la posibilidad de utilizar herramientas como una cach'e web, para mejorar la performance, en sitios en los que no se puede utilizar esta opci'on (por ejemplo, HTTPS).
 
 \section{Trabajos futuros}
 
-Se podr'ia extraer el algoritmo de selecci'on de protocolo e implementarlo en un cliente directo, tal como un navegador. Para as'i tener la ventaja de no tener ning'un intermediario y realizar la conexi'on directamente con el servidor final, ahorr'andose las conexiones extras.
+A partir del desarrollo de este trabajo se detectaron m'ultiples oportunidades de expansi'on y nuevas l'ineas de trabajo. Como continuidad del mismo se propone, extraer el algoritmo de selecci'on de protocolo e implementarlo en un cliente directo, tal como un navegador. Para as'i tener la ventaja de no tener ning'un intermediario y realizar la conexi'on directamente con el servidor final, ahorr'andose las conexiones extras.
 
-Si el proxy pudiera implementarse como proxy reverso, brindar'ia la posibilidad de ofrecer SPDY para servidores que todav'ia no lo soportan.
+Por otro lado, implementar el proxy como reverso, brindar'ia la posibilidad de ofrecer SPDY para servidores que todav'ia no lo soportan.
 
-Agregando la funcionalidad de que el cliente pueda conectarse con SPDY como protocolo, cabe la posibilidad de tener conectados 2 proxieso m'as conectados entre s'i. 'Util por ejemplo para tenerlos funcionando en ubicaciones geogr'aficas diferentes y armar un CDN que se comunica con SPDY, es decir, por una sola conexi'on TCP.
+Agregar la funcionalidad de que el cliente pueda conectarse con SPDY como protocolo, brinda la posibilidad de tener conectados 2 proxies m'as conectados entre s'i. 'Util por ejemplo para tenerlos funcionando en ubicaciones geogr'aficas diferentes y armar un CDN que se comunica con SPDY, es decir, por una sola conexi'on TCP.
 
-En un futuro cuando HTTP 2.0 ya se encuentre en funcionamiento, podr'ia extenderse el proxy para aceptar este protocolo y sumarlo al 'arbol de decisi'on para poder probar su rendimiento.
+En un futuro cuando HTTP 2.0 ya se encuentre en funcionamiento, extender el proxy para aceptar este protocolo y sumarlo al 'arbol de decisi'on, da la posibilidad de poder probar su rendimiento.

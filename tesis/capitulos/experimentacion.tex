@@ -2,7 +2,7 @@
 \label{experimentacion}
 \section{Introducci'on}
 
-A los efectos de probar el desempe'no del proxy, se dise'no un experimento con sitios reales para simular un ambiente adecuado para la prueba. Se extrajeron sitios del Top de Alexa\footnote{http://www.alexa.com}, que es una compan'ia de Amazon\footnote{http://www.amazon.com} que se especializa en realizar mediciones de tr'afico global y brinda las estad'isticas obtenidas. Tambi'en, ofrece un Ranking Global de los sitios m'as visitados de toda Internet, de este ranking se extrajeron los sitios para la experimentaci'on. Se desarrollaron herramientas para extraer una porci'on del ranking de Alexa y tambi'en para automatizar el experimento en s'i.
+A los efectos de probar el desempe'no del proxy, se dise'no un experimento con sitios reales para simular un ambiente adecuado para la prueba. Se extrajeron sitios del top de Alexa\footnote{http://www.alexa.com}, que es una compan'ia de Amazon\footnote{http://www.amazon.com} que se especializa en realizar mediciones de tr'afico global y brinda las estad'isticas obtenidas. Tambi'en, ofrece un ranking Global de los sitios m'as visitados de toda Internet, de este ranking se extrajeron los sitios para la experimentaci'on. Se desarrollaron herramientas para extraer una porci'on del ranking de Alexa y tambi'en para automatizar el experimento en s'i.
 
 \section{Ranking de Alexa}
 \label{rankingalexa}
@@ -28,7 +28,7 @@ De este archivo, se pueden extraer 2 valores que son importantes para evaluar el
 
 De los cuales, tomaremos como referencia \emph{onLoad} ya que es el tiempo m'as cercano a la experiencia que tiene un usuario final cuando navega el sitio en cuesti'on. Es decir, es el valor que est'a m'as cerca de lo que tarda el navegador en renderizar el sitio completo.
 \clearpage
-\section{Experimento}
+\section{Experimentos}
 
 El experimento consiste en un navegador conectado a Internet a trav'es del proxy, en el cual se realiza la petici'on de la p'agina de inicio, con todos sus elementos, de ciertos sitios seleccionados. Se divide en 2 fases, en una, las peticiones se realizan en HTTP plano, y en otra en HTTPS, es decir, que el cliente se conecta de forma segura al proxy.
 
@@ -131,7 +131,7 @@ En los sitios que se seleccion'o como protocolo a SPDY, la mejora promedio fue d
 
 \clearpage
 
-En ambas fases del experimento (HTTP y HTTPS) se pudo observar que el sitio que tuvo un rendimiento negativo fu'e www.sogou.com. Pero, en ninguno de los casos el proxy decidi'o SPDY como protocolo 'optimo, es decir, que la diferencia es debido a las variaci'ones de la red mientras se realizan las pruebas.
+En ambas fases del experimento (HTTP y HTTPS) se pudo observar que el sitio que tuvo un rendimiento negativo fu'e www.sogou.com. Pero, en ninguno de los casos el proxy decidi'o SPDY como protocolo 'optimo, es decir, que la diferencia es debido a las variaciones de la red mientras se realizan las pruebas.
 
 En los cuadros siguientes, se puede observar el rendimiento del proxy adaptativo.
 

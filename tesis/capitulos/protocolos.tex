@@ -59,7 +59,7 @@ Define el formato de los datos que se van a intercambiar entre las aplicaciones 
 
 \subsection{Capa de Sesi'on}
 
-Esta capa establece, administra y finaliza las sesiones entre las partes intervinientes en la comunicaci'on, a esto se le llama Servicio de Administraci'on de la Sesi'on. Tambi'en realiza el control del intercambio de datos y sincroniza el di'alogo entre las partes, a esto se le llama Servicio de Administraci'on del Di'alogo.
+Esta capa establece, administra y finaliza las sesiones entre las partes intervinientes en la comunicaci'on, a esto se le llama servicio de administraci'on de la sesi'on. Tambi'en realiza el control del intercambio de datos y sincroniza el di'alogo entre las partes, a esto se le llama servicio de administraci'on del di'alogo.
 
 \subsection{Capa de Transporte}
 
@@ -104,10 +104,10 @@ Asegurar que la velocidad de los datos no sature las posibilidades particulares 
 
 \section{TCP/IP}
 \label{tcpip}
-El conjunto de protocolos TCP/IP permite que computadoras de distintos tama'nos, marcas, y diferentes sistemas operativos puedan lograr una comunicaci'on entre s'i \citep{tcpipIluistrated}. Su desarrollo comenz'o hacia los a'nos 60', y en los 90' se convirtieron en los protocolos m'as utilizados en las redes.
+El conjunto de protocolos TCP/IP permite que computadoras de distintos tama'nos, marcas, y diferentes sistemas operativos puedan lograr una comunicaci'on entre s'i \citep{tcpipIluistrated}. Su desarrollo comenz'o hacia los a'nos 60', y en los 90'\ se convirtieron en los protocolos m'as utilizados en las redes.
 Conforma la base de Internet, la \textsc{wan}\footnote{Wide Area Network, Red de 'Area Amplia} que conecta millones de dispositivos en todo el planeta.
 
-Tiene un dise'no en capas similar al del Modelo OSI (ver Secci'on \ref{osi}), en donde cada capa provee una funcionalidad diferente para la comunicaci'on. El modelo posee 4 capas, Aplicaci'on, Transporte, Red y Enlace, como puede verse en la Figura \ref{tcpip}.
+Tiene un dise'no en capas similar al del Modelo OSI (ver Secci'on \ref{osi}), en donde cada capa provee una funcionalidad diferente para la comunicaci'on. El modelo posee 4 capas, aplicaci'on, transporte, red y enlace, como puede verse en la Figura \ref{tcpip}.
 
 \begin{figure}[ht]
   	\centering
@@ -132,12 +132,12 @@ Provee el servicio de env'io de flujo de datos entre dos hosts. En esta capa se 
 	
 	Permite crear conexiones entre hosts para el env'io de flujos de datos. Se ocupa de dividir los datos que vienen de la capa de aplicaci'on en paquetes de un tama'no adecuado para realizar el env'io en las capas inferiores. Tambi'en se encarga del control de la recepci'on de los paquetes enviados, as'i tambi'en como el establecimiento de los tiempos de espera para asegurarse que el otro extremo reconoce los paquetes enviados. Realiza la multiplexaci'on de la conexi'on, es decir, que permite compartir el canal entre varias conexiones.
 	
-	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un mensaje SYN\footnote{SYNchronize.} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement.} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama Three Way Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
+	Para establecer la conexi'on entre los 2 extremos, el servidor debe dejar en ''escucha'' una direcci'on en un puerto determinado. El cliente, env'ia un mensaje SYN\footnote{SYNchronize.} inicial al servidor para iniciar la negociaci'on, el servidor contesta con un paquete SYN-ACK\footnote{ACKnowledgement.} que es contestado por el cliente por un ACK. Una vez intercambiados estos 3 mensajes, el cliente puede empezar a realizar las peticiones al servidor. Esto se llama ThreeWay Handshake (Negociaci'on de 3 v'ias), y puede verse en la Figura \ref{threeway}.
 	
 	\begin{figure}[ht]
   	\centering
 	\includegraphics[width=380px]{img/threeway}
-	\caption{\small Three Way Handshake, extra'ido de https://www.grc.com/}
+	\caption{\small ThreeWay Handshake, extra'ido de https://www.grc.com/}
 	\label{threeway}
 	\end{figure}
 
@@ -182,9 +182,9 @@ Diferencias:
 
 \section{HTTP}
 \label{http}
-Las siglas de este protocolo son por HyperText Transfer Protocol (Protocolo de Transferencia de Hipertexto). Es un protocolo de capa de aplicaci'on (ver Secci'on \ref{osi}) que sirve para distribuir informaci'on. Fu'e utilizado en la web desde el a'no 1990 en su primera versi'on (0.9), en la que simplemente se pod'ia transferir texto plano. Su evoluci'on fue el est'andar 1.0 en el que se mejor'o el protocolo permitiendo que los mensajes usen el formato \gls{mime}, se incorporaron metadatos acerca de la informaci'on transferida y modificadores en la sem'antica de petici'on/respuesta. La revisi'on del protocolo que se usa actualmente es la 1.1, definida en la RFC 2616 \citep{rfcHTTP1.1}. Contiene nuevos metodos, headers y otras caracter'isticas. Las principales diferencias de esta 'ultima definici'on se pueden ver en \citep{http1011}.
+Las siglas de este protocolo son por HyperText Transfer Protocol (Protocolo de Transferencia de Hipertexto). Es un protocolo de capa de aplicaci'on (ver Secci'on \ref{osi}) que sirve para distribuir informaci'on. Fu'e utilizado en la web desde el a'no 1990 en su primera versi'on (0.9), en la que simplemente se pod'ia transferir texto plano. Su evoluci'on fue el est'andar 1.0 en el que se mejor'o el protocolo permitiendo que los mensajes usen el formato \gls{mime}, se incorporaron metadatos acerca de la informaci'on transferida y modificadores en la sem'antica de petici'on/respuesta. La revisi'on del protocolo que se usa actualmente es la 1.1, definida en la RFC 2616 \citep{rfcHTTP1.1}. Contiene nuevos m'etodos, headers y otras caracter'isticas. Las principales diferencias de esta 'ultima definici'on se pueden ver en \citep{http1011}.
 
-El contenido web reside en servidores, estos son los que se comunican utilizando este protocolo entre otros. Sirven \textsc{recursos}, estos recursos pueden ser p'aginas HTML, im'agenes, PDF's, video, etc, tanto contenido est'atico como din'amico (generado a demanda). Debido a la gran diversidad de contenido que provee un Servidor, es necesario identificar el tipo de recurso que se est'a enviando. Esto se hace utilizando una etiqueta llamada MIME-Type, que define el tipo de contenido a transferir.
+El contenido web reside en servidores, estos son los que se comunican utilizando este protocolo entre otros. Sirven \textsc{recursos}, estos recursos pueden ser p'aginas HTML, im'agenes, PDF's, video, etc, tanto contenido est'atico como din'amico (generado a demanda). Debido a la gran diversidad de contenido que provee un servidor, es necesario identificar el tipo de recurso que se est'a enviando. Esto se hace utilizando una etiqueta llamada MIME-Type, que define el tipo de contenido a transferir.
 
 Cada recurso del servidor tiene un nombre, para que los clientes puedan apuntar directamente al recurso deseado. Se nombra con una URL, que tiene el siguiente formato:
 
@@ -197,7 +197,7 @@ El funcionamiento b'asico es, el cliente env'ia una petici'on al servidor (al pu
 \begin{enumerate}
 \item GET - El cliente solicita un recurso espec'ifico del servidor.
 \item POST - El cliente env'ia datos que van a ser utilizados por el servidor.
-\item HEAD - El cliente solicita s'olo los Headers (se detallar'an m'as adelante).
+\item HEAD - El cliente solicita s'olo los headers (se detallar'an m'as adelante).
 \end{enumerate}
 
 Estos son algunos de los m'etodos, hay otros tales como PUT, DELETE, etc. Seg'un el m'etodo, el servidor opera de manera diferente. En la petici'on se env'ia el m'etodo, el recurso solicitado, la versi'on del protocolo utilizado, el host, el user-agent\footnote{Qui'en est'a generando la petici'on, por ejemplo Mozilla, Safari, Squid (browser, proxy, etc.).}, entre otros.
@@ -233,7 +233,7 @@ $<$cuerpo$>$
 
 \subsection{HEADERS}
 \label{headers}
-Los headers, a'naden informacion adicional a las peticiones y respuestas. El protocolo define varios headers, pero se pueden inventar tambi'en, los servidores y clientes son libres de hacerlo. Hay diferentes tipos de headers, entre los que se encuentran:
+Los headers, a'naden informaci'on adicional a las peticiones y respuestas. El protocolo define varios headers, pero se pueden inventar tambi'en, los servidores y clientes son libres de hacerlo. Hay diferentes tipos de headers, entre los que se encuentran:
 
 \begin{enumerate}
 \item Headers generales
@@ -266,13 +266,13 @@ HTTPS es la versi'on ''segura'' de HTTP, a'nade a este protocolo, una capa de ci
 
 Permite que los datos que viajan entre cliente y servidor vayan encriptados, esto se hace antes de enviar los datos por la red. Se distingue f'acilmente porque el formato de la URL empieza con https:// y la conexi'on por defecto se establece con el puerto 443. Es decir, si el browser hace una petici'on a un servidor, en la cual, el esquema es https, se inicia la negociaci'on para establecer la conexi'on segura con el mismo.
 
-La conexi'on se hace con otro puerto diferente al de HTTP ya que SSL es un protocolo binario, completamente diferente. Si ambos llegaran al mismo puerto, los servidores interpretarian SSL como HTTP err'oneo y cerrar'ian la conexi'on.
+La conexi'on se hace con otro puerto diferente al de HTTP ya que SSL es un protocolo binario, completamente diferente. Si ambos llegaran al mismo puerto, los servidores interpretar'ian SSL como HTTP err'oneo y cerrar'ian la conexi'on.
 
 \subsection{Criptograf'ia}
 
 La criptograf'ia es el arte y la ciencia de codificar y decodificar mensajes, alterando la representaci'on lingu'istica de mensajes, buscando la confidencialidad y para prevenir la manipulaci'on de los mismos. Tambi'en se utiliza para probar quien fue el autor del mensaje o una transacci'on (no repudio).
 
-Se basa en Algoritmos de Cifrado (Ciphers) que tienen un m'etodo para codificar el mensaje y otro para decodificarlo posteriormente. Comenzaron siendo algoritmos simples hasta que se empezaron a construir m'aquinas\footnote{Ver M'aquina Enigma Alemana, http://www.bbc.co.uk/history/topics/enigma} para reforzar la seguridad de la encriptaci'on haciendo operaciones m'as complejas. A causa de que estos algoritmos y m'aquinas pod'ian llegar a manos no apropiadas, se incluyeron diversos m'etodos (llaves met'alicas, diales de configuraci'on), que actuan como entrada para que el algoritmo o m'aquina pudiera funcionar. De esta manera, a'un teniendo el algoritmo o dispositivo, sin la clave no se puede decodificar.
+Se basa en algoritmos de cifrado (Ciphers) que tienen un m'etodo para codificar el mensaje y otro para decodificarlo posteriormente. Comenzaron siendo algoritmos simples hasta que se empezaron a construir m'aquinas\footnote{Ver M'aquina Enigma Alemana, http://www.bbc.co.uk/history/topics/enigma} para reforzar la seguridad de la encriptaci'on haciendo operaciones m'as complejas. A causa de que estos algoritmos y m'aquinas pod'ian llegar a manos no apropiadas, se incluyeron diversos m'etodos (llaves met'alicas, diales de configuraci'on), que act'uan como entrada para que el algoritmo o m'aquina pudiera funcionar. De esta manera, a'un teniendo el algoritmo o dispositivo, sin la clave no se puede decodificar.
 
 En la era digital, los m'etodos (clave) para la entrada de los algoritmos de encriptaci'on son simplemente n'umeros. Estos algoritmos son funciones que toman una porci'on de datos y la codifican/decodifican basados en el algoritmo de encriptaci'on y la clave proporcionada.
 
@@ -291,7 +291,7 @@ El algoritmo m'as conocido de criptograf'ia sim'etrica es el DES (Data Encryptio
 
 \subsubsection{Criptograf'ia As'imetrica}
 
-En la criptograf'ia de clave p'ublica (ver Figura \ref{clavePublica}), las claves son Asim'etricas, es decir, que la clave para encriptar difiere de la clave para desencriptar el mensaje. En este tipo de criptograf'ia, la clave para encriptar el mensaje es p'ublica, cualquiera que quiera establecer una conexi'on con seguridad, puede obtener la clave\footnote{Almacenada en servidores de acceso p'ublico.} para iniciar la comunicaci'on. Por otro lado, la clave para desencriptar los mensajes es privada, pertenece al servidor que es el 'unico que puede decodificar los mensajes recibidos por el cliente.
+En la criptograf'ia de clave p'ublica (ver Figura \ref{clavePublica}), las claves son asim'etricas, es decir, que la clave para encriptar difiere de la clave para desencriptar el mensaje. En este tipo de criptograf'ia, la clave para encriptar el mensaje es p'ublica, cualquiera que quiera establecer una conexi'on con seguridad, puede obtener la clave\footnote{Almacenada en servidores de acceso p'ublico.} para iniciar la comunicaci'on. Por otro lado, la clave para desencriptar los mensajes es privada, pertenece al servidor que es el 'unico que puede decodificar los mensajes recibidos por el cliente.
 
 \begin{figure}[h]
   	\centering
@@ -321,7 +321,9 @@ $\equiv c^d \pmod{n}$
 
 \subsection{Conexi'on}
 
-Una conexi'on es el enlace que se establece entre el emisor y el receptor a trav'es del cual, se env'ia un mensaje. El procedimiento para iniciar una comunicaci'on HTTPS es el siguiente: El cliente abre una conexi'on con el puerto 443 al servidor. Una vez que la conexi'on TCP est'a establecida, el cliente y el servidor inicializan la capa SSL negociando algunos par'ametros criptogr'aficos e intercambiando llaves. Una vez concluida esta negociaci'on, ya pueden empezar a intercambiar mensajes encriptados. Se puede ver en detalle en la Figura \ref{httpsConnection}.
+Una conexi'on es una sesi'on de intercambio entre dos procesos en la cual ambos ha acordado y coordinado acciones para dicho intercambio. Esto incluye una etapa de establecimiento o apertura de la conexi'on, una de transferencia y finalmente, una de cierre.
+
+El procedimiento para iniciar una comunicaci'on HTTPS es el siguiente: El cliente abre una conexi'on con el puerto 443 al servidor. Una vez que la conexi'on TCP est'a establecida, el cliente y el servidor inicializan la capa SSL negociando algunos par'ametros criptogr'aficos e intercambiando llaves. Una vez concluida esta negociaci'on, ya pueden empezar a intercambiar mensajes encriptados. Se puede ver en detalle en la Figura \ref{httpsConnection}.
 
 \begin{figure}[h!]
   	\centering

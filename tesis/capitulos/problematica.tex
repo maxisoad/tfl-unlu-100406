@@ -52,7 +52,7 @@ Percepci'on del usuario ante los retardos, extra'ido de \citep{highPerformance}.
 
 Para que la experiencia del usuario sea positiva, el sitio debe renderizarse, o al menos tener una respuesta visual de que el sitio se est'a cargando, en al menos 250 milisegundos.
 
-En agosto del 2010, Mike Belsche\footnote{Ingeniero de Software, fu'e uno de los desarrolladores del protocolo SPDY (ver Secci'on \ref{spdy}) - https://www.belshe.com} public'o un estudio \citep{moreBand} acerca de 2 factores importantes en el Tiempo de Carga de los Sitios, Ancho de Banda y RTT. El RTT\footnote{Round Trip Time} es el tiempo que demora un paquete en ir del emisor al receptor y volver al emisor nuevamente.
+En agosto del 2010, Mike Belsche\footnote{Ingeniero de Software, fu'e uno de los desarrolladores del protocolo SPDY (ver Secci'on \ref{spdy}) - https://www.belshe.com} public'o un estudio \citep{moreBand} acerca de 2 factores importantes en el tiempo de carga de los sitios, ancho de banda y RTT. El RTT\footnote{Round Trip Time} es el tiempo que demora un paquete en ir del emisor al receptor y volver al emisor nuevamente.
 Realiz'o 2 experimentos, el primero variando el ancho de banda y el segundo variando el RTT.
 
 En el Gr'afico \ref{belshePLTxBW} puede observarse el resultado del primer experimento, al aumentar el ancho de banda hay mejoras en el tiempo de respuesta en los valores m'as bajos, pero, a partir de cierto ancho de banda, el aumento no produce mejoras en el rendimiento.
@@ -79,7 +79,7 @@ En cambio, en el Gr'afico \ref{belshePLTxRTT}, se ve claramente que a medida que
 
 La conclusi'on del estudio de Belshe es que, si se duplica su ancho de banda sin reducir el RTT significantemente, s'olo se obtiene una mejora m'inima en la navegaci'on. Disminuir el RTT, sin importar el ancho de banda utilizado, siempre supone una mejora en la velocidad. Para acelerar Internet, o bien hay que ocuparse de reducir el RTT, o reducir la cantidad de RTT's requeridos para cargar un sitio.
 
-Es importante tambi'en conocer, d'onde es que el usuario pasa el tiempo esperando en la carga de un sitio web. Seg'un el estudio de Steve Souders en su libro \citep{highPerformanceWebSites}, el cliente tarda menos del 20\% para obtener el documento HTML, y el tiempo restante para recibir el resto de los componentes del sitio. Es importante enfocarse en el 80\%, 90\% restante, ya que el tiempo no se desperdicia en descargar el documento HTML ni en el procesamiento que realiza el servidor antes de enviarnos la petici'on. Esto se resume en la ''Regla de Oro de la Performance'' de dicho libro:
+Es importante tambi'en conocer, d'onde es que el usuario pasa el tiempo esperando en la carga de un sitio web. Seg'un el estudio de Steve Souders en su libro \citep{highPerformanceWebSites}, el cliente tarda menos del 20\% para obtener el documento HTML, y el tiempo restante para recibir el resto de los componentes del sitio. Es importante enfocarse en el 80\%, 90\% restante, ya que el tiempo no se desperdicia en descargar el documento HTML ni en el procesamiento que realiza el servidor antes de enviarnos la petici'on. Esto se resume en la ''Regla de oro de la performance'' de dicho libro:
 
 \begin{quote}
 
@@ -110,12 +110,12 @@ La idea b'asica es eliminar las peticiones al servidor, esto se hace utilizando 
 		\end{figure}
 
 	A simple vista se ven 44 im'agenes combinadas. La utilizaci'on de este sprite reducir'ia todas estas peticiones a 1 sola.
-	\item Im'agenes Inline - Se pueden incluir im'agenes en un sitio web sin necesidad de realizar una petici'on al servidor definiendolas con el esquema \textit{data:} \citep{rfcData} dentro del c'odigo HTML de la p'agina.
+	\item Im'agenes Inline - Se pueden incluir im'agenes en un sitio web sin necesidad de realizar una petici'on al servidor defini'endolas con el esquema \textit{data:} \citep{rfcData} dentro del c'odigo HTML de la p'agina.
 	\item Combinar Scripts y Hojas de Estilo - Como la mayor'ia de los sitios actuales utilizan Javascript y CSS\footnote{Cascade Style Sheets.}, es preferible que los scripts se combinen en uno solo al igual que las hojas de estilo. En el caso de tener varios archivos, el navegador va a generar una petici'on por cada uno de ellos de no tenerlo almacenado en una copia local.
 	\end{enumerate}
 \item \textbf{Utilizar un CDN\footnote{Content Delivery Networks.}}
 
-La proximidad del cliente al servidor web tiene un impacto en el tiempo de respuesta de las peticiones. No es lo mismo solicitar un recurso localizado China estando en Argentina que uno ubicado dentro del mismo pa'is. Por ende, si los contenidos est'an cerca\footnote{En t'erminos de distancia f'isica.} el tiempo de respuesta es menor. Debido a que solo el 10-20\% del tiempo de respuesta se dedica al HTML (visto al inicio de este cap'itulo), si el resto de los recursos del sitio se encuentran cerca del cliente, se mejorar'ian los tiempos de respuesta. Para esto es necesario dispersar estos recursos geogr'aficamente.
+La proximidad del cliente al servidor web tiene un impacto en el tiempo de respuesta de las peticiones. No es lo mismo solicitar un recurso localizado en China estando en Argentina que uno ubicado dentro del mismo pa'is. Por ende, si los contenidos est'an cerca\footnote{En t'erminos de distancia f'isica.} el tiempo de respuesta es menor. Debido a que solo el 10-20\% del tiempo de respuesta se dedica al HTML (visto al inicio de este cap'itulo), si el resto de los recursos del sitio se encuentran cerca del cliente, se mejorar'ian los tiempos de respuesta. Para esto es necesario dispersar estos recursos geogr'aficamente.
 
 Un CDN es una red de distribuci'on de contenidos. Son servidores dispersados geogr'aficamente que ofrecen r'eplicas de los recursos de un sitio particular para brindarlos al cliente desde el m'as cercano a su locaci'on.
 
@@ -124,7 +124,7 @@ Utilizar el servicio que brinda un CDN mejora los tiempos de respuesta de los us
 
 Cuando un usuario visita el sitio por primera vez, realiza tantas peticiones HTTP como recursos tenga la p'agina. Utilizando headers Expires o Cache-Control\footnote{Desde HTTP 1.1} (Cap'itulo \ref{protocolos}, Secci'on \ref{headers}) se puede hacer que los recursos puedan ser almacenados en cach'es (Cap'itulo \ref{cache}.). Esto disminuye la cantidad de peticiones en una posterior visita a la p'agina del mismo usuario.
 
-La performance del tiempo de respuesta del sitio mejora seg'un la cantidad de ''Hits''\footnote{Necesidad de solicitar un recurso que ya tengo almacenado en la cach'e.} que el usuario tenga de los componentes del sitio.
+La performance del tiempo de respuesta del sitio mejora seg'un la cantidad de ''hits''\footnote{Necesidad de solicitar un recurso que ya tengo almacenado en la cach'e.} que el usuario tenga de los componentes del sitio.
 \item \textbf{Comprimir los componentes (Gzip)}
 
 Se puede reducir el tiempo de respuesta, disminuyendo el tama'no de la respuesta HTTP. Esto se puede realizar comprimiendo el recurso que se est'a solicitando. La reducci'on del tiempo es mayor en ambientes en donde el ancho de banda es bajo. El formato \textit{Gzip}\footnote{http://www.gzip.org/} \citep{rfcGzip} es el m'as popular y el m'as efectivo, el otro formato que se usa con menos frecuencia es \textit{deflate} \citep{rfcDeflate}.
@@ -145,13 +145,13 @@ Cuando se realizan las peticiones al servidor, las descargas pueden hacerse en p
 Las expresiones en CSS se encuentran obsoletas\footnote{http://blogs.msdn.com/b/ie/archive/2008/10/16/ending-expressions.aspx} en los navegadores modernos. Afectaban directamente a la performance de la renderizaci'on del sitio una vez que todos los componentes eran recibidos.
 \item \textbf{Utilizar JavaScript y CSS de manera externa (no embebido en el HTML)}
 
-Al embeber los scripts y el estilo en el HTML, se minimiza la cantidad de peticiones al servidor, pero se aumenta el tamaño del archivo HTML. Incluir archivos externos al HTML, permite a los navegadores y proxys que puedan almacenar en su cach'e el objeto. Esto es 'util ya que si en todas las p'aginas del sitio se utilizan el mismo Javascript y CSS, al ir navegando las diferentes p'aginas del sitio, estos recursos ya est'an almacenados en el navegador. Tambi'en disminuye el tiempo de respuesta en visitas posteriores.
+Al embeber los scripts y el estilo en el HTML, se minimiza la cantidad de peticiones al servidor, pero se aumenta el tama'no del archivo HTML. Incluir archivos externos al HTML, permite a los navegadores y proxies que puedan almacenar en su cach'e el objeto. Esto es 'util ya que si en todas las p'aginas del sitio se utilizan el mismo Javascript y CSS, al ir navegando las diferentes p'aginas del sitio, estos recursos ya est'an almacenados en el navegador. Tambi'en disminuye el tiempo de respuesta en visitas posteriores.
 \item \textbf{Reducir las b'usquedas de DNS\footnote{Domain Name System.}}
 
 Cada servidor tiene una direcci'on IP asignada, esta direcci'on se encuentra asociada a un nombre de dominio, esto se almacena en los DNS. Cuando se ingresa un nombre de un sitio en el navegador, este necesita la direcci'on IP asociada a ese dominio. Para ello necesita solicitar esa asociaci'on a un DNS Resolver, antes de empezar a solicitar los recursos debe esperar la respuesta del DNS. Esto al igual que los recursos se almacenan en una cach'e local del navegador. A ra'iz de esta cuesti'on, tener menos dominios en las URL's de los componentes de una p'agina, requiere menos peticiones (DNS lookups) a los servidores que almacenan los dominios para solicitar las direcciones IP que corresponden a esos dominios.
 \item \textbf{Minificar el JavaScript}
 
-La minificaci'on, es la pr'actica de remover caracteres innecesarios del c'odigo para reducir el tama'no del archivo. Se quitan los comentarios, los espacios en blanco (tabulaciones, espacios, saltos de l'inea). Una optimizaci'on alternativa tiene el nombre de ofuscaci'on, adem'as de lo que hace la minificaci'on, renombra las variables del codigo por cadenas de texto m'as peque'nas. Este m'etodo disminuye a'un m'as el tama'no de los archivos, que el m'etodo visto anteriormente.
+La minificaci'on, es la pr'actica de remover caracteres innecesarios del c'odigo para reducir el tama'no del archivo. Se quitan los comentarios, los espacios en blanco (tabulaciones, espacios, saltos de l'inea). Una optimizaci'on alternativa tiene el nombre de ofuscaci'on, adem'as de lo que hace la minificaci'on, renombra las variables del c'odigo por cadenas de texto m'as peque'nas. Este m'etodo disminuye a'un m'as el tama'no de los archivos, que el m'etodo visto anteriormente.
 Con esta optimizaci'on se mejora el tiempo de respuesta ya que los recursos tienen menor tama'no.
 \item \textbf{Evitar redirecciones}
 
@@ -179,19 +179,19 @@ Espec'ificamente se busca lo siguiente \citep{highPerformance}:
 \item Evitar la necesidad de que los desarrolladores tengan que realizar cambios a los sitios actuales.
 \item Evitar cambios en la infraestructura de las redes y minificar la complejidad de implementaci'on.
 \item Liberar el desarrollo a la comunidad de c'odigo abierto.
-\item Recopilar datos reales de rendimiento para validar o invalidar el protoclo experimental.
+\item Recopilar datos reales de rendimiento para validar o invalidar el protocolo experimental.
 \end{enumerate}
 Desde el a'no 2012 el protocolo es soportado por los navegadores Chrome\footnote{http://www.google.com/intl/es\_AR/chrome/browser/}, Mozilla Firefox\footnote{http://www.mozilla.org/es-AR/firefox/new/}, y Opera\footnote{http://www.opera.com/}. Existen varias opciones de servidores que soportan el protocolo tales como Apache\footnote{http://code.google.com/p/mod-spdy/}, Jetty\footnote{http://wiki.eclipse.org/Jetty/Feature/SPDY} y NodeJS\footnote{https://github.com/indutny/node-spdy}. Varios sitios populares (Google, Facebook, Twitter) ya ofrecen un cliente para la utilizaci'on del protocolo. 
 
 \subsection{Detalles del Protocolo}
 
-Es un protocolo que a'nade una capa de sesi'on que funciona sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples Streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
+Es un protocolo que a'nade una capa de sesi'on que funciona sobre SSL (ver Figura \ref{capaSPDY}) que permite la transmisi'on de m'ultiples streams\footnote{Flujo de Datos.} sobre una conexi'on TCP. Especifica un nuevo formato de trama para codificar y transmitir datos.
 Su especificaci'on se puede ver en \citep{spdyWhitepaper} y su draft se puede encontrar en \citep{spdyDraft}.
 
 \begin{figure}[h]
   	\centering
 	\includegraphics[width=200px]{img/capaSPDY}
-	\caption{\small Protocolo de Aplicaci'on SPDY, extra'ido de \citep{spdyWhitepaper}}
+	\caption{\small Protocolo de aplicaci'on SPDY, extra'ido de \citep{spdyWhitepaper}}
 	\label{capaSPDY}
 \end{figure}
 
@@ -224,7 +224,7 @@ SPDY ofrece por sobre HTTP las siguientes mejoras:
 \begin{enumerate}
 \item Peticiones Multiplexadas. No existen l'imites de peticiones que se pueden realizar en una sesi'on de SPDY. A causa de que las peticiones son multiplexadas aumenta la eficiencia del protocolo TCP.
 \item Priorizaci'on de Peticiones. Los clientes pueden solicitar al servidor cu'ales recursos quiere obtener antes que otros. Esto evita la congesti'on de recursos que no son cr'iticos cuando todav'ia est'a pendiente el env'io de alg'un recurso que tiene una prioridad mayor.
-\item Compresi'on de Headers. A causa de que hoy en d'ia los clientes env'ian mucha informaci'on redundante en forma de Headers, como la cantidad de peticiones para obtener un sitio promedio va desde 50 a 100, esta cantidad de informaci'on es relevante. Comprimir los Headers reduce el ancho de banda utilizado.
+\item Compresi'on de Headers. A causa de que hoy en d'ia los clientes env'ian mucha informaci'on redundante en forma de headers, como la cantidad de peticiones para obtener un sitio promedio va desde 50 a 100, esta cantidad de informaci'on es relevante. Comprimir los headers reduce el ancho de banda utilizado.
 \item Server Push. Al permitir la comunicaci'on bi-direccional a trav'es de streams, cualquiera de los 2 (cliente o servidor) puede iniciar un stream hacia el otro. El servidor puede enviar un recurso al cliente antes de que este lo pida\footnote{El servidor conoce de antemano que el cliente va a necesitar el recurso en cuesti'on.}, esto reduce el tiempo de carga del sitio y disminuye la cantidad de peticiones del cliente.
 \item Server Hint. El servidor puede ''sugerirle'' al cliente que pida un recurso en particular, ya que lo va a necesitar. De todas maneras, el servidor espera a que el cliente peticione el recurso en cuesti'on antes de enviarlo. Esto reduce el tiempo que tarda el cliente en descubrir cuales son los recursos que tiene que pedirle al servidor.
 \end{enumerate}
@@ -245,7 +245,7 @@ Es una propuesta de utilizar HTTP sobre SCTP definida en el draft ''draft-natara
 \subsubsection{Structured Stream Transport (SST)}
 
 Es un protocolo de transporte experimental \citep{sst} dise'nado para las aplicaciones que requieren de muchas conexiones as'incronas en paralelo, tales como la descarga de las diferentes partes que componen un sitio web y reproducir simult'aneamente m'ultiples flujos de audio y video a la vez.
-No realiza el 3-way Handshake en el inicio como TCP. Multiplexa flujos de datos de aplicaciones en una sola conexi'on de red. Soporta mensajes/datagramas de cualquier tama'no, no hay necesidad de limitar el tama'no de los env'ios. Priorizaci'on de flujos de datos.
+No realiza el ThreeWay Handshake en el inicio como TCP. Multiplexa flujos de datos de aplicaciones en una sola conexi'on de red. Soporta mensajes/datagramas de cualquier tama'no, no hay necesidad de limitar el tama'no de los env'ios. Priorizaci'on de flujos de datos.
 \subsubsection{MUX y SMUX}
 
 MUX\footnote{http://www.w3.org/Protocols/MUX/} y SMUX\footnote{http://www.w3.org/TR/WD-mux} son protocolos de capa intermedia (entre la capa de transporte y la capa de aplicaci'on) que proporcionan la multiplexaci'on de flujos de datos. Se propusieron al mismo tiempo que HTTP/1.1.
