@@ -84,7 +84,7 @@
 %    TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Proxy adaptativo]{Proxy adaptativo para protocolos web avanzados} % The short title appears at the bottom of every slide, the full title is only on the title page
+\title[Proxy adaptativo]{Proxy Adaptativo para Protocolos \\ Web Avanzados} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \logo{\includegraphics[height=1cm]{img/logo}}
 
@@ -97,6 +97,9 @@ Universidad Nacional de Luján\\ % Your institution for the title page
 %\textit{mlulic@unlu.edu.ar} % Your email address
 }
 \date{\number\the\year} % Date, can be changed to a custom date
+\definecolor{dgreen}{rgb}{0.,0.6,0.}
+
+\setbeamerfont{section in sidebar}{size={\fontsize{6}{6}}}
 
 \begin{document}
 
@@ -105,7 +108,7 @@ Universidad Nacional de Luján\\ % Your institution for the title page
 \end{frame}
 
 \begin{frame}
-\frametitle{Sumario} % Table of contents slide, comment this block out to remove it
+\frametitle{Resumen} % Table of contents slide, comment this block out to remove it
 \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
 \end{frame}
 
@@ -120,12 +123,78 @@ Universidad Nacional de Luján\\ % Your institution for the title page
 \begin{frame}
 \frametitle{Introducción}
 
-?
+\textbf{Qué es la web?}
+
+\begin{columns}[c]
+\column{.5\textwidth}
+
+\begin{itemize}
+\item Desde el año 1995
+\item Repositorio distribuído
+\item Heterogénea %cada uno publica lo que quiere
+\item Hipervínculos
+\end{itemize}
+
+\column{.4\textwidth}
+\includegraphics[width=120px]{img/web}
+\end{columns}
 
 \end{frame}
 
 %------------------------------------------------
-\section{Crecimiento Web} 
+
+\begin{frame}
+\frametitle{Cómo es la web?}
+
+\begin{center}
+\includegraphics[width=210px]{img/grafo}
+\end{center}
+%analisis de la complejidad de la web
+%\footnote{\scalebox{0.7}{\url{http: //www.aharef.info}}}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Cómo funciona la web?}
+
+%nombrar protocolos
+
+\begin{center}
+\textbf{Cliente - Servidor}
+
+\includegraphics[height=2cm]{img/cliserv}
+\end{center}
+
+\pause \begin{center}
+\textbf{Intermediarios}
+%optimizan y aceleran la navegacion
+
+\vspace{5mm}
+\includegraphics[height=2cm]{img/cliinterserv}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Aportes}
+
+\textbf{Aportes del trabajo realizado}
+
+\begin{itemize}
+\item Estudio de la problemática de la web, respecto a su complejidad
+\item Estudio de los protocolos actuales y los que evolucionan a HTTP
+\item Propuesta y desarrollo de un proxy adaptativo que intenta mejorar la performance de la recuperación web
+\item Evaluación del proxy en un escenario real en donde se observan mejoras en la carga de los sitios
+\item Cliente SPDY
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Crecimiento de la Web} 
 %------------------------------------------------
 
 \begin{frame}
@@ -134,9 +203,9 @@ Universidad Nacional de Luján\\ % Your institution for the title page
 \textbf{Como eran los sitios hace 14 años?}
 
 \begin{itemize}
-	\pause \item Sitios sencillos
-	\pause \item Poco contenido
-	\pause \item Tamaño aproximado de 70kb %ref 40 de la tesis
+	 \item Sitios sencillos
+	 \item Poco contenido
+	 \item Tamaño aproximado de 70kb [WebsiteOptimization]\footnote{\scalebox{0.7}{\url{http: //www.websiteoptimization.com/speed/tweak/average-web-page}}}
 \end{itemize}
 
 \end{frame}
@@ -144,10 +213,10 @@ Universidad Nacional de Luján\\ % Your institution for the title page
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Sitio de Amazon, año 2000}
+\frametitle{Sitio de Amazon, año 2000 [WebArchive]\footnote{\scalebox{0.7}{\url{http://archive.org/web}}}}
 
 \begin{figure}
-\includegraphics[width=220px]{img/amazon2000}
+\includegraphics[width=205px]{img/amazon2000}
 \end{figure}
 
 \end{frame}
@@ -160,9 +229,9 @@ Universidad Nacional de Luján\\ % Your institution for the title page
 \textbf{Como son los sitios hoy?}
 
 \begin{itemize}
-	\pause \item Sitios complejos
-	\pause \item Mucho contenido
-	\pause \item Tamaño aproximado de 1800kb %ref 9 de la tesis
+	 \item Sitios complejos
+	 \item Mucho contenido
+	 \item Tamaño aproximado de 1800kb (Junio 2014) [HTTPArchive]\footnote{\scalebox{0.7}{\url{http://httparchive.org}}}
 \end{itemize}
 
 \end{frame}
@@ -185,30 +254,35 @@ Universidad Nacional de Luján\\ % Your institution for the title page
 
 \textbf{Aumento de los usuarios globales}
 
+(Información extraída de [IWS]\footnote{\scalebox{0.7}{\url{http://www.internetworldstats.com/emarketing.htm}}})
 \begin{figure}
-\includegraphics[width=300px]{../tesis/img/grafCrecInternet}
+\includegraphics[width=280px]{../tesis/img/grafCrecInternet}
 \end{figure}
 
 \end{frame}
 
 %------------------------------------------------
-\section{Protocolos}
+\section{Conceptos preliminares}
+%------------------------------------------------
+
+%------------------------------------------------
+\subsection{Protocolos}
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Definición}
+\frametitle{Protocolos}
 
 \begin{block}{Protocolo}
 Un protocolo de comunicaciones define el formato y el orden de los mensajes intercambiados entre dos o más entidades que se comunican, así como las acciones que se toman en la transmisión y/o recepción de un mensaje u otro evento. %34
 \end{block}
 
 \begin{itemize}
-	\pause \item Sintaxis
-	\pause \item Semántica
-	\pause \item Sincronización
+	 \item Sintaxis
+	 \item Semántica
+	 \item Sincronización
 \end{itemize}
 
-\pause \begin{block}{}
+ \begin{block}{}
 \begin{center}\textbf{Las tareas a realizar se dividen en capas}\end{center}
 \end{block}
 
@@ -223,13 +297,13 @@ Un protocolo de comunicaciones define el formato y el orden de los mensajes inte
 \column{.4\textwidth}
 \textbf{TCP/IP}
 \begin{itemize}
-	\pause \item Es el estándar de Internet
-	\pause \item OSI toma su experiencia 
-	\pause \item Diseño en capas
+	 \item Es el estándar de Internet
+	 \item OSI toma su experiencia 
+	 \item Diseño en capas
 \end{itemize}
 
 \column{.5\textwidth}
-\pause \includegraphics[width=140px]{../tesis/img/tcpiposi}
+ \includegraphics[width=140px]{../tesis/img/tcpiposi}
 \end{columns}
 
 \end{frame}
@@ -246,10 +320,10 @@ Permite crear conexiones entre hosts para el envío de flujos de datos.
  \end{block}
  
  \begin{itemize}
-	\pause \item Divide los datos en paquetes
-	\pause \item Control de recepción
-	\pause \item Tiempos de espera
-	\pause \item Multiplexación
+	 \item Divide los datos en paquetes
+	 \item Control de recepción
+	 \item Tiempos de espera
+	 \item Multiplexación
 \end{itemize}
  
 \end{frame}
@@ -271,94 +345,7 @@ Three Way Handshake
 \end{frame}
 
 %------------------------------------------------
-\subsection{HTTP}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{HTTP}
-
-\begin{block}{HTTP (HyperText Transfer Protocol)}
-Es un protocolo de capa de aplicación que sirve para distribuir información.
- \end{block}
- 
- \begin{itemize}
-	\pause \item Primera versión en el año 1990 (0.9)
-	\pause \item Versión actual desde el año 1999 (1.1)
-	\pause \item 1 conexión por elemento
-	\pause \item Siempre la petición la inicia el cliente
-\end{itemize}
- 
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{HTTP}
-
-\begin{center}
-\includegraphics[width=180px]{img/http}%27
-
-Carga de un sitio completo
-\end{center}
-
-\end{frame}
-
-%------------------------------------------------
-\subsection{HTTPS}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{HTTPS}
-
-\begin{block}{HTTPS (HyperText Transfer Protocol Secure)}
-Es la versión ''segura'' de HTTP, añade a este protocolo una capa de cifrado utilizando SSL.
- \end{block}
- 
- \begin{itemize}
- 	\pause \item Datos protegidos
-	\pause \item Los datos viajan encriptados
-	\pause \item Necesita establecer una conexión segura
-\end{itemize}
-
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{HTTPS}
-
-\begin{center}
-\includegraphics[width=160px]{../tesis/img/httpsConnection}%29
-
-Conexión HTTPS
-\end{center}
-
-\end{frame}
-
-%------------------------------------------------
-\section{Problemática de la web}
-%------------------------------------------------
-
-\begin{frame}
-\frametitle{Problemática de la web}
-
-\textbf{Porque es importante mejorar los tiempos de carga de las páginas?}
-
-\vspace{1cm}
-
-\begin{columns}[c]
-\column{.5\textwidth}
-\includegraphics[width=140px]{../tesis/img/aka1}%24
-\column{.5\textwidth}
-\includegraphics[width=140px]{../tesis/img/aka2}%24
-\end{columns}
-
-\begin{center}
-Estudio de Akamai
-\end{center}
-
-\end{frame}
-
+\subsection{RTT}
 %------------------------------------------------
 
 \begin{frame}
@@ -375,24 +362,139 @@ Es el tiempo que demora un paquete en ir del emisor al receptor y volver al emis
 \end{frame}
 
 %------------------------------------------------
+\subsection{HTTP}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{HTTP}
+
+\begin{block}{HTTP (HyperText Transfer Protocol)}
+Es un protocolo de capa de aplicación que sirve para distribuir información.
+ \end{block}
+ 
+ \begin{itemize}
+	 \item Primera versión en el año 1990 (0.9)
+	 \item Versión actual desde el año 1999 (1.1)
+	 \item 1 conexión por elemento
+	 \item Siempre la petición la inicia el cliente
+\end{itemize}
+ 
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{HTTP}
+
+\begin{center}
+\includegraphics[width=180px]{img/http}%27
+
+Carga de un sitio completo [SPDYMobileWeb]\footnote{\scalebox{0.7}{Jeffrey Erman, Vijay Gopalakrishnan, Rittwik Jana, y K.K. Ramakrishnan. Towards a spdyier mobile web? Diciembre 2013.}}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+\subsection{HTTPS}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{HTTPS}
+
+\begin{block}{HTTPS (HyperText Transfer Protocol Secure)}
+Es la versión ''segura'' de HTTP, añade a este protocolo una capa de cifrado utilizando SSL (Secure Sockets Layer).
+ \end{block}
+ 
+ \begin{itemize}
+ 	 \item Datos protegidos
+	 \item Los datos viajan encriptados
+	 \item Necesita establecer una conexión segura
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{HTTPS}
+
+\begin{center}
+\includegraphics[width=145px]{../tesis/img/httpsConnection}%29
+
+Conexión HTTPS [HTTPGuide]\footnote{\scalebox{0.7}{Gourley, Totty, Sayer, Aggarwal, y Reddy. HTTP: The Definitive Guide. OReilly Media, 2002.}}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Problemática de la web}
+%------------------------------------------------
 
 \begin{frame}
 \frametitle{Problemática de la web}
 
-\textbf{El Ancho de Banda es importante?}
+\textbf{Porqué es importante mejorar \\ los tiempos de carga de las páginas?}
 
 \vspace{1cm}
 
 \begin{columns}[c]
 \column{.5\textwidth}
-\includegraphics[width=140px]{../tesis/img/belshePLTxBW}%22
+\includegraphics[width=140px]{../tesis/img/aka1}%24
 \column{.5\textwidth}
-\includegraphics[width=140px]{../tesis/img/belshePLTxRTT}%22
+\includegraphics[width=140px]{../tesis/img/aka2}%24
 \end{columns}
 
 \begin{center}
-Estudio de Mike Belsche
+[Akamai]\footnote{\scalebox{0.7}{Forrester Consulting y Inc. Akamai Technologies. ecommerce web site performance today. Agosto 2009.}}
 \end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Problemática de la web}
+
+\textbf{Es importante el Ancho de Banda?}
+
+\vspace{1cm}
+
+\begin{columns}[c]
+\column{.5\textwidth}
+\includegraphics[width=140px]{../tesis/img/belshePLTxBW}
+\column{.5\textwidth}
+\includegraphics[width=140px]{../tesis/img/belshePLTxRTT}
+\end{columns}
+
+\begin{center}
+[Belsche]\footnote{\scalebox{0.7}{Mike Belshe. More bandwidth doesn?t matter (much). Agosto 2010.}}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Problemática de la web}
+
+\textbf{Percepción de los usuarios} [Grigorik]\footnote{\scalebox{0.7}{Ilya Grigorik. High Performance Browser Networking. OReilly Media, 2013.}}
+
+\begin{center}
+\begin{tabular}{l | l}
+  Retardo & Percepción del Usuario \\
+  \hline
+  0 - 100ms & Instantánea \\
+  100 - 300ms & Retraso pequeño perceptible \\
+  300 - 1000ms & La máquina se encuentra procesando\\
+  1000+ ms & Distracción en lo que se está realizando\\
+  10000+ ms & La tarea es abandonada\\
+\end{tabular}
+\end{center}
+
+\vspace{1mm}
+
+\pause
+\begin{center}\huge{Para que la experiencia sea positiva \\ \textcolor{dgreen}{250ms de retardo promedio}}\end{center}
 
 \end{frame}
 
@@ -423,10 +525,10 @@ Protocolo SPDY
 \textbf{Problemas de HTTP}
  
  \begin{itemize}
- 	\pause \item Por cada conexión nueva se necesita establecer la conexión TCP (RTTs adicionales)
-	\pause \item Slow Start de TCP
-	\pause \item Límite de conexiones a un servidor
-	\pause \item Domain sharding
+ 	 \item Por cada conexión nueva se necesita establecer una conexión TCP (RTTs adicionales)
+	 \item Slow Start de TCP
+	 \item Límite de conexiones a un servidor
+	 \item Domain sharding
 \end{itemize}
 
 \end{frame}
@@ -436,21 +538,21 @@ Protocolo SPDY
 \begin{frame}
 \frametitle{SPDY}
 
-\textbf{Que ofrece SPDY?}
+\textbf{Qué ofrece SPDY?}
  
 \begin{columns}[c]
 \column{.4\textwidth}
  \begin{itemize}
-	\pause \item 1 conexión TCP
- 	\pause \item Multiplexación
-	\pause \item Priorización
-	\pause \item Compresión de headers
-	\pause \item Server Push
-	\pause \item Server Hint
+	 \item 1 conexión TCP
+ 	 \item Multiplexación
+	 \item Priorización
+	 \item Compresión de headers
+	 \item Server Push
+	 \item Server Hint
 \end{itemize}
 
 \column{.5\textwidth}
-\pause \includegraphics[width=130px]{img/avionspdy}%27
+ \includegraphics[width=130px]{img/avionspdy}%27
 \end{columns}
 
 \end{frame}
@@ -463,7 +565,7 @@ Protocolo SPDY
 \begin{center}
 \includegraphics[width=210px]{img/httpspdy}%27
 
-Carga de un sitio completo
+Carga de un sitio completo [SPDYMobileWeb]
 \end{center}
 
 \end{frame}
@@ -473,8 +575,65 @@ Carga de un sitio completo
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Proxy}
-?
+\frametitle{Definición}
+
+\begin{block}{Proxy}
+Son intermediarios entre el cliente y el servidor. Actúan enviando los mensajes del cliente al servidor y viceversa.
+\end{block}
+\vspace{1cm}
+\begin{center}
+\includegraphics[width=200px]{../tesis/img/proxy_1}
+
+Funcionamiento [HTTPGuide]
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Proxies y HTTPS}
+
+\textbf{Como se conecta HTTPS?}
+
+ \begin{center}
+\includegraphics[width=230px]{../tesis/img/proxy_2}
+
+Túnel HTTPS [Igvita]\footnote{\scalebox{0.7}{https://www.igvita.com/2011/12/01/ web-vpn-secure-proxies-with-spdy-chrome}}
+\end{center}
+
+\begin{center}
+\includegraphics[width=230px]{../tesis/img/trustedProxy}%5
+
+Proxy de confianza (MITM) [TrustedProxy]\footnote{\scalebox{0.7}{http://www.ietf.org/id/ draft-loreto-httpbis-trusted-proxy20-01.txt}}
+\end{center}
+
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Utilización}
+
+\textbf{Usos de un proxy}
+
+\begin{columns}[c]
+\column{.5\textwidth}
+
+\begin{itemize}
+	 \item NAT/enmascaramiento
+ 	 \item Filtro
+	 \item Cortafuegos
+	 \item Web caché \textbf{*}
+	 \item Reverso
+	 \item Content-router
+	 \item Transcoder
+	 \item Anonimizador
+\end{itemize}
+
+\column{.5\textwidth}
+\includegraphics[width=110px]{img/proxy}
+\end{columns}
+
 \end{frame}
 
 %------------------------------------------------
@@ -483,7 +642,72 @@ Carga de un sitio completo
 
 \begin{frame}
 \frametitle{Proxy Adaptativo}
-?
+
+\textbf{Se propone, desarrolla y evalúa un proxy \\ con la siguiente funcionalidad:}
+
+\begin{itemize}
+ 	 \item \textcolor{dgreen}{Selecciona de los protocolos disponibles (HTTP, HTTPS, SPDY), el óptimo para recuperar el recurso}
+	 \item Caché
+	 \item Análisis de los sitios
+	 \item Man In The Middle
+	 \item Cliente SPDY
+\end{itemize}
+\vspace{4mm}
+\begin{columns}[c]
+\column{.5\textwidth}
+\includegraphics[width=120px]{img/python}
+\column{.5\textwidth}
+\includegraphics[width=90px]{img/mongodb}
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Proxy Adaptativo}
+
+\begin{block}{Porque es Adaptativo?}
+La selección del protocolo la realiza en base a información almacenada de recuperaciones previas. Se van analizando los objetos y los sitios a medida que el proxy se encuentra en funcionamiento.
+\end{block}
+
+\vspace{3mm}
+\begin{center}
+\includegraphics[width=90px]{img/decision}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Árbol de decisión}
+
+\textbf{Análisis de datos}
+
+\begin{itemize}
+	 \item Protocolos habilitados
+	 \item RTT al servidor
+	 \item Tamaño del objeto
+	 \item Cantidad de peticiones que va a generar
+\end{itemize}
+
+\vspace{4mm}
+\hfill \includegraphics[width=130px]{img/html}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Árbol de decisión}
+
+\begin{center}
+\includegraphics[width=170px]{../tesis/img/arbolDecision}
+
+Árbol de decisión [HowSpeedy]\footnote{\scalebox{0.7}{Wang, Balasubramanian, Krishnamurthy y Wetherall. How speedy is spdy? Abril 2014.}}
+\end{center}
+
 \end{frame}
 
 %------------------------------------------------
@@ -491,8 +715,145 @@ Carga de un sitio completo
 %------------------------------------------------
 
 \begin{frame}
-\frametitle{Experimentos}
-?
+\frametitle{Datos y metodología}
+
+\textbf{Datos}
+
+\begin{itemize}
+	 \item Sitios del ranking de Alexa\footnote{\scalebox{0.7}{http://www.alexa.com/topsites}}
+	 \item HTTP y HTTPS
+	 \item Tiempo onLoad
+\end{itemize}
+
+\vspace{3mm}
+\textbf{Metodología}
+
+\begin{itemize}
+	\item Comparar proxy adaptativo vs proxy convencional
+	\item Caché deshabilitado
+	\item Fases: HTTP y HTTPS
+	\item 3 repeticiones de cada fase con cada proxy
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Fases del experimento}
+
+\begin{center}
+\includegraphics[width=220px]{../tesis/img/httpNormal}
+
+\includegraphics[width=220px]{../tesis/img/httpOptimizado}
+
+\includegraphics[width=220px]{../tesis/img/httpsNormal}
+
+\includegraphics[width=220px]{../tesis/img/httpsOptimizado}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Resultados}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+
+\textbf{Mejoras en los tiempos de carga de los sitios \\ (sólo los que soportan todos los protocolos):}
+\vspace{5mm}
+
+\begin{block}{HTTP}
+5\% de mejora promedio con picos de hasta 17\%
+\end{block}
+
+\begin{block}{HTTPS}
+7\% de mejora promedio con picos de hasta 24\%
+\end{block}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+
+\includegraphics[width=\textwidth]{../tesis/img/resGralHTTP}
+\begin{center}
+\textbf{Sitios con todos los protocolos soportados, HTTP}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+
+\includegraphics[width=\textwidth]{../tesis/img/resGoogleHTTP}
+\begin{center}
+\textbf{Sitios de Google, HTTP}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+
+\includegraphics[width=\textwidth]{../tesis/img/resGralHTTPS}
+\begin{center}
+\textbf{Sitios con todos los protocolos soportados, HTTPS}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+
+\includegraphics[width=\textwidth]{../tesis/img/resGoogleHTTPS}
+\begin{center}
+\textbf{Sitios de Google, HTTPS}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Resultados}
+
+\textbf{Rendimiento del proxy adaptivo}
+
+\begin{center}
+\textbf{HTTP}
+
+\begin{tabular}{| c | c | c | c |}
+  \hline
+  Negativo & Bajo & Medio & Alto \\
+  \hline
+  16,5\% & 31,5\% & 45\% & 7\%\\
+  \hline
+\end{tabular}
+
+\vspace{6mm}
+\textbf{HTTPS}
+
+\begin{tabular}{| c | c | c | c |}
+  \hline
+  Negativo & Bajo & Medio & Alto \\
+  \hline
+  16\% & 36\% & 32\% & 16\%\\
+  \hline
+\end{tabular}
+\end{center}
+
+\vspace{4mm}
+Rendimiento negativo: en el 90\% de los casos las diferencias son mínimas (variaciones de RTT)
 \end{frame}
 
 %------------------------------------------------
@@ -501,7 +862,32 @@ Carga de un sitio completo
 
 \begin{frame}
 \frametitle{Conclusiones}
-?
+
+\begin{itemize}
+	\item Aumento de las páginas, de 70kb a 1800kb en 14 años (2500\%). El crecimiento es exponencial
+	\item El rendimiento de SPDY se encuentra directamente relacionado con el contexto en el que está operando
+	\item Con el proxy adaptativo propuesto, se obtienen mejoras de 5\% y 7\% en el tiempo de carga de los sitios, para HTTP y HTTPS respectivamente
+	\item Del ranking de Alexa (500 sitios) solo el 20\% soportan SPDY
+	\item SPDY sentó las bases del próximo HTTP 2.0, es importante estudiar su rendimiento
+	\item Ser MITM brinda la posibilidad de utilizar caché en HTTPS
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Conclusiones}
+
+\textbf{Trabajos Futuros}
+
+\begin{itemize}
+	\item Extraer el algoritmo e implementarlo en un cliente
+	\item Proxy reverso para que servidores que no soporten SPDY puedan ofrecerlo igual
+	\item Implementar un CDN (Content Delivery Networks) con proxies conectados a través de SPDY
+	\item En un futuro, poder utilizar HTTP 2.0
+\end{itemize}
+
 \end{frame}
 
 %------------------------------------------------

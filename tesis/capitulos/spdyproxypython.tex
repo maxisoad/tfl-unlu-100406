@@ -5,9 +5,9 @@
 
 A lo largo de los cap'itulos anteriores, se ha visto, el crecimiento de Internet, en el Cap'itulo \ref{desarrolloWeb}, las deficiencias de los protocolos, en el Cap'itulo \ref{protocolos}, y la problem'atica de los tiempos de carga y sus posibles optimizaciones en el Cap'itulo \ref{problematica}. Tambi'en se ha visto SPDY como propuesta a resolver varios de los problemas actuales de la carga de los sitios, pero tambi'en, en ciertos contextos no funciona como lo esperado (ver Secci'on \ref{estudiosSPDY}).
 
-Por todo ello, se propone, desarrolla y eval'ua un \textit{Proxy Adaptativo}, que selecciona, de los m'etodos habilitados que ofrezca un sitio (HTTP HTTPS, SPDY), cu'al es el 'optimo para recuperar el recurso, en base a informaci'on almacenada de recuperaciones previas. Posee otras funcionalidades tales como, ser MITM\footnote{Man in The Middle.}, cach'e, c'alculo de RTT, recuperaci'on de los m'etodos habilitados para un sitio, cliente SPDY.
+Por todo ello, se propone, desarrolla y eval'ua un \textit{Proxy Adaptativo}, que selecciona, de los m'etodos habilitados que ofrezca un sitio (HTTP, HTTPS, SPDY), cu'al es el 'optimo para recuperar el recurso, en base a informaci'on almacenada de recuperaciones previas. Posee otras funcionalidades tales como, ser MITM\footnote{Man in The Middle.}, cach'e, c'alculo de RTT, recuperaci'on de los m'etodos habilitados para un sitio, cliente SPDY.
 
-Para el desarrollo del proxy, se escogi'o Python\footnote{https://www.python.org/} como lenguaje principal, dada la facilidad del mismo y la gran documentaci'on disponible en la web. Para el almacenamiento de los datos de los sitios se escogi'o MongoDB\footnote{http://http://www.mongodb.org/}, por su simple interacci'on con Python y su alta velocidad.
+Para el desarrollo del proxy, se escogi'o Python\footnote{https://www.python.org/} como lenguaje principal, dada la facilidad del mismo y la gran documentaci'on disponible en la web. Para el almacenamiento de los datos de los sitios se escogi'o MongoDB\footnote{http://www.mongodb.org/}, por su simple interacci'on con Python y su alta velocidad.
 
 Todo el c'odigo del trabajo se encuentra alojado en un repositorio de Github\footnote{https://www.github.com}, que es un repositorio para alojar proyectos de c'odigo abierto. El repositorio puede navegarse desde \citep{spdyproxypython}.
 
